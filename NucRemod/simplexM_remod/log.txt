@@ -1,0 +1,94 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2019 The MathWorks, Inc.
+              R2019a Update 5 (9.6.0.1174912) 64-bit (glnxa64)
+                               July 31, 2019
+
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+print ter....0.000412...Temp...0.000413....Fsig(1,1)....0.184638 
+function occup_lpeff toptf...30...nx...10
+Elapsed time is 3236.252194 seconds.
+mx 1 count 1 
+function occup_lpeff toptf...30...nx...10
+Elapsed time is 3373.363340 seconds.
+function occup_lpeff toptf...30...nx...10
+Elapsed time is 3426.881102 seconds.
+reflect accept2.... 
+mx 1 count 2 
+function occup_lpeff toptf...30...nx...10
+Elapsed time is 3434.592824 seconds.
+reflect accept2.... 
+mx 2 count 1 
+function occup_lpeff toptf...30...nx...10
+Elapsed time is 3485.306265 seconds.
+mx 3 count 1 
+function occup_lpeff toptf...30...nx...10
+Elapsed time is 3446.581403 seconds.
+function occup_lpeff toptf...30...nx...10
+Elapsed time is 3449.290698 seconds.
+mx 3 count 2 
+function occup_lpeff toptf...30...nx...10
+Elapsed time is 3422.921280 seconds.
+function occup_lpeff toptf...30...nx...10
+Elapsed time is 3438.479384 seconds.
+function occup_lpeff toptf...30...nx...10
+Elapsed time is 3462.485537 seconds.
+function occup_lpeff toptf...30...nx...10
+Elapsed time is 3449.977044 seconds.
+shrink.... 
+mx 3 count 3 
+function occup_lpeff toptf...30...nx...10
+Elapsed time is 3435.938483 seconds.
+reflect accept2.... 
+mx 4 count 1 
+function occup_lpeff toptf...30...nx...10
+Elapsed time is 3447.569934 seconds.
+mx 5 count 1 
+function occup_lpeff toptf...30...nx...10
+Elapsed time is 3444.995604 seconds.
+function occup_lpeff toptf...30...nx...10
+Elapsed time is 3463.045978 seconds.
+mx 5 count 2 
+function occup_lpeff toptf...30...nx...10
+Elapsed time is 3444.980997 seconds.
+function occup_lpeff toptf...30...nx...10
+Elapsed time is 3447.487941 seconds.
+function occup_lpeff toptf...30...nx...10
+Elapsed time is 3437.620757 seconds.
+function occup_lpeff toptf...30...nx...10
+Elapsed time is 3445.963757 seconds.
+shrink.... 
+mx 5 count 3 
+function occup_lpeff toptf...30...nx...10
+Elapsed time is 3455.075829 seconds.
+mx 6 count 1 
+function occup_lpeff toptf...30...nx...10
+Elapsed time is 3437.138270 seconds.
+function occup_lpeff toptf...30...nx...10
+Elapsed time is 3426.578654 seconds.
+reflect accept2.... 
+mx 6 count 2 
+function occup_lpeff toptf...30...nx...10
+Elapsed time is 3461.352981 seconds.
+mx 7 count 1 
+function occup_lpeff toptf...30...nx...10
+Elapsed time is 3426.549895 seconds.
+function occup_lpeff toptf...30...nx...10
+Elapsed time is 3439.587685 seconds.
+mx 7 count 2 
+function occup_lpeff toptf...30...nx...10
+Elapsed time is 3444.568264 seconds.
+function occup_lpeff toptf...30...nx...10
+Elapsed time is 3470.832096 seconds.
+function occup_lpeff toptf...30...nx...10
+Elapsed time is 3494.177434 seconds.
+function occup_lpeff toptf...30...nx...10
+Elapsed time is 3458.281018 seconds.
+shrink.... 
+mx 7 count 3 
+function occup_lpeff toptf...30...nx...10
+Elapsed time is 3471.515588 seconds.
+mx 8 count 1 
