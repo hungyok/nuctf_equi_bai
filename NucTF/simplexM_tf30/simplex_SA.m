@@ -1,19 +1,19 @@
-% Optimization code
+% Optimization
 function simplex_SA
 foldername1='simplexM_tf30';
 foldername2='output';
-pathx='\NucTF\'; 
+pathx='D:\Cell_protocol\NucTF\'; 
 fnx = fullfile(strcat(pathx,foldername1),foldername2,'simplex_xval.txt');
 fnxbak = fullfile(strcat(pathx,foldername1),foldername2,'simplex_xvalbak.txt');
 fnf = fullfile(strcat(pathx,foldername1),foldername2,'simplex_fval.txt');
 fnt = fullfile(strcat(pathx,foldername1),foldername2,'simplex_tval.txt');
 fnT = fullfile(strcat(pathx,foldername1),foldername2,'simplex_Temp.txt');
 fileID = fopen(fnT,'w');
-load \NucTF\nuc_energy\E_Em.mat;  
-load \NucTF\tf_energy_all\Etf_allmat_chr\Emtfall.mat;
-load \NucTF\tf_energy_all\tfindx.txt;
-pathx = '\NucTF\tf_energy_all\Etf_allmat_chr\';
-Etfmul=cell(1,16); tfn=30; contd=0; % contd=1 rerun with last output.
+load D:\Cell_protocol\nuc_energy\E_Em.mat;  
+load D:\Cell_protocol\tf_energy_all\Etf_allmat_chr\Emtfall.mat;
+load D:\Cell_protocol\tf_energy_all\tfindx.txt;
+pathx = 'D:\Cell_protocol\tf_energy_all\Etf_allmat_chr\';
+Etfmul=cell(1,16); tfn=30; contd=0; % if contd=1 rerun with last output.
 for k =1:16
     filename = sprintf('Etf_chr%d.mat',k);
     fpath= strcat(pathx,filename);
@@ -70,7 +70,6 @@ dlmwrite(fnx,x,'precision','%.6f'); dlmwrite(fnf,Fsig','precision','%.6f'); dlmw
 if ter<=err || Temp<Tmin
    flgx=0;
    fprintf('whileloop ter...%f Temp...%f Fsig1...%f \n',ter,Temp,Fsig(1,1));
-   %optf=Fsig(1,1); optx=xnew(:,1);
 else
    flgx=1;
    while flgx>0
@@ -85,7 +84,7 @@ else
                     x0=sumx0/(n-k+1); % x0=(x(:,1)+x(:,2))/2; %centriod
                     for ki=(n-k+2):(n+1)
                         ro=0.9+rand*(1.1-0.9); 
-                        xr(:,ki)=x0+ro*(x0-x(:,ki)); %disp(xi); s=size(xi); disp(s); printf('value ki %d ....x(1,15) %f \n',ki,xi(1,15));          
+                        xr(:,ki)=x0+ro*(x0-x(:,ki)); %disp(xi);          
                         xi=xr(:,ki);
                         Fsigxr(ki,1)=optimbfunc_ver3a(xi,E,Em,Etfmul,Emtf);
                     end
@@ -119,7 +118,7 @@ else
                         x(:,i)=x(:,1)+0.5*(x(:,i)-x(:,1));
                     end
                     xi=x(:,2:n+1);
-                    for i=2:n+1  %parfor
+                    for i=2:n+1  
                         Fsig(i,1)=optimbfunc_ver3a(xi(:,i-1),E,Em,Etfmul,Emtf);
                     end
                     [Fi,Fsig]=sortf(Fsig,n); flgx1=0; fprintf('shrink.... \n');
@@ -136,9 +135,6 @@ else
        dlmwrite(fnx,x,'precision','%.6f'); dlmwrite(fnxbak,x,'precision','%.6f'); dlmwrite(fnf,Fsig','precision','%.6f'); dlmwrite(fnt,Tempt,'precision','%.6f');
        if ter<=err || Temp<Tmin
           flgx=0;
-          %optf=Fsig(1,1); optx=xnew(:,1);
-          %save /storage/home/k/kzh359/work/hung_matlab/lee_ver2/optimfunc_ver2Ba/typeSA_ori_FI/simplex_tf_abf1C600/opt_fval.txt optf -ascii;
-          %save /storage/home/k/kzh359/work/hung_matlab/lee_ver2/optimfunc_ver2Ba/typeSA_ori_FI/simplex_tf_abf1C600/opt_xval.txt optx -ascii;
        end
        Temp=alfa*Temp;
        if Temp>0.01
