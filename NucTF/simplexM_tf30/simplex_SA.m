@@ -1,17 +1,18 @@
+% Optimization code
 function simplex_SA
 foldername1='simplexM_tf30';
 foldername2='output';
-pathx='D:\Cell_protocol\NucTF\'; 
+pathx='\NucTF\'; 
 fnx = fullfile(strcat(pathx,foldername1),foldername2,'simplex_xval.txt');
 fnxbak = fullfile(strcat(pathx,foldername1),foldername2,'simplex_xvalbak.txt');
 fnf = fullfile(strcat(pathx,foldername1),foldername2,'simplex_fval.txt');
 fnt = fullfile(strcat(pathx,foldername1),foldername2,'simplex_tval.txt');
 fnT = fullfile(strcat(pathx,foldername1),foldername2,'simplex_Temp.txt');
 fileID = fopen(fnT,'w');
-load D:\Cell_protocol\nuc_energy\E_Em.mat;  
-load D:\Cell_protocol\tf_energy_all\Etf_allmat_chr\Emtfall.mat;
-load D:\Cell_protocol\tf_energy_all\tfindx.txt;
-pathx = 'D:\Cell_protocol\tf_energy_all\Etf_allmat_chr\';
+load \NucTF\nuc_energy\E_Em.mat;  
+load \NucTF\tf_energy_all\Etf_allmat_chr\Emtfall.mat;
+load \NucTF\tf_energy_all\tfindx.txt;
+pathx = '\NucTF\tf_energy_all\Etf_allmat_chr\';
 Etfmul=cell(1,16); tfn=30; contd=0; % contd=1 rerun with last output.
 for k =1:16
     filename = sprintf('Etf_chr%d.mat',k);
