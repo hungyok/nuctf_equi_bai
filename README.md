@@ -1,6 +1,7 @@
-# The largest heading
+## Nucleosome occupancy using SEM
+
 ## The second largest heading
-###### The smallest heading
+
 
 The repository folder "nuctf_equi_bai" has the data and codes to compute nucleosome abd TF occupancy. It has the following subfolders:
 
