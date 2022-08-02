@@ -1,5 +1,5 @@
-## Nucleosome occupancy using SEM
-
+# Nucleosome & TF occupancy using SEMs
+We present a computational methods to compute nucleosome and TF occupancy using statistical equilibrium models (SEMs)
 ## The second largest heading
 
 
