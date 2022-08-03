@@ -13,9 +13,9 @@ All data points >1.26 are considered outliers which is only 0.0011% of the total
 The MATLAB code transf_yy_data.m can execute the above step and can be found in the folder [transf_yy_data](https://github.com/hungyok/nuctf_equi_bai/tree/main/transf_yy_data). 
 ```
 > S2 = importdata('raw_lee_chr1_16.txt');
-> [c,g] = transf_yy_data(S2);
+> [c,γ] = transf_yy_data(S2);
  ```
-The code takes the raw data (raw_lee_chr1_16.txt) as an input and finds the best (c, γ) that satisfy the above conditions. In this example c = 0.8244 and γ= 0.1581.
+The code takes the raw data (raw_lee_chr1_16.txt) as an input and finds the best (c, γ) that satisfy the above conditions. In this example c = 0.8244 and γ= 0.1581 and using these parameter the new converted occupancy is saved as “yy1_lee.mat” (input data for subsequent steps). 
 
 ## Processing binding energy and NDR 
 ### Nucleosome energy
@@ -50,10 +50,15 @@ index)	       ABF1	 CBF1	  MCM1	  RAP1
 ### NDR annotation
 To call and locate nucleosome-depleted-region (NDR) we require two steps:
 
-ndr_cut.m: Using “yy1_lee.mat” as input data, this program identifies regions below certain occupancy threshold. In our current approach, we used eight different thresholds: threshold(i)=0.8-i×SD where i=1,2,…,8, and SDis the standard-deviation calculated from genome-wide nucleosome occupancy (yy1_lee.mat), which yield eight output files: NDR_1.mat, NDR_2.mat, …, NDR_8.mat. Set SD=0.0678 (default) and run the following code with input i=1,2,…,8. Note that yy1_lee.mat is directly loaded in the code “ndr_cut.m”. If the code fails to run, specify the right directory path to “load” commands.
-
+ndr_cut.m: Using “yy1_lee.mat” as input data, this program identifies regions below certain occupancy threshold. In our current approach, we used eight different thresholds: threshold(i)=0.8-i×SD where i=1,2,…,8, and SD is the standard-deviation calculated from genome-wide nucleosome occupancy (yy1_lee.mat), which yield eight output files: NDR_1.mat, NDR_2.mat, …, NDR_8.mat. Set SD=0.0678 (default) and run the following code with input i=1,2,…,8. Note that yy1_lee.mat is directly loaded in the code “ndr_cut.m”. If the code fails to run, specify the right directory path to “load” commands.
+```
+> NDR_i = ndr_cut(i);
+```
 ndr_pos_cal2.m: Using “yy1_lee.mat, NDR_1.mat, NDR_2.mat, …, NDR_8.mat” as input (directly loaded into the program), this program generates the final NDR positions (ndrpos_chrA.mat) and the modified nucleosome occupancy map (yy3A.mat). ndrpos_chrA.mat records the start and end index of each NDR on all 16 chromosomes, and yy3A.mat has the same format as yy1_lee.mat.
-
+```
+> [yy3A, ndrpos_chrA] = ndr_pos_cal2;
+```
+These codes and the input/output data can be found in the folder [ndr_call](https://github.com/hungyok/nuctf_equi_bai/tree/main/ndr_call).
 ## SEM and optimization
 NucTF ---> Has codes for optimization and nucleosome/TF occupancy with TFs. It also has examples to compute the final occupancy are present.
 
