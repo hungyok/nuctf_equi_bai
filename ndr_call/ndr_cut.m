@@ -3,7 +3,7 @@ function [NDR_X]=ndr_cut(i)
     load D:\Cell_protocol\ndr_call\yy1_lee.mat;
     %A=1; A1=2; B=3; C=4; D=5; E=6; F=7; G=8;
     NDR_X=cell(16,1); 
-    sig=0.0678; NDRcut=0.8-(i-1)*sig;   
+    SD=0.0678; NDRcut=0.8-(i-1)*SD;   
     for chr=1:16
         mposx=zeros(1,3); 
         x1=x1_lee{chr}; yy1=y1_lee{chr}; 

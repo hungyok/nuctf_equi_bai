@@ -1,24 +1,24 @@
 %clear;  
 function [occup,ndr_chr]=ndr_pos_cal2
-load D:\Cell_protocol\ndr_call\yy1_lee.mat;
+load /nuctf_equi_bai/ndr_call/yy1_lee.mat;
 %A=1; A1=2; B=3; C=4; D=5; E=6; F=7; G=8;
-load D:\Cell_protocol\ndr_call\NDR_1.mat; NDR_A=NDR_X;
-load D:\Cell_protocol\ndr_call\NDR_2.mat; NDR_A1=NDR_X;
-load D:\Cell_protocol\ndr_call\NDR_3.mat; NDR_B=NDR_X;
-load D:\Cell_protocol\ndr_call\NDR_4.mat; NDR_C=NDR_X;
-load D:\Cell_protocol\ndr_call\NDR_5.mat; NDR_D=NDR_X;
-load D:\Cell_protocol\ndr_call\NDR_6.mat; NDR_E=NDR_X;
-load D:\Cell_protocol\ndr_call\NDR_7.mat; NDR_F=NDR_X;
-load D:\Cell_protocol\ndr_call\NDR_8.mat; NDR_G=NDR_X;
+load /nuctf_equi_bai/ndr_call/NDR_1.mat; NDR_A=NDR_X;
+load /nuctf_equi_bai/ndr_call/NDR_2.mat; NDR_A1=NDR_X;
+load /nuctf_equi_bai/ndr_call/NDR_3.mat; NDR_B=NDR_X;
+load /nuctf_equi_bai/ndr_call/NDR_4.mat; NDR_C=NDR_X;
+load /nuctf_equi_bai/ndr_call/NDR_5.mat; NDR_D=NDR_X;
+load /nuctf_equi_bai/ndr_call/NDR_6.mat; NDR_E=NDR_X;
+load /nuctf_equi_bai/ndr_call/NDR_7.mat; NDR_F=NDR_X;
+load /nuctf_equi_bai/ndr_call/NDR_8.mat; NDR_G=NDR_X;
 
-fa=1; yytr=zeros(1,1); yyblu=zeros(1,1); sig=0.0678; ndrcnt=0; %fa=0.55;
+fa=1; yytr=zeros(1,1); yyblu=zeros(1,1); SD=0.0678; ndrcnt=0; %fa=0.55;
 AA=zeros(9,1); dxA_cf=100; dx_cf=50; dxkiA1_cf=125; dxkiB_cf=3*dxkiA1_cf; dxna_cf=110; ndra=0; ndrb=1025;
 % dxA_cf slope cutoff as the distance between cut-points at NDR_80 and at the lowest occupancy on the same side;
 % dx_cf NDR size cutoff; dxkiA1_cf kink size (extreme ends of multiple kinks) at A1; dxkiB_cf kink size (extreme ends of multiple kinks) at B;
 % dxna_cf the distance between cut-points at NDR_A1
 ndr_chr=cell(16,1); dxkiA11=zeros(1,1); dxkiB1=zeros(1,1); dxna1=zeros(1,1); ndrw1=zeros(1,1); occup=cell(16,1);
 for i=1:9
-    AA(i,1)=0.8-(i-1)*sig;
+    AA(i,1)=0.8-(i-1)*SD;
 end
 for chr=1:16
     x1=x1_lee{chr}; yy1=y1_lee{chr}; yy1a=yy1; ndrj=0;
@@ -157,12 +157,12 @@ for chr=1:16
                           xa1=NDR_E{chr,1}(jn,1); xa2=NDR_F{chr,1}(j0,1); xa3=NDR_G{chr,1}(j,1); 
                        end
                        dxL=xa2-xa1; 
-                       mslope=sig/dxL;
-                       x=(sig/mslope)+xa2;
+                       mslope=SD/dxL;
+                       x=(SD/mslope)+xa2;
                        if xa3<=(x+0)
                           dxL=xa3-xa2; 
-                          mslope=sig/dxL;
-                          x=(sig/mslope)+xa3;
+                          mslope=SD/dxL;
+                          x=(SD/mslope)+xa3;
                           if jcnt==cnt
                              xa=floor((xa3+x)/2); cntL=AA((jcnt+1)+1,1); jxa=xa3;
                           end
@@ -203,12 +203,12 @@ for chr=1:16
                           xb1=NDR_E{chr,1}(jn,2); xb2=NDR_F{chr,1}(j0,2); xb3=NDR_G{chr,1}(j,2); 
                        end
                        dxR=xb1-xb2; 
-                       mslope=sig/dxR;
-                       x=(-sig/mslope)+xb2;
+                       mslope=SD/dxR;
+                       x=(-SD/mslope)+xb2;
                        if xb3>=(x-0)
                           dxR=xb2-xb3; 
-                          mslope=sig/dxR;
-                          x=(-sig/mslope)+xb3;
+                          mslope=SD/dxR;
+                          x=(-SD/mslope)+xb3;
                           if jcnt==cnt
                              xb=floor((xb3+x)/2); cntR=AA((jcnt+1)+1,1); jxb=xb3;
                           end
@@ -256,7 +256,7 @@ for chr=1:16
                           j0=j0+1;
                     end
                     jb=j0;
-                    if (0.8-max(yy1(ja:jb,1)))<sig/3 %..............below 0.8.........................
+                    if (0.8-max(yy1(ja:jb,1)))<SD/3 %..............below 0.8.........................
                        if dx<dxkiA1_cf  % kink A ********
                           flgndr=1; part=3;         
                        else 
@@ -403,12 +403,12 @@ for chr=1:16
                                                 xa1=NDR_E{chr,1}(jn,1); xa2=NDR_F{chr,1}(j0,1); xa3=NDR_G{chr,1}(j,1); 
                                              end
                                              dxL=xa2-xa1; 
-                                             mslope=sig/dxL;
-                                             x=(sig/mslope)+xa2;
+                                             mslope=SD/dxL;
+                                             x=(SD/mslope)+xa2;
                                              if xa3<=(x+0)
                                                 dxL=xa3-xa2; 
-                                                mslope=sig/dxL;
-                                                x=(sig/mslope)+xa3;
+                                                mslope=SD/dxL;
+                                                x=(SD/mslope)+xa3;
                                                 if jcnt==cnt
                                                    xa=floor((xa3+x)/2); cntL=AA((jcnt+1)+1,1); jxa=xa3;
                                                 end
@@ -448,12 +448,12 @@ for chr=1:16
                                                 xb1=NDR_E{chr,1}(jn,2); xb2=NDR_F{chr,1}(j0,2); xb3=NDR_G{chr,1}(j,2); 
                                              end
                                              dxR=xb1-xb2; 
-                                             mslope=sig/dxR;
-                                             x=(-sig/mslope)+xb2;
+                                             mslope=SD/dxR;
+                                             x=(-SD/mslope)+xb2;
                                              if xb3>=(x-0)
                                                 dxR=xb2-xb3; 
-                                                mslope=sig/dxR;
-                                                x=(-sig/mslope)+xb3;
+                                                mslope=SD/dxR;
+                                                x=(-SD/mslope)+xb3;
                                                 if jcnt==cnt
                                                    xb=floor((xb3+x)/2); cntR=AA((jcnt+1)+1,1); jxb=xb3;
                                                 end
@@ -499,13 +499,13 @@ for chr=1:16
                                           djxa=ja-Jxa; djxb=Jxb-jb;
                                           if djxa>1
                                              djxa=x1(ja,1)-x1(Jxa,1);
-                                             mslope=-sig/djxa;
-                                             yy1a(Jxa+1:ja-1,1)=mslope*(x1(Jxa+1:ja-1,1)-x1(Jxa,1))+cntL+sig;
+                                             mslope=-SD/djxa;
+                                             yy1a(Jxa+1:ja-1,1)=mslope*(x1(Jxa+1:ja-1,1)-x1(Jxa,1))+cntL+SD;
                                           end
                                           if djxb>1
                                              djxb=x1(Jxb,1)-x1(jb,1);
-                                             mslope=sig/djxb;
-                                             yy1a(jb+1:Jxb-1,1)=mslope*(x1(jb+1:Jxb-1,1)-x1(Jxb,1))+cntR+sig;
+                                             mslope=SD/djxb;
+                                             yy1a(jb+1:Jxb-1,1)=mslope*(x1(jb+1:Jxb-1,1)-x1(Jxb,1))+cntR+SD;
                                           end
                                           yy1a(ja:jb,1)=(1-fa)*(1-yy1(ja:jb,1)); %apply nfr;
                                           ndrcnt=ndrcnt+1; ndrj=ndrj+1;
@@ -545,13 +545,13 @@ for chr=1:16
                     djxa=ja-Jxa; djxb=Jxb-jb;
                     if djxa>1
                        djxa=x1(ja,1)-x1(Jxa,1);
-                       mslope=-sig/djxa;
-                       yy1a(Jxa+1:ja-1,1)=mslope*(x1(Jxa+1:ja-1,1)-x1(Jxa,1))+cntL+sig;
+                       mslope=-SD/djxa;
+                       yy1a(Jxa+1:ja-1,1)=mslope*(x1(Jxa+1:ja-1,1)-x1(Jxa,1))+cntL+SD;
                     end
                     if djxb>1
                        djxb=x1(Jxb,1)-x1(jb,1);
-                       mslope=sig/djxb;
-                       yy1a(jb+1:Jxb-1,1)=mslope*(x1(jb+1:Jxb-1,1)-x1(Jxb,1))+cntR+sig;
+                       mslope=SD/djxb;
+                       yy1a(jb+1:Jxb-1,1)=mslope*(x1(jb+1:Jxb-1,1)-x1(Jxb,1))+cntR+SD;
                     end
                     yy1a(ja:jb,1)=(1-fa)*(1-yy1(ja:jb,1)); %apply nfr;
                     ndrcnt=ndrcnt+1; ndrj=ndrj+1;
