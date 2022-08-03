@@ -47,7 +47,13 @@ index)	       ABF1	 CBF1	  MCM1	  RAP1
 100002       -21.29	-13.93	-22.54	-22.67
 100003	      -15.56	-23.67	-19.63	-19.17
 ```
-ndr_call ---> Codes to compute NDR positions 
+### NDR annotation
+To call and locate nucleosome-depleted-region (NDR) we require two steps:
+
+ndr_cut.m: Using “yy1_lee.mat” as input data, this program identifies regions below certain occupancy threshold. In our current approach, we used eight different thresholds: threshold(i)=0.8-i×SD where i=1,2,…,8, and SDis the standard-deviation calculated from genome-wide nucleosome occupancy (yy1_lee.mat), which yield eight output files: NDR_1.mat, NDR_2.mat, …, NDR_8.mat. Set SD=0.0678 (default) and run the following code with input i=1,2,…,8. Note that yy1_lee.mat is directly loaded in the code “ndr_cut.m”. If the code fails to run, specify the right directory path to “load” commands.
+
+ndr_pos_cal2.m: Using “yy1_lee.mat, NDR_1.mat, NDR_2.mat, …, NDR_8.mat” as input (directly loaded into the program), this program generates the final NDR positions (ndrpos_chrA.mat) and the modified nucleosome occupancy map (yy3A.mat). ndrpos_chrA.mat records the start and end index of each NDR on all 16 chromosomes, and yy3A.mat has the same format as yy1_lee.mat.
+
 ## SEM and optimization
 NucTF ---> Has codes for optimization and nucleosome/TF occupancy with TFs. It also has examples to compute the final occupancy are present.
 
