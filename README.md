@@ -18,7 +18,7 @@ The MATLAB code transf_yy_data.m can execute the above step and can be found in 
 The code takes the raw data (raw_lee_chr1_16.txt) as an input and finds the best (c, γ) that satisfy the above conditions. In this example c = 0.8244 and γ= 0.1581.
 
 ## Processing binding energy and NDR 
-###Nucleosome energy
+### Nucleosome energy
 Sequence-dependent binding energy for nucleosome is obtained using the software developed by Kaplan & Segal ([Kaplan, et al., 2009](https://www.nature.com/articles/nature07667)), which can be downloaded from the following link:
 
  https://github.com/KaplanLab/NucleosomeModel
