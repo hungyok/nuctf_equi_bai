@@ -42,9 +42,9 @@ The genomic sequence (e.g., sgd_chr1.fa for chromosome 1 and so on) from the fol
 ```
 Genomic   
 index	    TF  ABF1	  CBF1	  MCM1	  RAP1
-100000      	-14.95	-24.07	-22.59	-17.99
+100000       -14.95	-24.07	-22.59	-17.99
 100001	      -22.04	-13.19	-21.58	-17.71
-100002      	-21.29	-13.93	-22.54	-22.67
+100002       -21.29	-13.93	-22.54	-22.67
 100003	      -15.56	-23.67	-19.63	-19.17
 ```
 ndr_call ---> Codes to compute NDR positions 
