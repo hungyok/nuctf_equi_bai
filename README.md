@@ -28,6 +28,7 @@ Sequence-dependent binding energy for nucleosome is obtained using the software 
 > make install
 > perl nucleosome_prediction.pl -raw_binding -t example -s input.fa -p raw_output -tab
 ```
+Where input.fa is the DNA sequence in fasta format. One sequence per file. E.g., chr1.fa has sequence for chromosome 1 only. To be consistent with our codes, we suggest all the sequences be in caps. The raw_output.tab is the output energy (log-score) file in tab format (can easily be open by any text editor like "notepad"). 
 
 nuc_energy ---> Nucleosome energy for all 16 chromosomes
 
