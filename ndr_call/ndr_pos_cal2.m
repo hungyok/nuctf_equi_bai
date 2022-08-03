@@ -586,6 +586,6 @@ for chr=1:16
     occup{chr,1}=yy1a;
     %yyblu=cat(1,yyblu,yy3);
 end
-%save D:\Cell_protocol\ndr_call\yy3A.mat occup -v7.3;
-%save D:\Cell_protocol\ndr_call\ndrpos_chrA.mat ndr_chr -v7.3;
+%save /nuctf_equi_bai/ndr_call/yy3A.mat occup -v7.3;
+%save /nuctf_equi_bai/ndr_call/ndrpos_chrA.mat ndr_chr -v7.3;
 end
