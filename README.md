@@ -28,11 +28,16 @@ Sequence-dependent binding energy for nucleosome is obtained using the software 
 > make install
 > perl nucleosome_prediction.pl -raw_binding -t example -s input.fa -p raw_output -tab
 ```
-Where input.fa is the DNA sequence in fasta format. One sequence per file. E.g., chr1.fa has sequence for chromosome 1 only. To be consistent with our codes, we suggest all the sequences be in caps. The raw_output.tab is the output energy (log-score) file in tab format (can easily be open by any text editor like "notepad"). 
+Where input.fa is the DNA sequence in fasta format. One sequence per file, e.g., chr1.fa has sequence for chromosome 1 only. To be consistent with our codes, we suggest all the sequences be in caps. The raw_output.tab is the output energy (log-score) file in tab format (can easily be open by any text editor like "notepad"). 
+### TF energy
+The binding energy of a TF is obtained by scanning the PWM along the genomic sequences (both forward and reverse-complement strands) and converting into position-dependent energy. The maximum of the two possible energies at a position is the TF energy.
 
-nuc_energy ---> Nucleosome energy for all 16 chromosomes
-
-tf_energy_all ---> It has all the 16-chromosome sequences (source: SGD), 104 TF PWMs, TF index list, and codes to compute TF energy. The TF energy is dumped in the folder: tf_energy_all\Etf_allmat_chr. Due to large data size, we have reported only the first three chromosome (Etf_chr1.mat, Etf_chr2.mat, and Etf_chr3.mat) and each has only the first 10 TFs from the listbai_all.txt.
+The code “tf_binding_pot.m” uses the genome sequence, wmsbai_data_all.txt, and listbai_all.txt to obtain the energy profiles. Run the commands below to get all the 104 TF energies:
+```
+> path1 = '/tf_energy_all/sgd_genome/'; % enter full path
+> path2 = '/tf_energy_all/Etf_allmat_chr/'; % enter full path
+> [Emtf,k] = tf_binding_pot(path1,path2);
+```
 
 ndr_call ---> Codes to compute NDR positions 
 ## SEM and optimization
