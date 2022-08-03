@@ -1,10 +1,10 @@
 # Nucleosome & TF occupancy using SEMs
-We present a computational methods to compute nucleosome and TF occupancy using statistical equilibrium models (SEMs).
+We present a computational methods to compute nucleosome and TF occupancy using statistical equilibrium models (SEMs). 
 ## Input data
 ### Genomic sequence
 Download the 16 chromosomes (12071326 bp) of Saccharomyces cerevisiae (S288C) in fasta format from SGD https://www.yeastgenome.org/
 ### TF motif database
-Download 104 yeast TF position-weight-matrices from tf_energy_all (listbai_all.txt). http://stormo.wustl.edu/ScerTF/
+Download 104 yeast TF position-weight-matrices from http://stormo.wustl.edu/ScerTF/ . The list of these TFs, listbai_all.txt, can be found in the folder tf_energy_all.
 ### Nucleosome Mnase-seq data
 transf_yy_data ---> It has code that converts log-scale to linear-scale occupancy 
 Lee et al.
