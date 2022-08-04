@@ -1,14 +1,14 @@
-%clear;
+% occupancy, remodeling, and rmsd
 function [Y]=occupR(remod,xfit)
-load D:\Cell_protocol\nuc_energy\E_Em.mat;
+load /nuctf_equi_bai/nuc_energy/E_Em.mat;
 tfnx=floor(length(xfit)/2)-1;
 xfit(1)=remod(1); xfit(2)=remod(2);
 
-TFlist=importdata('D:\Cell_protocol\tf_energy_all\listbai_all.txt'); % list of TF name and size 
+TFlist=importdata('/nuctf_equi_bai/tf_energy_all/listbai_all.txt'); % list of TF name and size 
 TF_list1=TFlist.data; clear TFlist;
-load D:\Cell_protocol\tf_energy_all\tfindx.txt; % ranked listbai_all.txt indices
+load /nuctf_equi_bai/tf_energy_all/tfindx.txt; % ranked listbai_all.txt indices
 TF_list=TF_list1(tfindx(1:tfnx),1);
-load D:\Cell_protocol\NucRemod\simplexM_remod\input\pos_octf\pos_octf.mat;
+load /nuctf_equi_bai/NucRemod/simplexM_remod/input/pos_octf/pos_octf.mat;
 pos_octf1=pos_octf;
 pos_octf=cell(1,3);
 nx=100; ht=remod(3)/0.212; sig=remod(4); A=ht; B=1/(2*sig^2); CHR=16; occup_nuc=cell(CHR,1);
