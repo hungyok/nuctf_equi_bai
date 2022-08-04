@@ -123,7 +123,15 @@ load yourpath/tf_energy_all/tfindx.txt;
 	3. simplex_tval.txt stores latest values of difference between the best and worst RMSDs, temperature, and RMSD.
 	4. simplex_Temp.txt reports the content of “simplex_tval.txt” per simplex step.
 
-The file simplex_xval.txt is a 62x63 matrix of c and γ. The first and second rows of the matrix are c<sub>N</sub> and γ<sup>N</sup> respectively. The rows 3–32 are c<sub>t</sub>'s and rows 33–62 are γ<sup>N</sup>'s. The first column of the matrix is our optimized set of (c,γ) and is used in determining the genome-wide occupancy profile in step 5 below. If the simplex vertices have not all converged to a prescribed threshold value, you can rerun step 3 with the last output as the new input. To save computation time for 30 TFs simulation, for five decreasing temperature intervals (simplex_SA.m), we set iteration cycle M=100, 83, 67 ,50, and 33, instead keeping M constant at M=100. All the codes and input/output files and folders can be found in the folder [simplexM_tf30](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/simplexM_tf30).
+The file simplex_xval.txt is a 62x63 matrix of c and γ. The first and second rows of the matrix are c<sub>N</sub> and γ<sub>N</sub> respectively. The rows 3–32 are c<sub>t</sub>'s and rows 33–62 are γ<sub>N</sub>'s. If the simplex vertices (simplex_fval.txt) have not all converged to a prescribed threshold value, you can rerun step 3 with the last output as the new input. To save computation time for 30 TFs simulation, for five decreasing temperature intervals (simplex_SA.m), we set iteration cycle M=100, 83, 67 ,50, and 33, instead keeping M constant at M=100. The first column of simplex_xval.txt is our optimized set of (c,γ) and is used in determining the genome-wide occupancy profiles. Open the folder [occup_profile](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/occup_profile) and run the code to compute the occupancy profiles:
+```
+> load yourpath/NucTF/simplexM_tf30/output2/simplex_xval.txt;
+> xfit = simplex_xval (:,1); TF = 1; Eseq = 1;
+> [O] = occupx(TF, Eseq, xfit);
+```
+The output file “O.mat” is a 16x1 cell containing one column of nucleosome occupancy and 30 columns of TF occupancies. Nucleosome occupancy can be plotted and visually compared with experimental data.
+
+All the codes and input/output files and folders can be found in the folder [simplexM_tf30](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/simplexM_tf30).
 
 NucRemod ---> Has codes for optimization and nucleosome/TF occupancy with TFs and remodelers. It also has examples to compute the final occupancy.
 ## Output data
