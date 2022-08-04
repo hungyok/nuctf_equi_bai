@@ -60,11 +60,39 @@ ndr_pos_cal2.m: Using “yy1_lee.mat, NDR_1.mat, NDR_2.mat, …, NDR_8.mat” as
 ```
 These codes and the input/output data can be found in the folder [ndr_call](https://github.com/hungyok/nuctf_equi_bai/tree/main/ndr_call).
 ## SEM and optimization
-The SEM partition fuction is full of this type of term: p<sub>i</sub>=c<sub>t/N</sub>e<sup>-γ<sub>t/N</sub>E<sup>i</sup><sub>t/N</sub></sup> where p<sub>i</sub> is the individual particle (nucleosome, N, or TF, t) weight. We use a modified Nelder-Mead simplex algorithm with Simulated Annealing to optimize the scaling factors c<sub>t/N</sub> and γ<sub>t/N</sub> by calculating the the root-square-mean deviation (RMSD) of nucleosome occupancy between expiremental data (yy3A_lee.mat) and our model.
+The SEM partition fuction is full of this type of term: p<sub>i</sub>=c<sub>t/N</sub>e<sup>-γ<sub>t/N</sub>E<sup>i</sup><sub>t/N</sub></sup> where p<sub>i</sub> is the individual particle (nucleosome, N, or TF, t) weight. We use a modified Nelder-Mead simplex algorithm with Simulated Annealing to optimize the scaling factors c<sub>t/N</sub> and γ<sub>t/N</sub> by calculating the the root-square-mean deviation (RMSD) of nucleosome occupancy between the expiremental data (yy3A_lee.mat) and our model.
 
 ### NucTF
-To evaluate individual TF contribution to NDRs, we first optimize (c,γ) for an individual TF when only the concerned TF is present in the model. We use the same procedure of optimization as for the multiple-TF model described below. After optimization, we rank the 104 TFs based on their contribution to the NDR probability (P_NDR) and store the ranking in another file called “tfindx.txt”. Below, we describe a model where we incorporated the top 30 TFs. Accordingly, we have in total of 62 unknown parameters (31 pairs of (c,γ)s), of which 60 is for TFs and two for nucleosome.
+To evaluate individual TF contribution to NDRs, we first optimize (c,γ) for an individual TF when only the concerned TF is present in the model. We use the same procedure of optimization as for the multiple-TF model which will be described below. After optimization, we rank the 104 TFs based on their contribution to the NDR prediction and save the ranking in a file called “tfindx.txt”. Below, we describe a model where we incorporated the top 30 TFs. Accordingly, we have in total of 62 unknown parameters (31 pairs of (c,γ)s), of which 60 is for TFs and two for nucleosome.
 
+#### Open the folder “simplexM_tf30” to find:
+	1. Input and output parameters that are saved in folder “input” and “output” respectively.
+	2. The folder “output2” which has an example of previously optimized parameters.
+	3. A log file “log.txt” to record the optimization process.
+	4. simplex_SA.m, the simplex engine with Simulated Annealing.
+	5. optimbfunc_ver3a.m, a sub-function that computes nucleosome occupancy and RMSD.
+	6. sortf.m, a sub-function that sorts RMSDs.
+#### Edit directory paths in simplex_SA.m and optimbfunc_ver3a.m.
+#### Run the optimization code:
+```
+> simplex_SA.m ;
+```
+#### Input files:
+	1. simplex_xval.txt, initial parameters located in a subfolder “initialp” in folder “input”.
+	2. yy3A_lee.mat, the reference nucleosome occupancy data.
+	3. rand_genomeB.mat, a list of chromosome indices that accounts for 70% of the genome.
+	4. listbai_all.txt, a list of 104 TF names and motif sizes.
+	5. tfindx.txt, a sorted TF indices according to P_NDR  score of individual TF.
+	6. E_Em.mat, nucleosome energy located in a subfolder “nuc_energy” in folder “input”.
+	7. Emtfall.mat, TF energy located in a subfolder “tf_energy” in folder “input”.
+#### Output files: 
+	1. simplex_xval.txt stores sorted (c,γ).
+	2. simplex_fval.txt stores sorted RMSDs.
+	3. simplex_tval.txt stores latest values of difference between the best and worst RMSDs, temperature, and RMSD.
+	4. simplex_Temp.txt reports the content of “simplex_tval.txt” per simplex step.
+
+The file simplex_xval.txt is a 62x63 matrix of c and γ. The first and second rows of the matrix are c_N and γ_N respectively. The rows 3–32 are c_t’s and rows 33–62 are γ_t’s. The first column of the matrix is our optimized parameters and is used in determining the genome-wide occupancy profile in step 5 below. 
+	If the vertices have not all converged to a prescribed threshold value, you can rerun step 3 with the last output as the new input (Figure 3). To save computation time for 30 TFs simulation in Model 1, for five decreasing temperature intervals (simplex_SA.m), we set M=100, 83, 67 ,50, and 33, instead keeping M constant at M=100.
 
 NucRemod ---> Has codes for optimization and nucleosome/TF occupancy with TFs and remodelers. It also has examples to compute the final occupancy.
 ## Output data
