@@ -1,4 +1,4 @@
-% occupancy, remodeling, avg_occ, sigma, Pndr, Auc
+% Remodeling, avg_occ, sigma, Pndr, Auc
 function [Y]=occupR(remod,xfit)
 load /nuctf_equi_bai/nuc_energy/E_Em.mat;
 tfnx=floor(length(xfit)/2)-1;
