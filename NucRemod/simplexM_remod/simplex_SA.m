@@ -1,10 +1,10 @@
-%Optimization
+% Optimization
 function simplex_SA
 foldername1='simplexM_remod';
 foldername2='output';
-path1='D:\Cell_protocol\NucRemod\'; 
+path1='/nuctf_equi_bai/NucRemod/'; 
 fnx = fullfile(strcat(path1,foldername1),foldername2,'simplex_xval.txt');
-fnxbak = fullfile(strcat(path1,foldername1),foldername2,'simplex_xvalbak.txt');
+fnxbak = fullfile(strcat(path1,foldername1),foldername2,'simplex_xvalbak.txt'); % backup file
 fnf = fullfile(strcat(path1,foldername1),foldername2,'simplex_fval.txt');
 fnt = fullfile(strcat(path1,foldername1),foldername2,'simplex_tval.txt');
 fnT = fullfile(strcat(path1,foldername1),foldername2,'simplex_Temp.txt');
@@ -16,7 +16,7 @@ if contd>0
    load(fnx);
    xh=simplex_xval(:,1);   
 else
-   load D:\Cell_protocol\NucTF\simplexM_tf30\output2\simplex_xval.txt; 
+   load /nuctf_equi_bai/NucTF/simplexM_tf30/output2/simplex_xval.txt; 
    xx=simplex_xval(:,1);
    xh=zeros(4,1);
    xh(1,1)=xx(1,1); xh(2,1)=xx(2,1); xh(3,1)=1; xh(4,1)=40;
