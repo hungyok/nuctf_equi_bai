@@ -60,12 +60,10 @@ ndr_pos_cal2.m: Using “yy1_lee.mat, NDR_1.mat, NDR_2.mat, …, NDR_8.mat” as
 ```
 These codes and the input/output data can be found in the folder [ndr_call](https://github.com/hungyok/nuctf_equi_bai/tree/main/ndr_call).
 ## SEM and optimization
-The SEM partition fuction is full of this term: pi=c<sub>t/N</sub>e<sup>-γ<sub>t/N</sub>E<sub>t/N</sub><sup>i</sup></sup>  
+The SEM partition fuction is full of this type of term: p<sub>i</sub>=c<sub>t/N</sub>e<sup>-γ<sub>t/N</sub>E<sup>i</sup><sub>t/N</sub></sup> where p<sub>i</sub> is the individual particle (nucleosome, N, or TF, t) weight. We use a modified Nelder-Mead simplex algorithm with Simulated Annealing to optimize the scaling factors c<sub>t/N</sub> and γ<sub>t/N</sub> by calculating the the root-square-mean deviation (RMSD) of nucleosome occupancy between expiremental data (yy3A_lee.mat) and our model.
 
 ### NucTF
 To evaluate individual TF contribution to NDRs, we first optimize (c,γ) for an individual TF when only the concerned TF is present in the model. We use the same procedure of optimization as for the multiple-TF model described below. After optimization, we rank the 104 TFs based on their contribution to the NDR probability (P_NDR) and store the ranking in another file called “tfindx.txt”. Below, we describe a model where we incorporated the top 30 TFs. Accordingly, we have in total of 62 unknown parameters (31 pairs of (c,γ)s), of which 60 is for TFs and two for nucleosome.
-
-We use a modified Nelder-Mead simplex algorithm with Simulated Annealing to optimize the parameters 
 
 
 NucRemod ---> Has codes for optimization and nucleosome/TF occupancy with TFs and remodelers. It also has examples to compute the final occupancy.
