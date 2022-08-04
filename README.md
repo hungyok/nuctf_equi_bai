@@ -81,7 +81,9 @@ path2 = '/nuctf_equi_bai/tf_energy_all/Etf_allmat_chr/';
 load /nuctf_equi_bai/nuc_energy/E_Em.mat;  
 load /nuctf_equi_bai/tf_energy_all/Etf_allmat_chr/Emtfall.mat;
 load /nuctf_equi_bai/tf_energy_all/tfindx.txt;
+```
 to
+```
 path1='yourpath/NucTF/';
 path2= 'yourpath/tf_energy_all/Etf_allmat_chr/';  
 ….
@@ -95,7 +97,9 @@ load /nuctf_equi_bai/NucTF/toy_example/input/yy3A_lee.mat;
 load /nuctf_equi_bai/NucTF/toy_example/input/rand_genomeB.mat;
 TFlist=importdata('/nuctf_equi_bai/tf_energy_all/listbai_all.txt');
 load /nuctf_equi_bai/tf_energy_all/tfindx.txt; 
+```
 to
+```
 load yourpath/NucTF/toy_example/input/yy3A_lee.mat;
 load yourpath/NucTF/toy_example/input/rand_genomeB.mat;
 TFlist=importdata('yourpath/tf_energy_all/listbai_all.txt');
