@@ -1,7 +1,9 @@
+% Remodeling and rmsd
 function [sigma]=occupR(xi)
-load D:\Cell_protocol\nuc_energy\E_Em.mat;
-load D:\Cell_protocol\NucTF\simplexM_tf30\input\rand_genomeB.mat;
-load D:\Cell_protocol\NucTF\simplexM_tf30\output2\simplex_xval.txt;
+load /nuctf_equi_bai/nuc_energy/E_Em.mat;
+load /nuctf_equi_bai/NucTF/simplexM_tf30/input/rand_genomeB.mat;
+load /nuctf_equi_bai/NucTF/simplexM_tf30/input/yy3A_lee.mat;
+load /nuctf_equi_bai/NucTF/simplexM_tf30/output2/simplex_xval.txt;
 xfit=simplex_xval(:,1); tfnx=floor(length(xfit)/2)-1;
 xfit(1,1)=xi(1,1); xfit(2,1)=xi(2,1);
 invld=0;
@@ -20,11 +22,11 @@ end
 if invld==1
    sigma=5;
 else  
-   TFlist=importdata('D:\Cell_protocol\tf_energy_all\listbai_all.txt'); % list of TF name and size 
+   TFlist=importdata('/nuctf_equi_bai/tf_energy_all/listbai_all.txt'); % list of TF name and size 
    TF_list1=TFlist.data; clear TFlist;
-   load D:\Cell_protocol\tf_energy_all\tfindx.txt; % ranked listbai_all.txt indices
+   load /nuctf_equi_bai/tf_energy_all/tfindx.txt; % ranked listbai_all.txt indices
    TF_list=TF_list1(tfindx(1:tfnx),1);
-   load D:\Cell_protocol\NucRemod\simplexM_remod\input\pos_octf\pos_octf.mat;
+   load /nuctf_equi_bai/NucRemod/simplexM_remod/input/pos_octf/pos_octf.mat;
    pos_octf1=pos_octf;
    pos_octf=cell(1,3); idx=1;
    nx=10; ht=xi(3,1)/0.212; xd=xi(4,1)-floor(xi(4,1)); 
@@ -76,7 +78,6 @@ else
        end
    end
    fprintf('function occupR toptf...%d...nx...%d\n',tfnx,nx); toc;
-   load D:\Cell_protocol\NucTF\simplexM_tf30\input\yy3A_lee.mat;
    for chr=1:chrindx(idx,1)
        chr1=chrlist{idx,1}(chr);
        occup_nuc{chr,1}=occup_nuc0{chr,1}*(1/nx);
