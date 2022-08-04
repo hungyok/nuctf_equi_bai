@@ -203,17 +203,17 @@ load yourpath/tf_energy_all/tfindx.txt; % ranked listbai_all.txt indices
 ```
 > simplex_SA.m 
 ```
-The input and output files are same as in NucTF, except here the file simplex_xval.txt is a 4x5 matrix. The first column of the matrix (c<sub>N</sub>, γ<sub>N</sub>, h, and w) is our optimized parameters and the TF parameters (c<sub>t</sub>, γ<sub>t</sub>) obtained in NucTF are used to calculate the occupancy profiles. The occupancy calculation is not as straight forward as in Model 1, but it depends on “nx” to account for the TF-dependent remodeling. Here we set nx=100.
+The input and output files are same as in NucTF, except here the file simplex_xval.txt is a 4x5 matrix. The first column of the matrix (c<sub>N</sub>, γ<sub>N</sub>, h, and w) is our optimized parameters and the TF parameters (c<sub>t</sub>, γ<sub>t</sub>) obtained in NucTF are used to calculate the occupancy profiles. The occupancy calculation is not as straight forward as in NucTF, but it depends on “nx” to account for the TF-dependent remodeling. Here we set nx=100.
 
 Open the folder [occup_profile](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucRemod/occup_profile) and run the code to compute the occupancy profiles:
 ```
-> load /NucRemod/simplexM_remod/output2/simplex_xval.txt;
+> load yourpath/NucRemod/simplexM_remod/output2/simplex_xval.txt;
 > remod = simplex_xval(:,1); 
-> load /NucTF/simplexM_tf30/output2/simplex_xval.txt;
+> load yourpath/NucTF/simplexM_tf30/output2/simplex_xval.txt;
 > xfit = simplex_xval(:,1); 
 > [O] = occupR(remod,xfit) 
 ```
-The output file “O.mat” is a 16x1 cell. Here we report only nucleosome occupancy per cell. 
+The output file “O.mat” is a 16x1 cell. Here we report only nucleosome occupancy per cell. All the codes and input/output files and folders can be found in the folder [simplexM_remod](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucRemod/simplexM_remod).
 ## Output data
 Nucleosome occupancy, TF occupancy.
 
