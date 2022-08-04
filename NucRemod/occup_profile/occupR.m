@@ -6,7 +6,7 @@ xfit(1)=remod(1); xfit(2)=remod(2);
 
 TFlist=importdata('/nuctf_equi_bai/tf_energy_all/listbai_all.txt'); % list of TF name and size 
 TF_list1=TFlist.data; clear TFlist;
-load /nuctf_equi_bai/tf_energy_all/tfindx.txt; % ranked listbai_all.txt indices
+load /nuctf_equi_bai/tf_energy_all/tfindx.txt; % ranked listbai_all.txt indices: 1st or top (high NDR predictor) to 104th or bottom (low NDR predictor) TF.
 TF_list=TF_list1(tfindx(1:tfnx),1);
 load /nuctf_equi_bai/NucRemod/simplexM_remod/input/pos_octf/pos_octf.mat;
 pos_octf1=pos_octf;
