@@ -135,8 +135,8 @@ All the codes and input/output files and folders can be found in the folder [sim
 
 ### NucRemod
 This version of the model considers both the effect from TF binding and nucleosome remodeling (NR). We assume that the action of NR is to deform the nucleosome energy landscape near the TF-bound sites in a TF occupancy-dependent manner. NR is present only when TF occupancy > tfcut (set tfcut=0.0022 computed as the genome-wide average of occupancy for all TFs in the model NucTF). We assume that an NR modifies the energy landscape as a Gaussian deformation with height “h” and width “w” (free parameters). In the presence of multiple TFs adjacent to each other, we use the summation of individual deformation energies. 
-#### Open the folder “simplexM_remod” to find:
-        1. A subfolder “pos_octf” under the “input” folder. It has a file “pos_octf.mat” that records positions and occupancy of TFs (occupancy cutoff is tfcut=0.0022). 
+#### Open the folder “simplexM_remod” to find: 
+	1. A subfolder “pos_octf” under the “input” folder. It has a file “pos_octf.mat” that records positions and occupancy of TFs (occupancy cutoff is tfcut=0.0022).	
 	2. Two output folders for fitting parameters: “output” and “output2”. Parameters generated during the fitting process will be stored in “output”. While “output2” contains precomputed best fitting parameters.
 	3. An output log file “log.txt” that records the optimization process.
 	4. simplex_SA.m, the simplex engine with Simulated Annealing.
@@ -146,8 +146,9 @@ This version of the model considers both the effect from TF binding and nucleoso
 	8. sortf.m, a sub-function that sorts a set of RMSDs.
 #### Edit directory paths in simplex_SA.m, occupR.m, occup_nucs.m, and tf_cluster.m.
 #### Run the optimization code:
+```
 > simplex_SA.m 
-
+```
 The input and output files are same as in Model 1, except this time the file simplex_xval.txt is a 4 x5 matrix. The first column of the matrix is our optimized parameters and is used in determining the genome-wide occupancy profile in step 5 below. If the simplex vertices have not all converged to a prescribed threshold value (see Fig.2), you can rerun step 3 with the last output as the new input.
 
 ## Output data
