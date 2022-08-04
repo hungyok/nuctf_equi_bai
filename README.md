@@ -60,7 +60,9 @@ ndr_pos_cal2.m: Using “yy1_lee.mat, NDR_1.mat, NDR_2.mat, …, NDR_8.mat” as
 ```
 These codes and the input/output data can be found in the folder [ndr_call](https://github.com/hungyok/nuctf_equi_bai/tree/main/ndr_call).
 ## SEM and optimization
-
+```
+c_(t/N) e^(-γ_(t/N) E_(t/N)^i )
+```
 ### NucTF
 To evaluate individual TF contribution to NDRs, we first optimize (c,γ) for an individual TF when only the concerned TF is present in the model. We use the same procedure of optimization as for the multiple-TF model described below. After optimization, we rank the 104 TFs based on their contribution to the NDR probability (P_NDR) and store the ranking in another file called “tfindx.txt”. Below, we describe a model where we incorporated the top 30 TFs. Accordingly, we have in total of 62 unknown parameters (31 pairs of (c,γ)s), of which 60 is for TFs and two for nucleosome.
 
