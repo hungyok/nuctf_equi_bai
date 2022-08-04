@@ -30,7 +30,7 @@ Sequence-dependent binding energy for nucleosome is obtained using the software 
 ```
 Where input.fa is the DNA sequence in fasta format. One sequence per file, e.g., chr1.fa has sequence for chromosome 1 only. To be consistent with our codes, we suggest all the sequences be in caps. The raw_output.tab is the output energy (log-score) file in tab format (can easily be open by any text editor like "notepad"). 
 ### TF energy
-The binding energy of a TF is obtained by scanning the PWM along the genomic sequences (both forward and reverse-complement strands) and converting into position-dependent energy. The maximum of the two possible energies at a position is the TF energy.
+The binding energy of a TF is obtained by scanning its PWM along the genomic sequences (both forward and reverse-complement strands) and converting into position-dependent energy. The maximum of the two possible energies at a position is the TF energy.
 
 The code “tf_binding_pot.m” uses the genome sequence, wmsbai_data_all.txt, and listbai_all.txt to obtain the energy profiles. Run the commands below to get all the 104 TF energies:
 ```
@@ -144,13 +144,76 @@ This version of the model considers both the effect from TF binding and nucleoso
 	6. occup_nucs.m, a sub-function that computes nucleosome occupancy per chromosome.
 	7. tf_cluster.m, a sub-function that gathers the binding configurations of TFs using the information provided by “pos_octf.mat”. For isolated TFs, the binding status is determined by comparing their occupancy (from Model 1) to a random number. When multiple TFs bind adjacent to each other, we allow maximally two TFs to overlap, and their individual binding status are determined by the same random number generator. 
 	8. sortf.m, a sub-function that sorts a set of RMSDs.
-#### Edit directory paths in simplex_SA.m, occupR.m, occup_nucs.m, and tf_cluster.m.
+#### Edit directory paths in simplex_SA.m, occupR.m, occup_nucs.m, and tf_cluster.m:
+Open simplex_SA.m and change the default path or directory
+```
+path1='/nuctf_equi_bai/NucRemod/'; 
+path2='/nuctf_equi_bai/NucTF/'; 
+```
+to
+```
+path1='yourpath/NucRemod/'; 
+path2='yourpath/NucTF/'; 
+```
+Open occupR.m and change the default path or directory
+```
+load /nuctf_equi_bai/nuc_energy/E_Em.mat;
+load /nuctf_equi_bai/NucTF/toy_example/input/rand_genomeB.mat;
+load /nuctf_equi_bai/NucTF/toy_example/input/yy3A_lee.mat;
+TFlist=importdata('/nuctf_equi_bai/tf_energy_all/listbai_all.txt');
+load /nuctf_equi_bai/tf_energy_all/tfindx.txt; 
+load /nuctf_equi_bai/NucTF/toy_example/output/simplex_xval.txt;
+load /nuctf_equi_bai/NucRemod/toy_example/input/pos_octf/pos_octf.mat;
+```
+to
+```
+load yourpath/nuc_energy/E_Em.mat;
+load yourpath/NucTF/toy_example/input/rand_genomeB.mat;
+load yourpath/NucTF/toy_example/input/yy3A_lee.mat;
+TFlist=importdata(' yourpath/tf_energy_all/listbai_all.txt');
+load yourpath/tf_energy_all/tfindx.txt; 
+load yourpath/NucTF/toy_example/output/simplex_xval.txt;
+load yourpath/NucRemod/toy_example/input/pos_octf/pos_octf.mat;
+```
+Open occup_nucs.m and change the default path or directory
+```
+load /nuctf_equi_bai/tf_energy_all/Etf_allmat_chr/Emtfall.mat; % mean TF energy
+TFlist=importdata('/nuctf_equi_bai/tf_energy_all/listbai_all.txt'); % list of TF name and size 
+load /nuctf_equi_bai/tf_energy_all/tfindx.txt; % ranked listbai_all.txt indices
+pathx = '/nuctf_equi_bai/tf_energy_all/Etf_allmat_chr/';
+```
+to
+```
+load yourpath/tf_energy_all/Etf_allmat_chr/Emtfall.mat; % mean TF energy
+TFlist=importdata('yourpath/tf_energy_all/listbai_all.txt'); % list of TF name and size 
+load yourpath/tf_energy_all/tfindx.txt; % ranked listbai_all.txt indices
+pathx = ' yourpath/tf_energy_all/Etf_allmat_chr/';
+```
+Open tf_cluster.m and change the default path or directory
+```
+TFlist=importdata('/nuctf_equi_bai/tf_energy_all/listbai_all.txt'); % list of TF name and size 
+load /nuctf_equi_bai/tf_energy_all/tfindx.txt; % ranked listbai_all.txt indices
+```
+to
+```
+TFlist=importdata('yourpath/tf_energy_all/listbai_all.txt'); % list of TF name and size 
+load yourpath/tf_energy_all/tfindx.txt; % ranked listbai_all.txt indices
+```
 #### Run the optimization code:
 ```
 > simplex_SA.m 
 ```
-The input and output files are same as in Model 1, except this time the file simplex_xval.txt is a 4 x5 matrix. The first column of the matrix is our optimized parameters and is used in determining the genome-wide occupancy profile in step 5 below. If the simplex vertices have not all converged to a prescribed threshold value (see Fig.2), you can rerun step 3 with the last output as the new input.
+The input and output files are same as in NucTF, except here the file simplex_xval.txt is a 4x5 matrix. The first column of the matrix (c<sub>N</sub>, γ<sub>N</sub>, h, and w) is our optimized parameters and the TF parameters (c<sub>t</sub>, γ<sub>t</sub>) obtained in NucTF are used to calculate the occupancy profiles. The occupancy calculation is not as straight forward as in Model 1, but it depends on “nx” to account for the TF-dependent remodeling. Here we set nx=100.
 
+Open the folder [occup_profile](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucRemod/occup_profile) and run the code to compute the occupancy profiles:
+```
+> load /NucRemod/simplexM_remod/output2/simplex_xval.txt;
+> remod = simplex_xval(:,1); 
+> load /NucTF/simplexM_tf30/output2/simplex_xval.txt;
+> xfit = simplex_xval(:,1); 
+> [O] = occupR(remod,xfit) 
+```
+The output file “O.mat” is a 16x1 cell. Here we report only nucleosome occupancy per cell. 
 ## Output data
 Nucleosome occupancy, TF occupancy.
 
