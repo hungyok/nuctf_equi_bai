@@ -24,9 +24,9 @@ if invld==1
 else  
    TFlist=importdata('/nuctf_equi_bai/tf_energy_all/listbai_all.txt'); % list of TF name and size 
    TF_list1=TFlist.data; clear TFlist;
-   load /nuctf_equi_bai/tf_energy_all/tfindx.txt; % ranked listbai_all.txt indices
+   load /nuctf_equi_bai/tf_energy_all/tfindx.txt; % ranked listbai_all.txt indices: 1st or top (high NDR predictor) to 104th or bottom (low NDR predictor) TF.
    TF_list=TF_list1(tfindx(1:tfnx),1);
-   load /nuctf_equi_bai/NucRemod/simplexM_remod/input/pos_octf/pos_octf.mat;
+   load /nuctf_equi_bai/NucRemod/simplexM_remod/input/pos_octf/pos_octf.mat; % TF occupancy & position at occupancy tfcut=0.0022.
    pos_octf1=pos_octf;
    pos_octf=cell(1,3); idx=1;
    nx=10; ht=xi(3,1)/0.212; xd=xi(4,1)-floor(xi(4,1)); 
