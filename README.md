@@ -72,7 +72,35 @@ To evaluate individual TF contribution to NDRs, we first optimize (c,γ) for an 
 	4. simplex_SA.m, the simplex engine with Simulated Annealing.
 	5. optimbfunc_ver3a.m, a sub-function that computes nucleosome occupancy and RMSD.
 	6. sortf.m, a sub-function that sorts RMSDs.
-#### Edit directory paths in simplex_SA.m and optimbfunc_ver3a.m.
+#### Edit directory paths in simplex_SA.m and optimbfunc_ver3a.m:
+Open simplex_SA.m and change the default path or directory
+```
+path1='/nuctf_equi_bai/NucTF/'; 
+path2 = '/nuctf_equi_bai/tf_energy_all/Etf_allmat_chr/'; 
+….
+load /nuctf_equi_bai/nuc_energy/E_Em.mat;  
+load /nuctf_equi_bai/tf_energy_all/Etf_allmat_chr/Emtfall.mat;
+load /nuctf_equi_bai/tf_energy_all/tfindx.txt;
+to
+path1='yourpath/NucTF/';
+path2= 'yourpath/tf_energy_all/Etf_allmat_chr/';  
+….
+load yourpath/nuc_energy/E_Em.mat;  
+load yourpath/tf_energy_all/Etf_allmat_chr/Emtfall.mat;
+load yourpath/tf_energy_all/tfindx.txt;
+```
+Open optimbfunc_ver3a.m and change the default path or directory
+```
+load /nuctf_equi_bai/NucTF/toy_example/input/yy3A_lee.mat;
+load /nuctf_equi_bai/NucTF/toy_example/input/rand_genomeB.mat;
+TFlist=importdata('/nuctf_equi_bai/tf_energy_all/listbai_all.txt');
+load /nuctf_equi_bai/tf_energy_all/tfindx.txt; 
+to
+load yourpath/NucTF/toy_example/input/yy3A_lee.mat;
+load yourpath/NucTF/toy_example/input/rand_genomeB.mat;
+TFlist=importdata('yourpath/tf_energy_all/listbai_all.txt');
+load yourpath/tf_energy_all/tfindx.txt; 
+```
 #### Run the optimization code:
 ```
 > simplex_SA.m ;
