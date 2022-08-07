@@ -15,7 +15,7 @@ The MATLAB code transf_yy_data.m can execute the above step and can be found in 
 > S2 = importdata('raw_lee_chr1_16.txt');
 > [c,γ] = transf_yy_data(S2);
  ```
-The code takes the raw data (raw_lee_chr1_16.txt) as an input and finds the best (c, γ) that satisfy the above conditions. In this example c = 0.8244 and γ= 0.1581 and using these parameter the new converted occupancy is saved as “yy1_lee.mat” (input data for subsequent steps). 
+The code takes the raw data (raw_lee_chr1_16.txt) as an input and finds the best (c, γ) that satisfy the above conditions. In this example c = 0.8244 and γ= 0.1581 and using these parameter the new converted occupancy is saved as “yy1_lee.mat” which can be found in the folder [ndr_call](https://github.com/hungyok/nuctf_equi_bai/tree/main/ndr_call). 
 
 ## Processing binding energy and NDR 
 ### Nucleosome energy
