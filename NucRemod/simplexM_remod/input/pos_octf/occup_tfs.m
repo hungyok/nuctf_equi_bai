@@ -1,19 +1,19 @@
  %function [pos_octf]=occup_tfs(xfit,E,Em,tfcut) 
- load D:\Cell_protocol\nuc_energy\E_Em.mat;
- load D:\Cell_protocol\tf_energy_all\Etf_allmat_chr\Emtfall.mat;
- load D:\Cell_protocol\tf_energy_all\tfindx.txt;
- TFlist=importdata('D:\Cell_protocol\tf_energy_all\listbai_all.txt');
+ load /nuctf_equi_bai/nuc_energy/E_Em.mat;
+ load /nuctf_equi_bai/tf_energy_all/Etf_allmat_chr/Emtfall.mat;
+ load /nuctf_equi_bai/tf_energy_all/tfindx.txt;
+ TFlist=importdata('/nuctf_equi_bai/tf_energy_all/listbai_all.txt');
  TF_list1=TFlist.data; clear TFlist;
  l=147; dLb=2000; L=5*dLb; 
- pth = 'D:\Cell_protocol\tf_energy_all\Etf_allmat_chr\';
- load D:\Cell_protocol\NucRemod\simplexM_remod\input\pos_octf\avgxval_top30.txt; 
+ path1 = '/nuctf_equi_bai/tf_energy_all/Etf_allmat_chr/';
+ load /nuctf_equi_bai/NucRemod/simplexM_remod/input/pos_octf/avgxval_top30.txt; 
  % avgxval_top30.txt is an average set of parameters (c,gama) from five independent "simplex_SA.m" runs 
  % using five different sets of 70% genome found in "rand_genomeB.mat" 
  xfit=avgxval_top30; tfn=floor(length(xfit)/2)-1; tfcut=zeros(tfn,1); tfcut(:,1)=0.0022;
  Etfmul=cell(1,16); Pngtf=cell(tfn,1); pos_octf=cell(16,3);
 for k =1:16
     filename = sprintf('Etf_chr%d.mat',k);
-    fpath= strcat(pth,filename);
+    fpath= strcat(path1,filename);
     load(fpath);
     Etfmul{1,k}=Etf(:,tfindx(1:tfn));
 end                   
@@ -173,4 +173,4 @@ for chr=1:16
     pos_octf{chr,3}=pos_tf2(2:end,:);
 end 
 toc;
-save D:\Cell_protocol\NucRemod\simplexM_remod\input\pos_octf\pos_octf.mat pos_octf -v7.3;
+save /nuctf_equi_bai/NucRemod/simplexM_remod/input/pos_octf/pos_octf.mat pos_octf -v7.3;
