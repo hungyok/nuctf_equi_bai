@@ -79,7 +79,6 @@ path1='/nuctf_equi_bai/NucTF/';
 path2 = '/nuctf_equi_bai/tf_energy_all/Etf_allmat_chr/'; 
 ….
 load /nuctf_equi_bai/nuc_energy/E_Em.mat;  
-load /nuctf_equi_bai/tf_energy_all/Etf_allmat_chr/Emtfall.mat;
 load /nuctf_equi_bai/tf_energy_all/tfindx.txt;
 ```
 to
@@ -88,7 +87,6 @@ path1='yourpath/NucTF/';
 path2= 'yourpath/tf_energy_all/Etf_allmat_chr/';  
 ….
 load yourpath/nuc_energy/E_Em.mat;  
-load yourpath/tf_energy_all/Etf_allmat_chr/Emtfall.mat;
 load yourpath/tf_energy_all/tfindx.txt;
 ```
 Open optimbfunc_ver3a.m and change the default path or directory
