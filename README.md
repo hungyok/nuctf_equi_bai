@@ -197,7 +197,7 @@ load yourpath/tf_energy_all/tfindx.txt;
 ```
 #### Run the optimization code:
 ```
-> simplex_SA.m 
+> simplex_SA.m ;
 ```
 The input and output files are same as in NucTF, except here the file simplex_xval.txt is a 4x5 matrix. The first column of the matrix (c<sub>N</sub>, γ<sub>N</sub>, h, and w) is our optimized parameters and the TF parameters (c<sub>t</sub>, γ<sub>t</sub>) obtained in NucTF are used to calculate the occupancy profiles. The occupancy calculation is not as straight forward as in NucTF, but it depends on “nx” to account for the TF-dependent remodeling. Here we set nx=100.
 
@@ -207,7 +207,7 @@ Open the folder [occup_profile](https://github.com/hungyok/nuctf_equi_bai/tree/m
 > remod = simplex_xval(:,1); 
 > load yourpath/NucTF/simplexM_tf30/output2/simplex_xval.txt;
 > xfit = simplex_xval(:,1); 
-> [O] = occupR(remod,xfit) 
+> [O] = occupR(remod,xfit);
 ```
 The output file “O.mat” is a 16x1 cell. Here we report only nucleosome occupancy per cell. All the codes and input/output files and folders can be found in the folder [simplexM_remod](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucRemod/simplexM_remod). A toy-example to run simplex_SA.m with a single TF (RSC3) and for a single chromosome (chr 1) can be found in [toy_example](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucRemod/toy_example). 
 ## Output data
