@@ -108,7 +108,7 @@ load yourpath/tf_energy_all/tfindx.txt;
 > simplex_SA.m ;
 ```
 #### Input files:
-	1. simplex_xval.txt, initial parameters located in a subfolder “initialp” in folder “input”.
+	1. top30_xhIIa.mat, initial parameters located in a subfolder “initialp” in folder “input”.
 	2. yy3A_lee.mat, the reference nucleosome occupancy data.
 	3. rand_genomeB.mat, a list of chromosome indices that accounts for 70% of the genome.
 	4. listbai_all.txt, a list of 104 TF names and motif sizes.
