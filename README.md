@@ -175,27 +175,25 @@ load yourpath/NucRemod/toy_example/input/pos_octf/pos_octf.mat;
 ```
 Open occup_nucs.m and change the default path or directory
 ```
-load /nuctf_equi_bai/tf_energy_all/Etf_allmat_chr/Emtfall.mat; % mean TF energy
-TFlist=importdata('/nuctf_equi_bai/tf_energy_all/listbai_all.txt'); % list of TF name and size 
-load /nuctf_equi_bai/tf_energy_all/tfindx.txt; % ranked listbai_all.txt indices
-pathx = '/nuctf_equi_bai/tf_energy_all/Etf_allmat_chr/';
+path1 = '/nuctf_equi_bai/tf_energy_all/Etf_allmat_chr/';
+TFlist=importdata('/nuctf_equi_bai/tf_energy_all/listbai_all.txt'); 
+load /nuctf_equi_bai/tf_energy_all/tfindx.txt; 
 ```
 to
 ```
-load yourpath/tf_energy_all/Etf_allmat_chr/Emtfall.mat; % mean TF energy
-TFlist=importdata('yourpath/tf_energy_all/listbai_all.txt'); % list of TF name and size 
-load yourpath/tf_energy_all/tfindx.txt; % ranked listbai_all.txt indices
-pathx = ' yourpath/tf_energy_all/Etf_allmat_chr/';
+path1 = 'yourpath/tf_energy_all/Etf_allmat_chr/';
+TFlist=importdata('yourpath/tf_energy_all/listbai_all.txt'); 
+load yourpath/tf_energy_all/tfindx.txt; 
 ```
 Open tf_cluster.m and change the default path or directory
 ```
-TFlist=importdata('/nuctf_equi_bai/tf_energy_all/listbai_all.txt'); % list of TF name and size 
-load /nuctf_equi_bai/tf_energy_all/tfindx.txt; % ranked listbai_all.txt indices
+TFlist=importdata('/nuctf_equi_bai/tf_energy_all/listbai_all.txt'); 
+load /nuctf_equi_bai/tf_energy_all/tfindx.txt; 
 ```
 to
 ```
-TFlist=importdata('yourpath/tf_energy_all/listbai_all.txt'); % list of TF name and size 
-load yourpath/tf_energy_all/tfindx.txt; % ranked listbai_all.txt indices
+TFlist=importdata('yourpath/tf_energy_all/listbai_all.txt');
+load yourpath/tf_energy_all/tfindx.txt; 
 ```
 #### Run the optimization code:
 ```
