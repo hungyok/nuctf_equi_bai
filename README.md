@@ -209,7 +209,7 @@ Open the folder [occup_profile](https://github.com/hungyok/nuctf_equi_bai/tree/m
 > xfit = simplex_xval(:,1); 
 > [O] = occupR(remod,xfit);
 ```
-The output file “O.mat” is a 16x1 cell. Here we report only nucleosome occupancy per cell. All the codes and input/output files and folders can be found in the folder [simplexM_remod](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucRemod/simplexM_remod). A toy example to run simplex_SA.m with a single TF (RSC3) and for a single chromosome (chr 1) can be found in [toy_example](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucRemod/toy_example). 
+The output file “O.mat” is a 16x1 cell. Here we report only nucleosome occupancy per cell and can be found in the folder “[occup_profile](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucRemod/occup_profile)”. The folder also contains a figure showing comparison between a model with TF only and a model with TF+remodeling, and a plotting script. All the codes and input/output files and folders can be found in the folder [simplexM_remod](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucRemod/simplexM_remod). A toy example to run simplex_SA.m with a single TF (RSC3) and for a single chromosome (chr 1) can be found in [toy_example](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucRemod/toy_example). 
 ## Output data
 The main outputs from this exercise are the occupancy profiles of nucleosome and TF (the O.mat files with (NucRemod) and without (NucTF) remodeling effect).
 
