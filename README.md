@@ -19,7 +19,7 @@ The code takes the raw data (raw_lee_chr1_16.txt) as an input and finds the best
 
 ## Processing binding energy and NDR 
 ### Nucleosome energy
-Sequence-dependent binding energy for nucleosome is obtained using the software developed by Kaplan & Segal ([Kaplan, et al., 2009](https://www.nature.com/articles/nature07667)), which can be downloaded from the following link:
+The sequence-dependent binding energy for nucleosome is obtained using the software developed by Kaplan & Segal ([Kaplan, et al., 2009](https://www.nature.com/articles/nature07667)), which can be downloaded from the following link:
 
  https://github.com/KaplanLab/NucleosomeModel
  
@@ -32,13 +32,13 @@ Where input.fa is the DNA sequence in fasta format. One sequence per file, e.g.,
 ### TF energy
 The binding energy of a TF is obtained by scanning its PWM along the genomic sequences (both forward and reverse-complement strands) and converting into position-dependent energy. The maximum of the two possible energies at a position is the TF energy.
 
-The code “tf_binding_pot.m” uses the genome sequence, wmsbai_data_all.txt, and listbai_all.txt to obtain the energy profiles. Run the commands below to get all the 104 TF energies:
+The code “[tf_binding_pot.m](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all)” uses the genome sequence, wmsbai_data_all.txt, and listbai_all.txt to obtain the energy profiles. Run the commands below to get all the 104 TF energies:
 ```
 > path1 = '/tf_energy_all/sgd_genome/'; % enter full path
 > path2 = '/tf_energy_all/Etf_allmat_chr/'; % enter full path
 > [Emtf,k] = tf_binding_pot(path1,path2);
 ```
-The genomic sequence (e.g., sgd_chr1.fa for chromosome 1 and so on) from the folder “sgd_genome” is fed using the input parameter “path1”. The code then spews out TF energy profiles for all the chromosomes (Etf_chr1.mat to Etf_chr16.mat) and the average TF energies (Emtfall.mat), which are stored in the folder “Etf_allmat_chr” indicated by “path2”. Each energy file (e.g., Etf_chr1.mat for chromosome 1) is a matrix file where it contains the binding energy for each TF at different chromosomal locations (see the sample data below for four TFs on a few locations on chr I).  The code, the subfolders, and the input/output files can be found in the folder [tf_energy_all](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all). 
+The genomic sequence (e.g., sgd_chr1.fa for chromosome 1 and so on) from the folder “sgd_genome” is fed using the input parameter “path1”. The code then spews out TF energy profiles for all the chromosomes (Etf_chr1.mat to Etf_chr16.mat) and the average TF energies (Emtfall.mat), which are stored in the folder “Etf_allmat_chr” indicated by “path2”. Note that we have reported here only three energy files, Etf_chr1.mat to Etf_chr3.mat, due to big file! Each energy file (e.g., Etf_chr1.mat for chromosome 1) is a matrix file where it contains the binding energy for each TF at different chromosomal locations (see the sample data below for four TFs on a few locations on chr I).  The code, the subfolders, and the input/output files can be found in the folder [tf_energy_all](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all). 
 ```
 (Genomic             (TF)
 index)	       ABF1	 CBF1	  MCM1	  RAP1
