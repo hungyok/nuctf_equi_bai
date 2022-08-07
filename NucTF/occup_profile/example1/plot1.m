@@ -1,7 +1,7 @@
 clear;
-load D:\Cell_protocol\NucTF\occup_profile\example1\O_noseq.mat;
+load /nuctf_equi_bai/NucTF/occup_profile/example1/O_noseq.mat;
 y1=Y{1};
-load D:\Cell_protocol\NucTF\occup_profile\example1\O_seq.mat;
+load /nuctf_equi_bai/NucTF/occup_profile/example1/O_seq.mat;
 y2=Y{1};
 
 clf;
