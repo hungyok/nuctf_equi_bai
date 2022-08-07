@@ -5,13 +5,13 @@
  TFlist=importdata('/nuctf_equi_bai/tf_energy_all/listbai_all.txt');
  TF_list1=TFlist.data; clear TFlist;
  l=147; dLb=2000; L=5*dLb; 
- pth = '/nuctf_equi_bai/tf_energy_all/Etf_allmat_chr/';
+ path1 = '/nuctf_equi_bai/tf_energy_all/Etf_allmat_chr/';
  load /nuctf_equi_bai/NucTF/toy_example/output/simplex_xval.txt;
  xfit=simplex_xval(:,1); tfn=floor(length(xfit)/2)-1; tfcut=zeros(tfn,1); tfcut(:,1)=0.0022;
  Etfmul=cell(1,16); Pngtf=cell(tfn,1); pos_octf=cell(16,3); 
 for k =1:16
     filename = sprintf('Etf_chr%d.mat',k);
-    fpath= strcat(pth,filename);
+    fpath= strcat(path1,filename);
     load(fpath);
     Etfmul{1,k}=Etf(:,tfindx(1:tfn));
 end                   
