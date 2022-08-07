@@ -1,4 +1,4 @@
- %function [pos_octf]=occup_tfs(xfit,E,Em,tfcut) 
+ % To find TF occupancy and position at occupancy tfcut=0.0022 
  load /nuctf_equi_bai/nuc_energy/E_Em.mat;
  load /nuctf_equi_bai/tf_energy_all/Etf_allmat_chr/Emtfall.mat;
  load /nuctf_equi_bai/tf_energy_all/tfindx.txt;
