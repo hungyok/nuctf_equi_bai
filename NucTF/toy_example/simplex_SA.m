@@ -11,7 +11,8 @@ fnT = fullfile(strcat(path1,foldername1),foldername2,'simplex_Temp.txt');
 fileID = fopen(fnT,'w');
 load /nuctf_equi_bai/nuc_energy/E_Em.mat;  
 load /nuctf_equi_bai/tf_energy_all/tfindx.txt;
-load /nuctf_equi_bai/tf_energy_all/Etf_allmat_chr/Emtfall.mat;
+fpath= strcat(path2,'Emtfall.mat');
+load(fpath);
 Etfmul=cell(1,16); tfn=1; contd=0; % if contd=1 rerun with last output.
 for k =1:16
     filename = sprintf('Etf_chr%d.mat',k);
