@@ -129,16 +129,16 @@ The file simplex_xval.txt is a 62x63 matrix of c and γ. The first and second ro
 ```
 The output file “O.mat” is a 16x1 cell containing one column of nucleosome occupancy and 30 columns of TF occupancies. Nucleosome occupancy can be plotted and visually compared with experimental data.
 
-All the codes and input/output files and folders can be found in the folder [simplexM_tf30](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/simplexM_tf30). A toy-example to run simplex_SA.m that considers a single TF (RSC3) and a single chromosome (chr 1) and executes in quick time can be found in [toy_example](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/toy_example).
+All the codes and input/output files and folders can be found in the folder [simplexM_tf30](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/simplexM_tf30). A toy example to run simplex_SA.m that considers a single TF (RSC3) and a single chromosome (chr 1) and executes in quick time can be found in [toy_example](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/toy_example).
 
 ### NucRemod
-This version of the model considers both the effect from TF binding and nucleosome remodeling (NR). We assume that the action of NR is to deform the nucleosome energy landscape near the TF-bound sites in a TF occupancy-dependent manner. NR is present only when TF occupancy > tfcut (set tfcut=0.0022 computed as the genome-wide average of occupancy for all TFs in the model NucTF). We assume that an NR modifies the energy landscape as a Gaussian deformation with height “h” and width “w” (free parameters). In the presence of multiple TFs adjacent to each other, we add up individual deformation energies. 
+This version of the model considers both the effect from TF binding and nucleosome remodeling (NR). We assume that the action of NR is to deform the nucleosome energy landscape near the TF-bound sites in a TF occupancy-dependent manner. NR is present only when TF occupancy > tfcut (set tfcut=0.0022 computed as an genome-wide average of occupancy for all TFs in the model NucTF). We assume that an NR modifies the energy landscape as a Gaussian deformation with height “h” and width “w” (free parameters). In the presence of multiple TFs adjacent to each other, we add up individual deformation energies. 
 #### Open the folder “[simplexM_remod](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucRemod/simplexM_remod)” to find: 
 	1. A subfolder “pos_octf” under the “input” folder. It has a file “pos_octf.mat” that records positions and occupancy of TFs (occupancy cutoff is tfcut=0.0022).	
 	2. Two output folders for fitting parameters: “output” and “output2”. Parameters generated during the fitting process will be stored in “output”. While “output2” contains precomputed best fitting parameters.
 	3. An output log file “log.txt” that records the optimization process.
 	4. simplex_SA.m, the simplex engine with Simulated Annealing.
-	5. occupR.m, a sub-function that calls tf_cluster.m and occup_nucs.m to construct remodeling potentials and compute RMSD.  This step is repeated nx = 10 times to allow combinatorial binding of multiple TFs (see step 7 below). The final nucleosome occupancy represents an average between these configurations. Larger nx can be used to achieve better averaging.
+	5. occupR.m, a sub-function that calls tf_cluster.m and occup_nucs.m to place remodeling deformation energy and compute RMSD.  This step is repeated nx = 10 times to allow combinatorial binding of multiple TFs (see step 7 below). The final nucleosome occupancy represents an average between these configurations. Larger nx can be used to achieve better averaging.
 	6. occup_nucs.m, a sub-function that computes nucleosome occupancy per chromosome.
 	7. tf_cluster.m, a sub-function that gathers the binding configurations of TFs using the information provided by “pos_octf.mat”. For isolated TFs, the binding status is determined by comparing their occupancy (from NucTF) to a random number. When multiple TFs bind adjacent to each other, we allow maximally two TFs to overlap, and their individual binding status are determined by the same random number generator. 
 	8. sortf.m, a sub-function that sorts a set of RMSDs.
@@ -209,7 +209,7 @@ Open the folder [occup_profile](https://github.com/hungyok/nuctf_equi_bai/tree/m
 > xfit = simplex_xval(:,1); 
 > [O] = occupR(remod,xfit);
 ```
-The output file “O.mat” is a 16x1 cell. Here we report only nucleosome occupancy per cell. All the codes and input/output files and folders can be found in the folder [simplexM_remod](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucRemod/simplexM_remod). A toy-example to run simplex_SA.m with a single TF (RSC3) and for a single chromosome (chr 1) can be found in [toy_example](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucRemod/toy_example). 
+The output file “O.mat” is a 16x1 cell. Here we report only nucleosome occupancy per cell. All the codes and input/output files and folders can be found in the folder [simplexM_remod](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucRemod/simplexM_remod). A toy example to run simplex_SA.m with a single TF (RSC3) and for a single chromosome (chr 1) can be found in [toy_example](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucRemod/toy_example). 
 ## Output data
 The main outputs from this exercise are the occupancy profiles of nucleosome and TF (the O.mat files with (NucRemod) and without (NucTF) remodeling effect).
 
