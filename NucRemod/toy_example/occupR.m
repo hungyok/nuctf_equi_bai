@@ -2,6 +2,7 @@
 function [sigma]=occupR(xi)
 load D:\Cell_protocol\nuc_energy\E_Em.mat;
 load D:\Cell_protocol\NucTF\simplexM_tf30\input\rand_genomeB.mat;
+load D:\Cell_protocol\NucTF\simplexM_tf30\input\yy3A_lee.mat;
 load D:\Cell_protocol\NucTF\toy_example\output\simplex_xval.txt;
 xfit=simplex_xval(:,1); tfnx=floor(length(xfit)/2)-1;
 xfit(1,1)=xi(1,1); xfit(2,1)=xi(2,1);
@@ -76,8 +77,7 @@ else
           end
        end
    end
-   fprintf('function occupR tfn...%d...nx...%d\n',tfnx,nx); toc;
-   load D:\Cell_protocol\NucTF\simplexM_tf30\input\yy3A_lee.mat;
+   fprintf('function occupR tfn...%d...nx...%d\n',tfnx,nx); toc;   
    for chr=1:chrindx(idx,1)
        chr1=chrlist{idx,1}(chr);
        occup_nuc{chr,1}=occup_nuc0{chr,1}*(1/nx);
