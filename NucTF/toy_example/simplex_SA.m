@@ -1,7 +1,8 @@
 % Optimization
 function simplex_SA
-foldername1='toy_example'; foldername2='output'; foldername3='input\initialp';
+foldername1='toy_example'; foldername2='output'; foldername3='input/initialp';
 path1='/nuctf_equi_bai/NucTF/'; 
+path2 = '/nuctf_equi_bai/tf_energy_all/Etf_allmat_chr/';
 fnx = fullfile(strcat(path1,foldername1),foldername2,'simplex_xval.txt');
 fnxbak = fullfile(strcat(path1,foldername1),foldername2,'simplex_xvalbak.txt');
 fnf = fullfile(strcat(path1,foldername1),foldername2,'simplex_fval.txt');
@@ -9,9 +10,8 @@ fnt = fullfile(strcat(path1,foldername1),foldername2,'simplex_tval.txt');
 fnT = fullfile(strcat(path1,foldername1),foldername2,'simplex_Temp.txt');
 fileID = fopen(fnT,'w');
 load /nuctf_equi_bai/nuc_energy/E_Em.mat;  
-load /nuctf_equi_bai/tf_energy_all/Etf_allmat_chr/Emtfall.mat;
 load /nuctf_equi_bai/tf_energy_all/tfindx.txt;
-path2 = '/nuctf_equi_bai/tf_energy_all/Etf_allmat_chr/';
+load /nuctf_equi_bai/tf_energy_all/Etf_allmat_chr/Emtfall.mat;
 Etfmul=cell(1,16); tfn=1; contd=0; % if contd=1 rerun with last output.
 for k =1:16
     filename = sprintf('Etf_chr%d.mat',k);
