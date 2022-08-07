@@ -1,9 +1,9 @@
 % occupancy, remodeling, and rmsd
 function [sigma]=occupR(xi)
-load D:\Cell_protocol\nuc_energy\E_Em.mat;
-load D:\Cell_protocol\NucTF\simplexM_tf30\input\rand_genomeB.mat;
-load D:\Cell_protocol\NucTF\simplexM_tf30\input\yy3A_lee.mat;
-load D:\Cell_protocol\NucTF\toy_example\output\simplex_xval.txt;
+load /nuctf_equi_bai/nuc_energy/E_Em.mat;
+load /nuctf_equi_bai/NucTF/simplexM_tf30/input/rand_genomeB.mat;
+load /nuctf_equi_bai/NucTF/simplexM_tf30/input/yy3A_lee.mat;
+load /nuctf_equi_bai/NucTF/toy_example/output/simplex_xval.txt;
 xfit=simplex_xval(:,1); tfnx=floor(length(xfit)/2)-1;
 xfit(1,1)=xi(1,1); xfit(2,1)=xi(2,1);
 invld=0;
@@ -22,11 +22,11 @@ end
 if invld==1
    sigma=5;
 else  
-   TFlist=importdata('D:\Cell_protocol\tf_energy_all\listbai_all.txt'); % list of TF name and size 
+   TFlist=importdata('/nuctf_equi_bai/tf_energy_all/listbai_all.txt'); % list of TF name and size 
    TF_list1=TFlist.data; clear TFlist;
-   load D:\Cell_protocol\tf_energy_all\tfindx.txt; % ranked listbai_all.txt indices
+   load /nuctf_equi_bai/tf_energy_all/tfindx.txt; % ranked listbai_all.txt indices
    TF_list=TF_list1(tfindx(1:tfnx),1);
-   load D:\Cell_protocol\NucRemod\toy_example\input\pos_octf\pos_octf.mat;
+   load /nuctf_equi_bai/NucRemod/toy_example/input/pos_octf/pos_octf.mat;
    pos_octf1=pos_octf;
    pos_octf=cell(1,3); idx=1; chrindx(idx,1)=1; chrlist{idx,1}(1)=1; % comment this line out if considering 70 percent genome!
    nx=10; ht=xi(3,1)/0.212; xd=xi(4,1)-floor(xi(4,1)); 
