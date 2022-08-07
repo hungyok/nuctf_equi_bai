@@ -65,7 +65,7 @@ The SEM partition fuction is full of this type of term: p<sub>i</sub>=c<sub>t/N<
 ### NucTF
 To evaluate individual TF contribution to NDRs, we first optimize (c,γ) for an individual TF when only the concerned TF is present in the model. We use the same procedure of optimization as for the multiple-TF model which will be described below. After optimization, we rank the 104 TFs based on their contribution to the NDR prediction and save the ranking in a file called “tfindx.txt”. Below, we describe a model where we incorporated the top 30 TFs. Accordingly, we have in total of 62 unknown parameters (31 pairs of (c,γ)s), of which 60 is for TFs and two for nucleosome.
 
-#### Open the folder “simplexM_tf30” to find:
+#### Open the folder “[simplexM_tf30](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/simplexM_tf30)” to find:
 	1. Input and output parameters that are saved in folder “input” and “output” respectively.
 	2. The folder “output2” which has an example of previously optimized parameters.
 	3. A log file “log.txt” to record the optimization process.
