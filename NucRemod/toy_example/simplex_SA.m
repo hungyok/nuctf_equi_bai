@@ -2,8 +2,8 @@
 function simplex_SA
 foldername1='toy_example';
 foldername2='output';
-path1='D:\Cell_protocol\NucRemod\'; 
-path2='D:\Cell_protocol\NucTF\'; 
+path1='/nuctf_equi_bai/NucRemod/'; 
+path2='/nuctf_equi_bai/NucTF/'; 
 fnx = fullfile(strcat(path1,foldername1),foldername2,'simplex_xval.txt');
 fnxbak = fullfile(strcat(path1,foldername1),foldername2,'simplex_xvalbak.txt');
 fnf = fullfile(strcat(path1,foldername1),foldername2,'simplex_fval.txt');
