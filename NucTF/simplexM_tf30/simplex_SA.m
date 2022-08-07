@@ -1,16 +1,16 @@
 % Optimization
 function simplex_SA
-foldername1='simplexM_tf30'; foldername2='output'; foldername3='input\initialp';
-path1='D:\Cell_protocol\NucTF\'; 
-path2 = 'D:\Cell_protocol\tf_energy_all\Etf_allmat_chr\';
+foldername1='simplexM_tf30'; foldername2='output'; foldername3='input/initialp';
+path1='/nuctf_equi_bai/NucTF/'; 
+path2 = '/nuctf_equi_bai/tf_energy_all/Etf_allmat_chr/';
 fnx = fullfile(strcat(path1,foldername1),foldername2,'simplex_xval.txt');
 fnxbak = fullfile(strcat(path1,foldername1),foldername2,'simplex_xvalbak.txt');
 fnf = fullfile(strcat(path1,foldername1),foldername2,'simplex_fval.txt');
 fnt = fullfile(strcat(path1,foldername1),foldername2,'simplex_tval.txt');
 fnT = fullfile(strcat(path1,foldername1),foldername2,'simplex_Temp.txt');
 fileID = fopen(fnT,'w');
-load D:\Cell_protocol\nuc_energy\E_Em.mat;  
-load D:\Cell_protocol\tf_energy_all\tfindx.txt;
+load /nuctf_equi_bai/nuc_energy/E_Em.mat;  
+load /nuctf_equi_bai/tf_energy_all/tfindx.txt;
 fpath= strcat(path2,'Emtfall.mat');
 load(fpath);
 Etfmul=cell(1,16); tfn=30; contd=0; % if contd=1 rerun with last output.
