@@ -1,14 +1,14 @@
 %clear;  
 function [Y]=occupx(TF,Eseq,xfit)
-path1='D:\Cell_protocol\ndr_call';
-path2='D:\Cell_protocol\tf_energy_all\Etf_allmat_chr\';
+path1='/nuctf_equi_bai/ndr_call/';
+path2='/nuctf_equi_bai/tf_energy_all/Etf_allmat_chr/';
 fpath= strcat(path2,'Emtfall.mat');
 load(fpath); % mean TF energy
-load D:\Cell_protocol\nuc_energy\E_Em.mat; % Nuc energy
+load /nuctf_equi_bai/nuc_energy/E_Em.mat; % Nuc energy
 tfn=30;
-TFlist=importdata('D:\Cell_protocol\tf_energy_all\listbai_all.txt'); % list of 104 TF names and sizes
+TFlist=importdata('/nuctf_equi_bai/tf_energy_all/listbai_all.txt'); % list of 104 TF names and sizes
 TF_list1=TFlist.data; clear TFlist;
-load D:\Cell_protocol\tf_energy_all\tfindx.txt; % tfindx is a set (size 104) of ranked (or rearranged) TF indices of listbai_all.txt. You can change to any set of TFs
+load /nuctf_equi_bai/tf_energy_all/tfindx.txt; % tfindx is a set (size 104) of ranked (or rearranged) TF indices of listbai_all.txt. You can change to any set of TFs
 TF_list=TF_list1(tfindx(1:tfn),1); % tfn=5, means considering only top 5 TFs.
 l=147; dLb=2000; L=5*dLb;    
 Ei=-7; CHR=16; Etfmul=cell(1,CHR); % CHR no. of chromosomes
