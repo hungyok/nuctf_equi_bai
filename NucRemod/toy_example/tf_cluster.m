@@ -1,7 +1,7 @@
 function [xptfa]=tf_cluster(tfn,pos_octf)
-TFlist=importdata('D:\Cell_protocol\tf_energy_all\listbai_all.txt'); % list of TF name and size 
+TFlist=importdata('/nuctf_equi_bai/tf_energy_all/listbai_all.txt'); % list of TF name and size 
 TF_list1=TFlist.data; clear TFlist;
-load D:\Cell_protocol\tf_energy_all\tfindx.txt; % ranked listbai_all.txt indices
+load /nuctf_equi_bai/tf_energy_all/tfindx.txt; % ranked listbai_all.txt indices
 TF_list=TF_list1(tfindx(1:tfn),1);
 CL1=cell(1,1); flgnn=0; rng('shuffle');
 for i=1:length(pos_octf{1,1})
