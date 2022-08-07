@@ -1,11 +1,11 @@
  %clear;  
  function [sigma]=optimbfunc_ver3a(xi,E,Em,Etfmul,Emtf)
- load D:\Cell_protocol\NucTF\simplexM_tf30\input\yy3A_lee.mat;
- load D:\Cell_protocol\NucTF\simplexM_tf30\input\rand_genomeB.mat;
+ load /nuctf_equi_bai/NucTF/simplexM_tf30/input/yy3A_lee.mat;
+ load /nuctf_equi_bai/NucTF/simplexM_tf30/input/rand_genomeB.mat;
  tfn=30; 
- TFlist=importdata('D:\Cell_protocol\tf_energy_all\listbai_all.txt');
+ TFlist=importdata('/nuctf_equi_bai/tf_energy_all/listbai_all.txt');
  TF_list1=TFlist.data; clear TFlist;
- load D:\Cell_protocol\tf_energy_all\tfindx.txt;
+ load /nuctf_equi_bai/tf_energy_all/tfindx.txt;
  TF_list=TF_list1(tfindx(1:tfn),1); 
  l=147; dLb=3500; dLx=750; L=3*dLb+2*dLx; 
  invld=0; 
