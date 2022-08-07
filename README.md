@@ -127,7 +127,7 @@ The file simplex_xval.txt is a 62x63 matrix of c and γ. The first and second ro
 > xfit = simplex_xval (:,1); TF = 1; Eseq = 1;
 > [O] = occupx(TF, Eseq, xfit);
 ```
-The output file “O.mat” is a 16x1 cell containing one column of nucleosome occupancy and 30 columns of TF occupancies. Nucleosome occupancy can be plotted and visually compared with experimental data.
+The logical parameters “TF” and “Eseq” can take on the value of 0 or 1. For example, TF=1 means that TF information is considered in the model otherwise TF=0, and Eseq=1 means that nucleosome sequence-specific energy is considered and otherwise set Eseq=0. The output is an occupancy data, O.mat, comprising of 16x1 cell arrays (one for each chromosome), which includes the occupancies for nucleosome and each TF considered in the model. The code “occupx.m” is preloaded with nucleosome energy, TF energy, and TF index lists (listbai_all.txt and tfindx.txt). The output and a figure of an example of TF=0, and Eseq=0 or Eseq=1 can be found in the folder “[example1](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/occup_profile/example1)”. The output of a model example with TF=1 (top 30 TFs) and Eseq=1 can be found in the folder “[example2](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/occup_profile/example2)”.
 
 All the codes and input/output files and folders can be found in the folder [simplexM_tf30](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/simplexM_tf30). A toy example to run simplex_SA.m that considers a single TF (RSC3) and a single chromosome (chr 1) and executes in quick time can be found in [toy_example](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/toy_example).
 
