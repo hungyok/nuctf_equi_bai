@@ -1,8 +1,8 @@
 clear;
-load D:\Cell_protocol\ndr_call\yy3A_lee.mat;
+load /nuctf_equi_bai/ndr_call/yy3A_lee.mat;
 xlee=x1_lee{1};
 ylee=y1_lee{1};
-load D:\Cell_protocol\NucTF\occup_profile\example2\O_good.mat;
+load /nuctf_equi_bai/NucTF/occup_profile/example2/O_good.mat;
 y1=Y{1}(:,1);
 y2=Y{1}(:,2);
 y3=Y{1}(:,3);
