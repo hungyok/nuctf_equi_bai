@@ -1,11 +1,11 @@
 % occupancy
 function [occupx]=occup_nucs(xfit,E1,Em,chr1) 
-path1 = 'D:\Cell_protocol\tf_energy_all\Etf_allmat_chr\';
+path1 = '/nuctf_equi_bai/tf_energy_all/Etf_allmat_chr/';
 fpath= strcat(path1,'Emtfall.mat');
 load(fpath); % mean TF energy
-TFlist=importdata('D:\Cell_protocol\tf_energy_all\listbai_all.txt'); % list of TF name and size 
+TFlist=importdata('/nuctf_equi_bai/tf_energy_all/listbai_all.txt'); % list of TF name and size 
 TF_list1=TFlist.data; clear TFlist;
-load D:\Cell_protocol\tf_energy_all\tfindx.txt; % ranked listbai_all.txt indices: 1st or top (high NDR predictor) to 104th or bottom (low NDR predictor) TF
+load /nuctf_equi_bai/tf_energy_all/tfindx.txt; % ranked listbai_all.txt indices: 1st or top (high NDR predictor) to 104th or bottom (low NDR predictor) TF
 l=147; dLb=2000; L=5*dLb;    
 tfn=floor(length(xfit)/2)-1; E=E1;
 fname = sprintf('Etf_chr%d.mat',chr1);
