@@ -1,15 +1,17 @@
 %clear;  
-function [occup,ndr_chr]=ndr_pos_cal2
-load /nuctf_equi_bai/ndr_call/yy1_lee.mat;
+function [occup,ndr_chr]=ndr_pos_cal2(fname)
+path1='nuctf_equi_bai/ndr_call/';
+folder=fname;
+fnx = fullfile(strcat(path1,folder),'yy1_lee.mat'); load(fnx);
 %A=1; A1=2; B=3; C=4; D=5; E=6; F=7; G=8;
-load /nuctf_equi_bai/ndr_call/NDR_1.mat; NDR_A=NDR_X;
-load /nuctf_equi_bai/ndr_call/NDR_2.mat; NDR_A1=NDR_X;
-load /nuctf_equi_bai/ndr_call/NDR_3.mat; NDR_B=NDR_X;
-load /nuctf_equi_bai/ndr_call/NDR_4.mat; NDR_C=NDR_X;
-load /nuctf_equi_bai/ndr_call/NDR_5.mat; NDR_D=NDR_X;
-load /nuctf_equi_bai/ndr_call/NDR_6.mat; NDR_E=NDR_X;
-load /nuctf_equi_bai/ndr_call/NDR_7.mat; NDR_F=NDR_X;
-load /nuctf_equi_bai/ndr_call/NDR_8.mat; NDR_G=NDR_X;
+fnx = fullfile(strcat(path1,folder),'NDR_1.mat'); load(fnx); NDR_A=NDR_X;
+fnx = fullfile(strcat(path1,folder),'NDR_2.mat'); load(fnx); NDR_A1=NDR_X;
+fnx = fullfile(strcat(path1,folder),'NDR_3.mat'); load(fnx); NDR_B=NDR_X;
+fnx = fullfile(strcat(path1,folder),'NDR_4.mat'); load(fnx); NDR_C=NDR_X;
+fnx = fullfile(strcat(path1,folder),'NDR_5.mat'); load(fnx); NDR_D=NDR_X;
+fnx = fullfile(strcat(path1,folder),'NDR_6.mat'); load(fnx); NDR_E=NDR_X;
+fnx = fullfile(strcat(path1,folder),'NDR_7.mat'); load(fnx); NDR_F=NDR_X;
+fnx = fullfile(strcat(path1,folder),'NDR_8.mat'); load(fnx); NDR_G=NDR_X;
 
 fa=1; yytr=zeros(1,1); yyblu=zeros(1,1); SD=0.0678; ndrcnt=0; %fa=0.55;
 AA=zeros(9,1); dxA_cf=100; dx_cf=50; dxkiA1_cf=125; dxkiB_cf=3*dxkiA1_cf; dxna_cf=110; ndra=0; ndrb=1025;
