@@ -52,7 +52,8 @@ To call and locate nucleosome-depleted-region (NDR) we require two steps:
 
 **ndr_cut.m**: Using “yy1_lee.mat” as input data, this program identifies regions below certain occupancy threshold. In our current approach, we used eight different thresholds: threshold(i)=0.8-i×SD where i=1,2,…,8, and SD is the standard-deviation calculated from genome-wide nucleosome occupancy (yy1_lee.mat), which yield eight output files: NDR_1.mat, NDR_2.mat, …, NDR_8.mat. Set SD=0.0678 (default) and run the following code with input i=1,2,…,8. Note that yy1_lee.mat is directly loaded in the code “ndr_cut.m”. If the code fails to run, specify the right directory path to “load” commands.
 ```
-> NDR_i = ndr_cut(i);
+> load yourpath/ndr_call/datafolder/yy1_lee.mat;
+> NDR_i = ndr_cut(x1_lee, y1_lee, i); % yy1_lee.mat consists of files x1_lee and y1_lee
 ```
 **ndr_pos_cal2.m**: Using “yy1_lee.mat, NDR_1.mat, NDR_2.mat, …, NDR_8.mat” as input (directly loaded into the program), this program generates the final NDR positions (ndrpos_chrA.mat) and the modified nucleosome occupancy map (yy3A.mat). ndrpos_chrA.mat records the start and end index of each NDR on all 16 chromosomes, and yy3A.mat has the same format as yy1_lee.mat.
 ```
