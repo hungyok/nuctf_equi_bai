@@ -1,22 +1,22 @@
 % Optimization
 function simplex_SA
-foldername1='simplexM_tf30';
-foldername2='output';
-pathx='D:\Cell_protocol\NucTF\'; 
-fnx = fullfile(strcat(pathx,foldername1),foldername2,'simplex_xval.txt');
-fnxbak = fullfile(strcat(pathx,foldername1),foldername2,'simplex_xvalbak.txt');
-fnf = fullfile(strcat(pathx,foldername1),foldername2,'simplex_fval.txt');
-fnt = fullfile(strcat(pathx,foldername1),foldername2,'simplex_tval.txt');
-fnT = fullfile(strcat(pathx,foldername1),foldername2,'simplex_Temp.txt');
+foldername1='simplexM_tf30'; foldername2='output'; foldername3='input/initialp';
+path1='/nuctf_equi_bai/NucTF/'; 
+path2 = '/nuctf_equi_bai/tf_energy_all/Etf_allmat_chr/';
+fnx = fullfile(strcat(path1,foldername1),foldername2,'simplex_xval.txt');
+fnxbak = fullfile(strcat(path1,foldername1),foldername2,'simplex_xvalbak.txt');
+fnf = fullfile(strcat(path1,foldername1),foldername2,'simplex_fval.txt');
+fnt = fullfile(strcat(path1,foldername1),foldername2,'simplex_tval.txt');
+fnT = fullfile(strcat(path1,foldername1),foldername2,'simplex_Temp.txt');
 fileID = fopen(fnT,'w');
-load D:\Cell_protocol\nuc_energy\E_Em.mat;  
-load D:\Cell_protocol\tf_energy_all\Etf_allmat_chr\Emtfall.mat;
-load D:\Cell_protocol\tf_energy_all\tfindx.txt;
-pathx = 'D:\Cell_protocol\tf_energy_all\Etf_allmat_chr\';
+load /nuctf_equi_bai/nuc_energy/E_Em.mat;  
+load /nuctf_equi_bai/tf_energy_all/tfindx.txt;
+fpath= strcat(path2,'Emtfall.mat');
+load(fpath);
 Etfmul=cell(1,16); tfn=30; contd=0; % if contd=1 rerun with last output.
 for k =1:16
     filename = sprintf('Etf_chr%d.mat',k);
-    fpath= strcat(pathx,filename);
+    fpath= strcat(path2,filename);
     load(fpath);
     Etfmul{1,k}=Etf(:,tfindx(1:tfn));
 end
@@ -24,7 +24,7 @@ n=(tfn+1)*2; Tmin=0.00001; alfa=0.9; err=0.000001; clear tfindx Etf;
 x=zeros(n,n+1); xr=zeros(n,n+1); xnew=zeros(n,n+1); Fsig=zeros(n+1,1); Fsigxr=zeros(n+1,1); rng('shuffle'); 
 h=zeros(1,n); e=eye(n);
 if contd>0
-   load D:\Cell_protocol\NucTF\simplexM_tf30\output\simplex_xval.txt;
+   load(fnx);
    xh=simplex_xval(:,1);
    x(1:n,1)=xh; 
    for i=1:n
@@ -38,7 +38,8 @@ if contd>0
        x(:,i)=x(:,1)+h(i-1)*e(:,i-1);    
    end  
 else
-   load D:\Cell_protocol\NucTF\simplexM_tf30\input\initialp\top30_xhIIa.mat;
+   fnx1 = fullfile(strcat(path1,foldername1),foldername3,'top30_xhIIa.mat');
+   load(fnx1);
    x(1:n,1)=xh(1,1:n); h(1:n)=xh(1,(n+1):2*n);
    for i=2:(n+1)
        x(:,i)=x(:,1)+h(i-1)*e(:,i-1);    
@@ -151,4 +152,4 @@ else
    end
 end
 fclose(fileID);
-exit;        
+end        

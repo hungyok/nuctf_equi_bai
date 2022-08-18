@@ -1,10 +1,10 @@
 %clear;
 function [Emtf,k]=tf_binding_pot(path1,path2)
 %scan motifs and calculate binding energy
-    TFdata=importdata('\nuctf_equi_bai\tf_energy_all\wmsbai_data_all.txt');
-    TFlist=importdata('\nuctf_equi_bai\tf_energy_all\listbai_all.txt');
-    %path1='D:\Cell_protocol\tf_energy_all\sgd_genome';
-    %path2='D:\Cell_protocol\tf_energy_all\Etf_allmat_chr\';
+    TFdata=importdata('/nuctf_equi_bai/tf_energy_all/wmsbai_data_all.txt');
+    TFlist=importdata('/nuctf_equi_bai/tf_energy_all/listbai_all.txt');
+    %path1='/nuctf_equi_bai/tf_energy_all/sgd_genome';
+    %path2='/nuctf_equi_bai/tf_energy_all/Etf_allmat_chr\';
     Etf1=cell(1,16);
 for k=1:16
     fname = sprintf('sgd_chr%d.fa',k);

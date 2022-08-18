@@ -1,19 +1,20 @@
 %clear;  
 function [Y]=occupx(TF,Eseq,xfit)
-load D:\Cell_protocol\nuc_energy\E_Em.mat; % Nuc energy
-load D:\Cell_protocol\tf_energy_all\Etf_allmat_chr\Emtfall.mat; % mean TF energy
+path1='/nuctf_equi_bai/ndr_call/';
+path2='/nuctf_equi_bai/tf_energy_all/Etf_allmat_chr/';
+fpath= strcat(path2,'Emtfall.mat');
+load(fpath); % mean TF energy
+load /nuctf_equi_bai/nuc_energy/E_Em.mat; % Nuc energy
 tfn=30;
-TFlist=importdata('D:\Cell_protocol\tf_energy_all\listbai_all.txt'); % list of 104 TF names and sizes
+TFlist=importdata('/nuctf_equi_bai/tf_energy_all/listbai_all.txt'); % list of 104 TF names and sizes
 TF_list1=TFlist.data; clear TFlist;
-load D:\Cell_protocol\tf_energy_all\tfindx.txt; % tfindx is a set (size 104) of ranked (or rearranged) TF index of listbai_all.txt. You can change to any set of TFs
+load /nuctf_equi_bai/tf_energy_all/tfindx.txt; % tfindx is a set (size 104) of ranked (or rearranged) TF indices of listbai_all.txt. You can change to any set of TFs
 TF_list=TF_list1(tfindx(1:tfn),1); % tfn=5, means considering only top 5 TFs.
-
 l=147; dLb=2000; L=5*dLb;    
-pathx = 'D:\Cell_protocol\tf_energy_all\Etf_allmat_chr\';
-Ei=-7; CHR=16; Etfmul=cell(1,CHR); % CHR no. chromosome
+Ei=-7; CHR=16; Etfmul=cell(1,CHR); % CHR no. of chromosomes
 for chr=1:CHR
-    fname = sprintf('Etf_chr%d.mat',chr);
-    fpath= strcat(pathx,fname);
+    fname = sprintf('Etf_chr%d.mat',chr); % TF energy
+    fpath= strcat(path2,fname);
     load(fpath);
     Etfmul{1,chr}=Etf(:,tfindx(1:tfn));
 end                      
@@ -25,8 +26,7 @@ end
    E1=zeros(dLb,1)+Em; clear a;
 
    CN=xfit(1,1); gamaN=xfit(2,1);   
-   C=xfit(3:(3+tfn-1),1); gama=xfit((3+tfn):((tfn+1)*2),1);
-   
+   C=xfit(3:(3+tfn-1),1); gama=xfit((3+tfn):((tfn+1)*2),1);   
    % Eseq=1 if sequence effect present, otherwise Eseq=0; TF=1 if TF present, otherwise TF=0;  
    if TF<1
       C=zeros(length(xfit(3:(3+tfn-1),1)),1);
@@ -172,7 +172,8 @@ for chr=1:CHR
     fprintf('chr %d \n',chr); 
 end 
 toc;
-load D:\Cell_protocol\ndr_call\yy3A_lee.mat;
+fpath= strcat(path1,'yy3A_lee.mat');
+load(fpath);
 ONLx=cell(CHR,1); occup_nuc=cell(CHR,1);
 for chr=1:CHR
     occup_nuc{chr,1}=Y{chr,1}(:,1); ONLx{chr,1}=occup_nuc{chr,1}(x1_lee{chr,1}(100:end-100));
@@ -185,7 +186,8 @@ end
 avg_occ=mean(Om);
 Oer=ONL-yL;
 sigma=sqrt((Oer'*Oer)/length(Oer));
-load D:\Cell_protocol\ndr_call\ndrpos_chrA.mat;
+fpath= strcat(path1,'ndrpos_chrA.mat');
+load(fpath);
 ndrcnt=0; NDRcut=0.6643; sumNDRx=0;
 for chr=1:CHR
     for j=1:length(ndr_chr{chr,1})
@@ -278,4 +280,3 @@ for i=2:length(cut_off)
 end
 fprintf('ndrcnt...%d...sumNDRx...%d...avg_occ...%.6f...sigma...%.6f...Pndr...%.6f...Auc...%.6f \n',ndrcnt,sumNDRx,avg_occ,sigma,Pndr,Auc);
 end
-%save D:\Cell_protocol\NucTF\occup_profile\example2\Y_bad.mat Y -v7.3;

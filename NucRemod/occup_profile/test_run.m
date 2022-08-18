@@ -1,6 +1,7 @@
+% a test run on how to load and run the code occupR.m
 clear;
-load D:\Cell_protocol\NucRemod\simplexM_remod\output2\ismplx1\simplex_xval.txt;
+load /nuctf_equi_bai/NucRemod/simplexM_remod/output2/simplex_xval.txt;
 remod=simplex_xval(:,1); 
-load D:\Cell_protocol\NucTF\simplexM_tf30\output2\simplex_xval.txt;
+load /nuctf_equi_bai/NucTF/simplexM_tf30/output2/simplex_xval.txt;
 xfit=simplex_xval(:,1); 
 Y=occupR(remod,xfit);

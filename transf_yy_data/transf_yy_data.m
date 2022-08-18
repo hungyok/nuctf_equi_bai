@@ -41,5 +41,5 @@ y2=zeros(length(y1),1);
  [x,I]=max(para(:,2));
  c=para(I,1); g=para(I,2);
 end
- %save D:\Cell_protocol\transf_yy_data\para_cg.txt cg -ascii;
+ %save /nuctf_equi_bai/transf_yy_data/para_cg.txt cg -ascii;
     
