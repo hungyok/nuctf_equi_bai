@@ -16,7 +16,7 @@ fnx = fullfile(strcat(path1,folder),'NDR_8.mat'); load(fnx); NDR_G=NDR_X;
 fa=1; yytr=zeros(1,1); yyblu=zeros(1,1); SD=0.0678; ndrcnt=0; %fa=0.55;
 AA=zeros(9,1); dxA_cf=100; dx_cf=50; dxkiA1_cf=125; dxkiB_cf=3*dxkiA1_cf; dxna_cf=110; ndra=0; ndrb=1025;
 % fa=1 means occupancy at NDR is seto zero.
-% dxA_cf is the slope cutoff which is the distance between cut-points at NDR_80 and at the lowest occupancy on the same side;
+% dxA_cf is the slope cutoff which is the distance between cut-points at NDR_80 (NDR_A) and at the lowest occupancy on the same side;
 % dx_cf is the smallest NDR size cutoff below which is not an NDR; 
 % dxkiA1_cf is the kink size (extreme ends of multiple kinks) at NDR_A1; dxkiB_cf is the kink size (extreme ends of multiple kinks) at NDR_B;
 % dxna_cf is the distance between cut-points at NDR_A1; ndrb is the max NDR size;
