@@ -28,7 +28,7 @@ The sequence-dependent binding energy for nucleosome is obtained using the softw
 > make install
 > perl nucleosome_prediction.pl -raw_binding -t example -s input.fa -p raw_output -tab
 ```
-Where input.fa is the DNA sequence in fasta format. One sequence per file, e.g., chr1.fa has sequence for chromosome 1 only. To be consistent with our codes, we suggest all the sequences be in caps. The raw_output.tab is the output energy (log-score) file in tab format (can easily be open by any text editor like "notepad"). 
+Where input.fa is the DNA sequence in fasta format. One sequence per file, e.g., chr1.fa has sequence for chromosome 1 only. To be consistent with our codes, we suggest all the sequences be in caps. The raw_output.tab is the output energy (log-score) file in tab format (can easily be open by any text editor like "notepad"). This energy is stored as E_Em.mat in the folder [nuc_energy](https://github.com/hungyok/nuctf_equi_bai/tree/main/nuc_energy). 
 ### TF energy
 The binding energy of a TF is obtained by scanning its PWM along the genomic sequences (both forward and reverse-complement strands) and converting into position-dependent energy. The maximum of the two possible energies at a position is the TF energy.
 
