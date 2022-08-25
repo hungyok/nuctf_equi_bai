@@ -115,7 +115,7 @@ load yourpath/tf_energy_all/tfindx.txt;
 	4. listbai_all.txt, a list of 104 TF names and motif sizes.
 	5. tfindx.txt, a sorted TF indices according to P_NDR  score of individual TF.
 	6. E_Em.mat, nucleosome energy located in a subfolder “nuc_energy” in folder “input”.
-	7. Emtfall.mat, TF energy located in a subfolder “tf_energy” in folder “input”.
+	7. Etf_chr1.mat to Etf_chr16.mat, and Emtfall.mat are the TF energy files located in the folder “tf_energy”.
 #### Output files: 
 	1. simplex_xval.txt stores sorted (c,γ).
 	2. simplex_fval.txt stores sorted RMSDs.
