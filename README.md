@@ -28,7 +28,7 @@ The sequence-dependent binding energy for nucleosome is obtained using the softw
 > make install
 > perl nucleosome_prediction.pl -raw_binding -t example -s input.fa -p raw_output -tab
 ```
-Where input.fa is the DNA sequence in fasta format. One sequence per file, e.g., chr1.fa has sequence for chromosome 1 only. To be consistent with our codes, we suggest all the sequences be in caps. The raw_output.tab is the output energy (log-score) file in tab format (can easily be open by any text editor like "notepad"). 
+Where input.fa is the DNA sequence in fasta format. One sequence per file, e.g., chr1.fa has sequence for chromosome 1 only. To be consistent with our codes, we suggest all the sequences be in caps. The raw_output.tab is the output energy (log-score) file in tab format (can easily be open by any text editor like "notepad"). This energy is stored as E_Em.mat in the folder [nuc_energy](https://github.com/hungyok/nuctf_equi_bai/tree/main/nuc_energy). 
 ### TF energy
 The binding energy of a TF is obtained by scanning its PWM along the genomic sequences (both forward and reverse-complement strands) and converting into position-dependent energy. The maximum of the two possible energies at a position is the TF energy.
 
@@ -41,7 +41,7 @@ The code “[tf_binding_pot.m](https://github.com/hungyok/nuctf_equi_bai/tree/ma
 The genomic sequence (e.g., sgd_chr1.fa for chromosome 1 and so on) from the folder “sgd_genome” is fed using the input parameter “path1”. The code then spews out TF energy profiles for all the chromosomes (Etf_chr1.mat to Etf_chr16.mat) and the average TF energies (Emtfall.mat), which are stored in the folder “Etf_allmat_chr” indicated by “path2”. Note that we have reported here only three energy files, Etf_chr1.mat to Etf_chr3.mat, due to large memory files! Each energy file (e.g., Etf_chr1.mat for chromosome 1) is a matrix file where it contains the binding energy for each TF at different chromosomal locations (see the sample data below for four TFs on a few locations on chr I).  The code, the subfolders, and the input/output files can be found in the folder [tf_energy_all](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all). 
 ```
 (Genomic             (TF)
-index)	       ABF1	 CBF1	  MCM1	  RAP1
+index)	       Abf1	 Cbf1	  Mcm1	  Rap1
 100000       -14.95	-24.07	-22.59	-17.99
 100001	      -22.04	-13.19	-21.58	-17.71
 100002       -21.29	-13.93	-22.54	-22.67
@@ -115,7 +115,7 @@ load yourpath/tf_energy_all/tfindx.txt;
 	4. listbai_all.txt, a list of 104 TF names and motif sizes.
 	5. tfindx.txt, a sorted TF indices according to P_NDR  score of individual TF.
 	6. E_Em.mat, nucleosome energy located in a subfolder “nuc_energy” in folder “input”.
-	7. Emtfall.mat, TF energy located in a subfolder “tf_energy” in folder “input”.
+	7. Etf_chr1.mat to Etf_chr16.mat, and Emtfall.mat are the TF energy files located in the folder “tf_energy_all”.
 #### Output files: 
 	1. simplex_xval.txt stores sorted (c,γ).
 	2. simplex_fval.txt stores sorted RMSDs.
@@ -128,9 +128,9 @@ The file simplex_xval.txt is a 62x63 matrix of c and γ. The first and second ro
 > xfit = simplex_xval (:,1); TF = 1; Eseq = 1;
 > [O] = occupx(TF, Eseq, xfit);
 ```
-The logical parameters “TF” and “Eseq” can take on the value of 0 or 1. For example, TF=1 means that TF information is considered in the model otherwise TF=0, and Eseq=1 means that nucleosome sequence-specific energy is considered and otherwise set Eseq=0. The output is an occupancy data, O.mat, comprising of 16x1 cell arrays (one for each chromosome), which includes the occupancies for nucleosome and each TF considered in the model. The code “occupx.m” is preloaded with nucleosome energy, TF energy, and TF index lists (listbai_all.txt and tfindx.txt). The output and a figure of an example of TF=0, and Eseq=0 or Eseq=1 can be found in the folder “[example1](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/occup_profile/example1)”. The output of a model example with TF=1 (top 30 TFs) and Eseq=1 can be found in the folder “[example2](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/occup_profile/example2)”.
+The logical parameters “TF” and “Eseq” can take on the value of 0 or 1. For example, TF=1 means that TF information is considered in the model otherwise TF=0, and Eseq=1 means that nucleosome sequence-specific energy is considered and otherwise set Eseq=0. The output is an occupancy data, O.mat, comprising of 16x1 cell arrays (one for each chromosome), which includes the occupancies for nucleosome and each TF considered in the model. The code “occupx.m” is preloaded with nucleosome energy, TF energy, and TF index lists (listbai_all.txt and tfindx.txt). The output and figure of two example cases when "TF=0, Eseq=0" and "TF=0, Eseq=1" can be found in the folders “[example1](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/occup_profile/example1)” and “[example2](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/occup_profile/example2)”, respectively. The output of a model example with TF=1 (top 30 TFs) and Eseq=1 can be found in the folder “[example3](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/occup_profile/example3)”.
 
-All the codes and input/output files and folders can be found in the folder [simplexM_tf30](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/simplexM_tf30). A toy example to run simplex_SA.m that considers a single TF (RSC3) and a single chromosome (chr 1) and executes in quick time can be found in [toy_example](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/toy_example).
+All the codes and input/output files and folders can be found in the folder [simplexM_tf30](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/simplexM_tf30). A toy example to run simplex_SA.m that considers a single TF (Rsc3) and a single chromosome (chr 1) and executes in quick time can be found in [toy_example](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/toy_example).
 
 ### NucRemod
 This version of the model considers both the effect from TF binding and nucleosome remodeling (NR). We assume that the action of NR is to deform the nucleosome energy landscape near the TF-bound sites in a TF occupancy-dependent manner. NR is present only when TF occupancy > tfcut (set tfcut=0.0022 computed as an genome-wide average of occupancy for all TFs in the model NucTF). We assume that an NR modifies the energy landscape as a Gaussian deformation with height “h” in kT/0.212 and width “w” in bp (free parameters). In the presence of multiple TFs adjacent to each other, we add up individual deformation energies. 
@@ -210,8 +210,8 @@ Open the folder [occup_profile](https://github.com/hungyok/nuctf_equi_bai/tree/m
 > xfit = simplex_xval(:,1); 
 > [O] = occupR(remod,xfit);
 ```
-The output file “O.mat” is a 16x1 cell. Here we report only nucleosome occupancy per cell and can be found in the folder “[occup_profile](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucRemod/occup_profile)”. The folder also contains a figure showing comparison between a model with TF only and a model with TF+remodeling, and a plotting script. All the codes and input/output files and folders can be found in the folder [simplexM_remod](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucRemod/simplexM_remod). A toy example to run simplex_SA.m with a single TF (RSC3) and for a single chromosome (chr 1) can be found in [toy_example](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucRemod/toy_example). 
+The output file “O.mat” is a 16x1 cell. Here we report only nucleosome occupancy per cell and can be found in the folder “[occup_profile](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucRemod/occup_profile)”. The folder also contains a figure showing comparison between a model with TF only and a model with TF+remodeling, and a plotting script. All the codes and input/output files and folders can be found in the folder [simplexM_remod](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucRemod/simplexM_remod). A toy example to run simplex_SA.m with a single TF (Rsc3) and for a single chromosome (chr 1) can be found in [toy_example](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucRemod/toy_example). 
 ## Output data
-The main output files from this exercise are the occupancy profiles of nucleosome and TF, and a list of annotated NDRs "[ndrpos_chrA.mat](https://github.com/hungyok/nuctf_equi_bai/tree/main/ndr_call)". The output files "O.mat" without remodeling effect (NucTF) can be found in the folders [example1](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/occup_profile/example1) and [example2](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/occup_profile/example2). The output file "O.mat" with remodeling effect (NucRemod) can be found in [occup_profile](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucRemod/occup_profile).
+The main output files from this exercise are the occupancy profiles of nucleosome and TF, and a list of annotated NDRs "[ndrpos_chrA.mat](https://github.com/hungyok/nuctf_equi_bai/tree/main/ndr_call)". The output files "O.mat" without remodeling effect (NucTF) can be found in the folders [example1](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/occup_profile/example1), [example2](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/occup_profile/example2), and [example3](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/occup_profile/example3). The output file "O.mat" with remodeling effect (NucRemod) can be found in [occup_profile](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucRemod/occup_profile).
 
  
