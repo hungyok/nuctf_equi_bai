@@ -1,8 +1,9 @@
-% To find TF binding positions
-function [xptfa]=tf_cluster(tfn,pos_octf)
-TFlist=importdata('/nuctf_equi_bai/tf_energy_all/listbai_all.txt'); % list of TF name and size 
+function [xptfa]=tf_cluster(tfn,pos_octf,path2)
+fnx1 =strcat(path2,'listbai_all.txt');
+TFlist=importdata(fnx1); % list of TF name and size 
 TF_list1=TFlist.data; clear TFlist;
-load /nuctf_equi_bai/tf_energy_all/tfindx.txt; % ranked listbai_all.txt indices: 1st or top (high NDR predictor) to 104th or bottom (low NDR predictor) TF
+fpath= strcat(path2,'tfindx.txt');
+load(fpath); % ranked listbai_all.txt indices
 TF_list=TF_list1(tfindx(1:tfn),1);
 CL1=cell(1,1); flgnn=0; rng('shuffle');
 for i=1:length(pos_octf{1,1})

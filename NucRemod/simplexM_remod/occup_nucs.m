@@ -1,15 +1,17 @@
-% Occupancy per chromosome
-function [occupx]=occup_nucs(xfit,E1,Em,chr1) 
-path1 = '/nuctf_equi_bai/tf_energy_all/Etf_allmat_chr/';
-fpath= strcat(path1,'Emtfall.mat');
-load(fpath); % mean TF energy
-TFlist=importdata('/nuctf_equi_bai/tf_energy_all/listbai_all.txt'); % list of TF name and size 
+% occupancy
+function [occupx]=occup_nucs(xfit,E1,Em,chr1,path2) 
+foldername2='Etf_allmat_chr';
+fnx1 = fullfile(strcat(path2,foldername2),'Emtfall.mat');
+load(fnx1); % mean TF energy
+fnx1 =strcat(path2,'listbai_all.txt');
+TFlist=importdata(fnx1); % list of TF name and size 
 TF_list1=TFlist.data; clear TFlist;
-load /nuctf_equi_bai/tf_energy_all/tfindx.txt; % ranked listbai_all.txt indices: 1st or top (high NDR predictor) to 104th or bottom (low NDR predictor) TF.
+fpath= strcat(path2,'tfindx.txt');
+load(fpath); % ranked listbai_all.txt indices: 1st or top (high NDR predictor) to 104th or bottom (low NDR predictor) TF
 l=147; dLb=2000; L=5*dLb;    
 tfn=floor(length(xfit)/2)-1; E=E1;
 fname = sprintf('Etf_chr%d.mat',chr1);
-fpath= strcat(path1,fname);
+fpath=fullfile(strcat(path2,foldername2),fname);
 load(fpath);
 Etfmul=Etf(:,tfindx(1:tfn));                   
 TF_list=TF_list1(tfindx(1:tfn),1);
@@ -107,9 +109,9 @@ while i1<=(pLm-1)
       elseif (Zf(L)/nor)<1e-300
          nor=nor/1e10; i1=-1; fprintf('zero...\n');
       end       
-      i1=i1+1; clear Pn Pni Es Estf; 
+      i1=i1+1; %clear Pn Pni Es Estf; 
 end
-clear EN ETF; O=zeros(Lgnome,1); ks=l;
+O=zeros(Lgnome,1); ks=l; % clear EN ETF;
 for i=1:Lgnome %ks=l nucleosome
     if i<ks
        O(i)=sum(Png(1:i));
@@ -120,5 +122,5 @@ for i=1:Lgnome %ks=l nucleosome
     end
 end
 ON=nor*O;  
-occupx=ON;
+occupx=ON; %fprintf('chr1...%d\n',chr1);
 end

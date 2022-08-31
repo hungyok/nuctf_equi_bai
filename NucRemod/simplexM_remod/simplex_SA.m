@@ -1,13 +1,11 @@
-% Optimization
-function simplex_SA
-foldername1='simplexM_remod';
-foldername2='output';
-path1='/nuctf_equi_bai/NucRemod/'; 
-fnx = fullfile(strcat(path1,foldername1),foldername2,'simplex_xval.txt');
-fnxbak = fullfile(strcat(path1,foldername1),foldername2,'simplex_xvalbak.txt'); % backup file
-fnf = fullfile(strcat(path1,foldername1),foldername2,'simplex_fval.txt');
-fnt = fullfile(strcat(path1,foldername1),foldername2,'simplex_tval.txt');
-fnT = fullfile(strcat(path1,foldername1),foldername2,'simplex_Temp.txt');
+%Optimization
+function simplex_SA(path1,path2,path3,path4)
+foldername1='simplexM_remod'; foldername2='output'; foldername3='simplexM_top30'; foldername4='output2';
+fnx = fullfile(strcat(path4,foldername1),foldername2,'simplex_xval.txt');
+fnxbak = fullfile(strcat(path4,foldername1),foldername2,'simplex_xvalbak.txt');
+fnf = fullfile(strcat(path4,foldername1),foldername2,'simplex_fval.txt');
+fnt = fullfile(strcat(path4,foldername1),foldername2,'simplex_tval.txt');
+fnT = fullfile(strcat(path4,foldername1),foldername2,'simplex_Temp.txt');
 fileID = fopen(fnT,'w'); 
 n=4; Tmin=0.00001; alfa=0.8; err=0.000001; contd=0; % 1 for continuation!
 x=zeros(n,n+1); xr=zeros(n,n+1); xnew=zeros(n,n+1); Fsig=zeros(n+1,1); Fsigxr=zeros(n+1,1); rng('shuffle'); 
@@ -16,7 +14,8 @@ if contd>0
    load(fnx);
    xh=simplex_xval(:,1);   
 else
-   load /nuctf_equi_bai/NucTF/simplexM_tf30/output2/simplex_xval.txt; 
+   fnx1 = fullfile(strcat(path3,foldername3),foldername4,'simplex_xval.txt');
+   load(fnx1);
    xx=simplex_xval(:,1);
    xh=zeros(4,1);
    xh(1,1)=xx(1,1); xh(2,1)=xx(2,1); xh(3,1)=1; xh(4,1)=40;
@@ -41,7 +40,7 @@ for i=2:(n+1)
 end 
 xi=x;
 for i=1:(n+1) 
-    Fsig(i,1)=occupR(xi(:,i)); fprintf('print i....%d \n',i); 
+    Fsig(i,1)=occupR(xi(:,i),path1,path2,path3,path4); fprintf('print i....%d \n',i); 
 end
 [Fi,Fsig]=sortf(Fsig,n);
 for i=1:n+1
@@ -82,7 +81,7 @@ else
                         ro=0.9+rand*(1.1-0.9); 
                         xr(:,ki)=x0+ro*(x0-x(:,ki)); %disp(xi); s=size(xi); disp(s); printf('value ki %d ....x(1,15) %f \n',ki,xi(1,15));          
                         xi=xr(:,ki);
-                        Fsigxr(ki,1)=occupR(xi);
+                        Fsigxr(ki,1)=occupR(xi,path1,path2,path3,path4);
                     end
                     fm=min(Fsigxr((n-k+2):(n+1),1));
                     if fm<Fsig(1,1)
@@ -115,7 +114,7 @@ else
                     end
                     xi=x(:,2:n+1);
                     for i=2:n+1  
-                        Fsig(i,1)=occupR(xi(:,i-1));
+                        Fsig(i,1)=occupR(xi(:,i-1),path1,path2,path3,path4);
                     end
                     [Fi,Fsig]=sortf(Fsig,n); flgx1=0; fprintf('shrink.... \n');
                     for i=1:n+1
