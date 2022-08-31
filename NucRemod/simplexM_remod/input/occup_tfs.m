@@ -1,24 +1,25 @@
- % To find TF occupancy and position at occupancy tfcut=0.0022 
- load /nuctf_equi_bai/nuc_energy/E_Em.mat;
- load /nuctf_equi_bai/tf_energy_all/Etf_allmat_chr/Emtfall.mat;
- load /nuctf_equi_bai/tf_energy_all/tfindx.txt;
- TFlist=importdata('/nuctf_equi_bai/tf_energy_all/listbai_all.txt');
+ function [pos_octf]=occup_tfs(xfit,tfx,tfcutx,path1,path2)
+ foldername2='Etf_allmat_chr'; 
+ fpath= strcat(path1,'E_Em.mat');
+ load(fpath);
+ fnx1 = fullfile(strcat(path2,foldername2),'Emtfall.mat');
+ load(fnx1); % mean TF energy
+ fnx1 =strcat(path2,'listbai_all.txt');
+ TFlist=importdata(fnx1); % list of TF name and size 
  TF_list1=TFlist.data; clear TFlist;
  l=147; dLb=2000; L=5*dLb; 
- path1 = '/nuctf_equi_bai/tf_energy_all/Etf_allmat_chr/';
- load /nuctf_equi_bai/NucRemod/simplexM_remod/input/pos_octf/avgxval_top30.txt; 
  % avgxval_top30.txt is an average set of parameters (c,gama) from five independent "simplex_SA.m" runs 
- % using five different sets of 70% genome found in "rand_genomeB.mat" 
- xfit=avgxval_top30; tfn=floor(length(xfit)/2)-1; tfcut=zeros(tfn,1); tfcut(:,1)=0.0022;
+ % using five different sets of 70% genome found in "rand_genome.mat" 
+ tfn=floor(length(xfit)/2)-1; tfcut=zeros(tfn,1); tfcut(:,1)=tfcutx;
  Etfmul=cell(1,16); Pngtf=cell(tfn,1); pos_octf=cell(16,3);
 for k =1:16
     filename = sprintf('Etf_chr%d.mat',k);
-    fpath= strcat(path1,filename);
+    fpath=fullfile(strcat(path2,foldername2),filename);
     load(fpath);
-    Etfmul{1,k}=Etf(:,tfindx(1:tfn));
+    Etfmul{1,k}=Etf(:,tfx);
 end                   
-   TF_list=TF_list1(tfindx(1:tfn),1);
-   a=Emtf(tfindx(1:tfn),1)';
+   TF_list=TF_list1(tfx,1);
+   a=Emtf(tfx,1)';
    E2=a;
    for i=1:(dLb-1)
        E2=cat(1,E2,a);
@@ -173,4 +174,5 @@ for chr=1:16
     pos_octf{chr,3}=pos_tf2(2:end,:);
 end 
 toc;
-save /nuctf_equi_bai/NucRemod/simplexM_remod/input/pos_octf/pos_octf.mat pos_octf -v7.3;
+end
+%save yourpath\input\pos_octf.mat pos_octf -v7.3;
