@@ -57,7 +57,8 @@ To call and locate nucleosome-depleted-region (NDR) we require two steps:
 ```
 **ndr_pos_cal2.m**: Using “yy1_lee.mat, NDR_1.mat, NDR_2.mat, …, NDR_8.mat” as input (directly loaded into the program), this program generates the final NDR positions (ndrpos_chrA.mat) and the modified nucleosome occupancy map (yy3A.mat). ndrpos_chrA.mat records the start and end index of each NDR on all 16 chromosomes, and yy3A.mat has the same format as yy1_lee.mat.
 ```
-> [yy3A, ndrpos_chrA] = ndr_pos_cal2;
+> path1 ='yourpath/ndr_call/dataFolder/';
+> [yy3A, ndrpos_chrA] = ndr_pos_cal2(path1);
 ```
 These codes and the input/output data can be found in the folder [ndr_call](https://github.com/hungyok/nuctf_equi_bai/tree/main/ndr_call).
 ## SEM and optimization
