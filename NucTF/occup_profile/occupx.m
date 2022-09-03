@@ -1,24 +1,24 @@
 %clear;  
-function [Y]=occupx(TF,Eseq,xfit)
-path1='/nuctf_equi_bai/ndr_call/';
-path2='/nuctf_equi_bai/tf_energy_all/Etf_allmat_chr/';
-fpath= strcat(path2,'Emtfall.mat');
-load(fpath); % mean TF energy
-load /nuctf_equi_bai/nuc_energy/E_Em.mat; % Nuc energy
-tfn=30;
-TFlist=importdata('/nuctf_equi_bai/tf_energy_all/listbai_all.txt'); % list of 104 TF names and sizes
+function [Y]=occupx(TF,Eseq,xfit,tfx,path1,path2,path3)
+foldername1='Etf_allmat_chr';
+fpath= strcat(path1,'E_Em.mat');
+load(fpath);
+fpath=fullfile(strcat(path2,foldername1),'Emtfall.mat');
+load(fpath);
+tfn=length(tfx);
+fnx1 =strcat(path2,'listbai_all.txt');
+TFlist=importdata(fnx1);
 TF_list1=TFlist.data; clear TFlist;
-load /nuctf_equi_bai/tf_energy_all/tfindx.txt; % tfindx is a set (size 104) of ranked (or rearranged) TF indices of listbai_all.txt. You can change to any set of TFs
-TF_list=TF_list1(tfindx(1:tfn),1); % tfn=5, means considering only top 5 TFs.
+TF_list=TF_list1(tfx,1); 
 l=147; dLb=2000; L=5*dLb;    
 Ei=-7; CHR=16; Etfmul=cell(1,CHR); % CHR no. of chromosomes
 for chr=1:CHR
-    fname = sprintf('Etf_chr%d.mat',chr); % TF energy
-    fpath= strcat(path2,fname);
+    filename = sprintf('Etf_chr%d.mat',chr);
+    fpath=fullfile(strcat(path2,foldername1),filename);
     load(fpath);
-    Etfmul{1,chr}=Etf(:,tfindx(1:tfn));
+    Etfmul{1,chr}=Etf(:,tfx);
 end                      
-   a=Emtf(tfindx(1:tfn),1)';
+   a=Emtf(tfx,1)';
    E2=a;
    for i=1:(dLb-1)
        E2=cat(1,E2,a);
@@ -172,7 +172,7 @@ for chr=1:CHR
     fprintf('chr %d \n',chr); 
 end 
 toc;
-fpath= strcat(path1,'yy3A_lee.mat');
+fpath= strcat(path3,'yy3A_lee.mat');
 load(fpath);
 ONLx=cell(CHR,1); occup_nuc=cell(CHR,1);
 for chr=1:CHR
@@ -186,7 +186,7 @@ end
 avg_occ=mean(Om);
 Oer=ONL-yL;
 sigma=sqrt((Oer'*Oer)/length(Oer));
-fpath= strcat(path1,'ndrpos_chrA.mat');
+fpath= strcat(path3,'ndrpos_chrA.mat');
 load(fpath);
 ndrcnt=0; NDRcut=0.6643; sumNDRx=0;
 for chr=1:CHR
