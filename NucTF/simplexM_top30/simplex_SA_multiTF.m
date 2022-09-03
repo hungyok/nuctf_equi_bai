@@ -1,26 +1,24 @@
 % Optimization
-function simplex_SA(path1,path2,path3)
-foldername1='simplexM_top30'; foldername2='Etf_allmat_chr'; foldername3='input'; foldername4='output'; foldername5='initialp';
-fnx = fullfile(strcat(path3,foldername1),foldername4,'simplex_xval.txt');
-fnxbak = fullfile(strcat(path3,foldername1),foldername4,'simplex_xvalbak.txt');
-fnf = fullfile(strcat(path3,foldername1),foldername4,'simplex_fval.txt');
-fnt = fullfile(strcat(path3,foldername1),foldername4,'simplex_tval.txt');
-fnT = fullfile(strcat(path3,foldername1),foldername4,'simplex_Temp.txt');
+function simplex_SA_multiTF(tfx,path1,path2,path3)
+foldername1='Etf_allmat_chr'; foldername2='input'; foldername3='output'; foldername4='initialp';
+fnx = fullfile(strcat(path3,foldername3),'simplex_xval.txt');
+fnxbak = fullfile(strcat(path3,foldername3),'simplex_xvalbak.txt');
+fnf = fullfile(strcat(path3,foldername3),'simplex_fval.txt');
+fnt = fullfile(strcat(path3,foldername3),'simplex_tval.txt');
+fnT = fullfile(strcat(path3,foldername3),'simplex_Temp.txt');
 fileID = fopen(fnT,'w'); 
 fpath= strcat(path1,'E_Em.mat');
 load(fpath);
-fpath= strcat(path2,'tfindx.txt');
+fpath=fullfile(strcat(path2,foldername1),'Emtfall.mat');
 load(fpath);
-fpath=fullfile(strcat(path2,foldername2),'Emtfall.mat');
-load(fpath);
-Etfmul=cell(1,16); tfn=30; contd=0; % if contd=1 rerun with last output.
+Etfmul=cell(1,16); tfn=length(tfx); contd=0; % if contd=1 rerun with last output.
 for k =1:16
     filename = sprintf('Etf_chr%d.mat',k);
-    fpath=fullfile(strcat(path2,foldername2),filename);
+    fpath=fullfile(strcat(path2,foldername1),filename);
     load(fpath);
-    Etfmul{1,k}=Etf(:,tfindx(1:tfn));
+    Etfmul{1,k}=Etf(:,tfx);
 end
-n=(tfn+1)*2; Tmin=0.00001; alfa=0.9; err=0.000001; clear tfindx Etf;
+n=(tfn+1)*2; Tmin=0.00001; alfa=0.9; err=0.000001; clear Etf;
 x=zeros(n,n+1); xr=zeros(n,n+1); xnew=zeros(n,n+1); Fsig=zeros(n+1,1); Fsigxr=zeros(n+1,1); rng('shuffle'); 
 h=zeros(1,n); e=eye(n);
 if contd>0
@@ -38,7 +36,7 @@ if contd>0
        x(:,i)=x(:,1)+h(i-1)*e(:,i-1);    
    end  
 else
-   fnx1 = fullfile(strcat(path3,foldername1),foldername3,foldername5,'top30_xhIIa.mat');
+   fnx1 = fullfile(strcat(path3,foldername2),foldername4,'top30_xhIIa.mat');
    load(fnx1);
    x(1:n,1)=xh(1,1:n); h(1:n)=xh(1,(n+1):2*n);
    for i=2:(n+1)
@@ -47,7 +45,7 @@ else
 end
 xi=x;
 for i=1:(n+1) 
-    Fsig(i,1)=optimbfunc_ver3a(xi(:,i),E,Em,Etfmul,Emtf,path2,path3); fprintf('print i....%d \n',i); 
+    Fsig(i,1)=occupxfunc(xi(:,i),tfx,E,Em,Etfmul,Emtf,path2,path3); fprintf('print i....%d \n',i); 
 end
 [Fi,Fsig]=sortf(Fsig,n);
 for i=1:n+1
@@ -87,7 +85,7 @@ else
                         ro=0.9+rand*(1.1-0.9); 
                         xr(:,ki)=x0+ro*(x0-x(:,ki)); %disp(xi);          
                         xi=xr(:,ki);
-                        Fsigxr(ki,1)=optimbfunc_ver3a(xi,E,Em,Etfmul,Emtf,path2,path3);
+                        Fsigxr(ki,1)=occupxfunc(xi,tfx,E,Em,Etfmul,Emtf,path2,path3);
                     end
                     fm=min(Fsigxr((n-k+2):(n+1),1));
                     if fm<Fsig(1,1)
@@ -120,7 +118,7 @@ else
                     end
                     xi=x(:,2:n+1);
                     for i=2:n+1  
-                        Fsig(i,1)=optimbfunc_ver3a(xi(:,i-1),E,Em,Etfmul,Emtf,path2,path3);
+                        Fsig(i,1)=occupxfunc(xi(:,i-1),tfx,E,Em,Etfmul,Emtf,path2,path3);
                     end
                     [Fi,Fsig]=sortf(Fsig,n); flgx1=0; fprintf('shrink.... \n');
                     for i=1:n+1

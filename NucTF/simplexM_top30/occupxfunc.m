@@ -1,16 +1,14 @@
  %Occupancy  
- function [sigma]=optimbfunc_ver3a(xi,E,Em,Etfmul,Emtf,path2,path3)
- foldername1='simplexM_top30'; foldername3='input';
- fnx1 = fullfile(strcat(path3,foldername1),foldername3,'yy3A_lee.mat');
+ function [sigma]=occupxfunc(xi,tfx,E,Em,Etfmul,Emtf,path2,path3)
+ foldername2='input';
+ fnx1 = fullfile(strcat(path3,foldername2),'yy3A_lee.mat');
  load(fnx1);
- fnx1 = fullfile(strcat(path3,foldername1),foldername3,'rand_genome.mat');
+ fnx1 = fullfile(strcat(path3,foldername2),'rand_genome.mat');
  load(fnx1);
- tfn=30; fnx1 =strcat(path2,'listbai_all.txt');
+ tfn=length(tfx); fnx1 =strcat(path2,'listbai_all.txt');
  TFlist=importdata(fnx1);
  TF_list1=TFlist.data; clear TFlist;
- fpath= strcat(path2,'tfindx.txt');
- load(fpath);
- TF_list=TF_list1(tfindx(1:tfn),1); 
+ TF_list=TF_list1(tfx,1); 
  l=147; dLb=3500; dLx=750; L=3*dLb+2*dLx; 
  invld=0; 
  if xi(1,1)>10 || xi(1,1)<0
@@ -32,7 +30,7 @@
  if invld==1
     sigma=5;
  else
-    a=Emtf(tfindx(1:tfn),1)';
+    a=Emtf(tfx,1)';
     E2=a;
     for i=1:(dLb-1)
         E2=cat(1,E2,a);
