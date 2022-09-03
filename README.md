@@ -34,8 +34,8 @@ The binding energy of a TF is obtained by scanning its PWM along the genomic seq
 
 The code “[tf_binding_pot.m](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all)” uses the genome sequence, wmsbai_data_all.txt, and listbai_all.txt to obtain the energy profiles. Run the commands below to get all the 104 TF energies:
 ```
-> path1 = '/tf_energy_all/sgd_genome/'; % enter full path
-> path2 = '/tf_energy_all/Etf_allmat_chr/'; % enter full path
+> path1 = 'yourpath/tf_energy_all/sgd_genome/'; % enter full path
+> path2 = 'yourpath/tf_energy_all/Etf_allmat_chr/'; % enter full path
 > [Emtf,k] = tf_binding_pot(path1,path2);
 ```
 The genomic sequence (e.g., sgd_chr1.fa for chromosome 1 and so on) from the folder “sgd_genome” is fed using the input parameter “path1”. The code then spews out TF energy profiles for all the chromosomes (Etf_chr1.mat to Etf_chr16.mat) and the average TF energies (Emtfall.mat), which are stored in the folder “Etf_allmat_chr” indicated by “path2”. Note that we have reported here only three energy files, Etf_chr1.mat to Etf_chr3.mat, due to large memory files! Each energy file (e.g., Etf_chr1.mat for chromosome 1) is a matrix file where it contains the binding energy for each TF at different chromosomal locations (see the sample data below for four TFs on a few locations on chr I).  The code, the subfolders, and the input/output files can be found in the folder [tf_energy_all](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all). 
