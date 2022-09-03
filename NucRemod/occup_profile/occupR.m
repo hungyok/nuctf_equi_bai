@@ -1,14 +1,16 @@
-% Remodeling, avg_occ, sigma, Pndr, Auc
-function [Y]=occupR(remod,xfit)
-load /nuctf_equi_bai/nuc_energy/E_Em.mat;
-tfnx=floor(length(xfit)/2)-1;
+%occupancy, remodeling, avg_occ, sigma, Pndr, Auc
+function [Y]=occupR(remod,xfit,tfx,path1,path2,path3,path4)
+foldername1='input';
+fpath= strcat(path1,'E_Em.mat');
+load(fpath);
+tfn=length(tfx);
 xfit(1)=remod(1); xfit(2)=remod(2);
-
-TFlist=importdata('/nuctf_equi_bai/tf_energy_all/listbai_all.txt'); % list of TF name and size 
+fnx1 =strcat(path2,'listbai_all.txt');
+TFlist=importdata(fnx1); % list of TF name and size 
 TF_list1=TFlist.data; clear TFlist;
-load /nuctf_equi_bai/tf_energy_all/tfindx.txt; % ranked listbai_all.txt indices: 1st or top (high NDR predictor) to 104th or bottom (low NDR predictor) TF.
-TF_list=TF_list1(tfindx(1:tfnx),1);
-load /nuctf_equi_bai/NucRemod/simplexM_remod/input/pos_octf/pos_octf.mat;
+TF_list=TF_list1(tfx,1);
+fnx1 = fullfile(strcat(path3,foldername1),'pos_octf.mat');
+load(fnx1);
 pos_octf1=pos_octf;
 pos_octf=cell(1,3);
 nx=100; ht=remod(3)/0.212; sig=remod(4); A=ht; B=1/(2*sig^2); CHR=16; occup_nuc=cell(CHR,1);
@@ -43,7 +45,7 @@ for ix=1:nx % # realization
             Esum=Esum+y;
         end
         E1=E1-Esum;
-        occup_nuc{chr,1}=occup_nucs(xfit,E1,Em,chr);
+        occup_nuc{chr,1}=occup_nucs(xfit,tfx,E1,Em,chr,path2);
     end
     if ix<2
        occup_nuc0=occup_nuc;  
@@ -54,7 +56,8 @@ for ix=1:nx % # realization
     end
     fprintf('ix...%d \n',ix); toc;
 end
-load /nuctf_equi_bai/ndr_call/yy3A_lee.mat;
+fpath= strcat(path4,'yy3A_lee.mat'); 
+load(fpath);
 ONLx=cell(CHR,1);
 for chr=1:CHR
     occup_nuc{chr,1}=occup_nuc0{chr,1}*(1/nx); ONLx{chr,1}=occup_nuc{chr,1}(x1_lee{chr,1}(100:end-100));
@@ -67,7 +70,8 @@ end
 avg_occ=mean(Om);
 Oer=ONL-yL;
 sigma=sqrt((Oer'*Oer)/length(Oer));
-load /nuctf_equi_bai/ndr_call/ndrpos_chrA.mat;
+fpath= strcat(path4,'ndrpos_chrA.mat');
+load(fpath);
 ndrcnt=0; NDRcut=0.6643; sumNDRx=0;
 for chr=1:CHR
     for j=1:length(ndr_chr{chr,1})
@@ -158,8 +162,7 @@ Auc=0;
 for i=2:length(cut_off)
     Auc=((TPR(i,1)+TPR(i-1,1))/2)*abs(FPR(i,1)-FPR(i-1,1))+Auc;
 end
-fprintf('ndrcnt...%d...sumNDRx...%d...avg_occ...%.6f...sigma...%.6f...Pndr...%.6f...Auc...%.6f \n',ndrcnt,sumNDRx,avg_occ,sigma,Pndr,Auc); 
-% important quality parameters: mean occupancy(avg_occ), sigma(RMSD), Pndr(NDR count), Auc(ROC area-under-curve).
+fprintf('ndrcnt...%d...sumNDRx...%d...avg_occ...%.6f...sigma...%.6f...Pndr...%.6f...Auc...%.6f \n',ndrcnt,sumNDRx,avg_occ,sigma,Pndr,Auc);
 Y=occup_nuc;
-%save /nuctf_equi_bai/NucRemod/occup_profile/Y.mat Y -v7.3;
+%save yourpath\NucRemod\occup_profile\Y.mat Y -v7.3;
 end
