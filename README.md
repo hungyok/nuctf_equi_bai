@@ -65,7 +65,38 @@ These codes and the input/output data can be found in the folder [ndr_call](http
 The SEM partition function is full of this type of term: p<sub>i</sub>=c<sub>t/N</sub>e<sup>-γ<sub>t/N</sub>E<sup>i</sup><sub>t/N</sub></sup> where p<sub>i</sub> is an individual particle (nucleosome, N, or TF, t) Boltzmann weight. We use a modified Nelder-Mead simplex algorithm with Simulated Annealing to optimize the scaling factors c<sub>t/N</sub> and γ<sub>t/N</sub> by calculating the the root-square-mean deviation (RMSD) of nucleosome occupancy between the expiremental data (yy3A_lee.mat) and our model.
 
 ### NucTF
-To evaluate individual TF contribution to NDRs, we first optimize (c,γ) for an individual TF when only the concerned TF is present in the model. We use the same procedure of optimization as for the multiple-TF model which will be described below. After optimization, we rank the 104 TFs based on their contribution to the NDR prediction and save the ranking in a file called “[tfindx.txt](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all)”. Below, we describe a model where we incorporated the top 30 TFs. Accordingly, we have in total of 62 unknown parameters (31 pairs of (c,γ)'s), of which 60 is for TFs and two for nucleosome.
+To evaluate individual TF contribution to NDRs, we first optimize (c,γ) for an individual TF when only the concerned TF is present in the model. We use a modified Nelder-Mead simplex algorithm with Simulated Annealing to optimize these parameters.
+
+#### Open the folder “[simplexM_tf1](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/simplexM_tf1)” to find:
+        1. Input and output files that are saved in folder “input” and “output” respectively.
+        2. A log file “log.txt” to record the optimization process.
+        3. simplex_SA_singleTF.m, the main simplex engine that executes the parameter optimization.
+        4. occupxfunc.m, a sub-function that computes nucleosome occupancy and RMSD.
+        5. sortf.m, a sub-function that sorts RMSDs
+#### Edit directory paths:
+```
+> path1 ='yourpath/nuc_energy/'; 
+> path2 = 'yourpath/tf_energy_all/';    
+> path3 ='yourpath/NucTF/simplexM_tf1/'
+ ```
+#### Run the optimization code:
+```
+> simplex_SA_singleTF(tfx,path1,path2,path3);
+```
+#### Input parameters:
+	1. The “tfx” is the interest of TF index listed in “lisbai_all.txt”. It is any number from 1 to 104.  
+	2. The path1 loads nucleosome energy “E_Em.mat” located in the folder “nuc_energy”.
+	3. The path2 loads TF energy files Etf_chr1.mat to Etf_chr16.mat, and Emtfall.mat located in the folder “Etf_allmat_chr”. It also loads listbai_all.txt, a list of 104 TF names and motif sizes, located in the folder “tf_energy_all”. 
+	4. The path3 loads yy3A_lee.mat and rand_genome.mat, where the former is the reference nucleosome occupancy data, and the latter consists of two elements. The first element is the number of chromosomes that accounts for 70% of the genome (we tune the parameters on 70% of the genome and use the rest 30% as an independent test). The second element is a random 1D array of the 16 chromosomes. Both yy3A_lee.mat and rand_genome.mat are in the folder “simplexM_tf1/input”. The path3 also loads tf_xhIIa.mat (“simplexM_tf1/input/initialp”), an initial guessed values of (c<sub>N</sub>;γ<sub>N</sub>;c<sub>t</sub>;γ<sub>t</sub>)(four numbers). 
+#### Output files:
+	1. simplex_xval.txt stores sorted (c,γ).
+	2. simplex_fval.txt stores sorted RMSDs.
+	3. simplex_tval.txt stores latest values of difference between the best and worst RMSDs, temperature, and RMSD.
+	4. simplex_Temp.txt reports the content of “simplex_tval.txt” per simplex step.
+	
+The file simplex_xval.txt is a 4x5 matrix of c and γ. The four rows of the matrix are c<sub>N</sub>, γ<sub>N</sub>, c<sub>t</sub>, and γ<sub>t</sub>), respectively. The first column of the matrix is our optimized parameters. These files are saved in the folder “output”.
+
+After carrying out the above one-TF optimization for all the TFs, we rank the 104 TFs based their contribution to the NDR probability (P<sub>NDR</sub>) by running the “occupx.m” and store the ranking in another file called “[tfindx.txt](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all)”. Below, we describe a model where we incorporated the top 30 TFs. Accordingly, we have in total of 62 unknown parameters (31 pairs of (c,γ)'s), of which 60 is for TFs and two for nucleosome.
 
 #### Open the folder “[simplexM_tf30](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/simplexM_tf30)” to find:
 	1. Input and output parameters that are saved in folder “input” and “output” respectively.
@@ -90,20 +121,6 @@ path2= 'yourpath/tf_energy_all/Etf_allmat_chr/';
 ….
 load yourpath/nuc_energy/E_Em.mat;  
 load yourpath/tf_energy_all/tfindx.txt;
-```
-Open optimbfunc_ver3a.m and change the default path or directory
-```
-load /nuctf_equi_bai/NucTF/toy_example/input/yy3A_lee.mat;
-load /nuctf_equi_bai/NucTF/toy_example/input/rand_genomeB.mat;
-TFlist=importdata('/nuctf_equi_bai/tf_energy_all/listbai_all.txt');
-load /nuctf_equi_bai/tf_energy_all/tfindx.txt; 
-```
-to
-```
-load yourpath/NucTF/toy_example/input/yy3A_lee.mat;
-load yourpath/NucTF/toy_example/input/rand_genomeB.mat;
-TFlist=importdata('yourpath/tf_energy_all/listbai_all.txt');
-load yourpath/tf_energy_all/tfindx.txt; 
 ```
 #### Run the optimization code:
 ```
@@ -154,48 +171,6 @@ to
 ```
 path1='yourpath/NucRemod/'; 
 path2='yourpath/NucTF/'; 
-```
-Open occupR.m and change the default path or directory
-```
-load /nuctf_equi_bai/nuc_energy/E_Em.mat;
-load /nuctf_equi_bai/NucTF/toy_example/input/rand_genomeB.mat;
-load /nuctf_equi_bai/NucTF/toy_example/input/yy3A_lee.mat;
-TFlist=importdata('/nuctf_equi_bai/tf_energy_all/listbai_all.txt');
-load /nuctf_equi_bai/tf_energy_all/tfindx.txt; 
-load /nuctf_equi_bai/NucTF/toy_example/output/simplex_xval.txt;
-load /nuctf_equi_bai/NucRemod/toy_example/input/pos_octf/pos_octf.mat;
-```
-to
-```
-load yourpath/nuc_energy/E_Em.mat;
-load yourpath/NucTF/toy_example/input/rand_genomeB.mat;
-load yourpath/NucTF/toy_example/input/yy3A_lee.mat;
-TFlist=importdata(' yourpath/tf_energy_all/listbai_all.txt');
-load yourpath/tf_energy_all/tfindx.txt; 
-load yourpath/NucTF/toy_example/output/simplex_xval.txt;
-load yourpath/NucRemod/toy_example/input/pos_octf/pos_octf.mat;
-```
-Open occup_nucs.m and change the default path or directory
-```
-path1 = '/nuctf_equi_bai/tf_energy_all/Etf_allmat_chr/';
-TFlist=importdata('/nuctf_equi_bai/tf_energy_all/listbai_all.txt'); 
-load /nuctf_equi_bai/tf_energy_all/tfindx.txt; 
-```
-to
-```
-path1 = 'yourpath/tf_energy_all/Etf_allmat_chr/';
-TFlist=importdata('yourpath/tf_energy_all/listbai_all.txt'); 
-load yourpath/tf_energy_all/tfindx.txt; 
-```
-Open tf_cluster.m and change the default path or directory
-```
-TFlist=importdata('/nuctf_equi_bai/tf_energy_all/listbai_all.txt'); 
-load /nuctf_equi_bai/tf_energy_all/tfindx.txt; 
-```
-to
-```
-TFlist=importdata('yourpath/tf_energy_all/listbai_all.txt');
-load yourpath/tf_energy_all/tfindx.txt; 
 ```
 #### Run the optimization code:
 ```
