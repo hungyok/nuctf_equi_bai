@@ -116,7 +116,7 @@ After carrying out the above one-TF optimization for all the TFs, we rank the 10
 > simplex_SA_multiTF(tfx,path1,path2,path3) ;
 ```
 #### Input parameters:
-Here we have four input parameters: tfx, path1, path2, and path3. The functions of these inputs are the same as described in the previous section, except that tfx here is a 1D array of TF indices. For example, to consider top 30 TFs that contribute to NDRs, the tfx should be the first 30 numbers listed in the “tfindx.txt” file. (Is this correct?(yes correct)) Path3 loads “top30_xhIIa.mat” which is a 1D array containing the initial guessed values of (c,γ)s of nucleosome and the 30 TFs. Here, the first 62 elements are the (c,γ)s and the second 62 are the small displacements needed to build simplex vertices. This file can be found in the folder “initialp” (…/NucTF/simplexM_top30/input/initialp). 
+Here we have four input parameters: tfx, path1, path2, and path3. The functions of these inputs are the same as described in the previous section, except that tfx here is a 1D array of TF indices. For example, to consider top 30 TFs that contribute to NDRs, the tfx should be the first 30 numbers listed in the “tfindx.txt” file. Path3 loads “top30_xhIIa.mat” which is a 1D array containing the initial guessed values of (c,γ)s of nucleosome and the 30 TFs. Here, the first 62 elements are the (c,γ)s and the second 62 are the small displacements needed to build simplex vertices. This file can be found in the folder “initialp” (…/NucTF/simplexM_top30/input/initialp). 
 #### Output files: 
 1. simplex_xval.txt stores sorted (c,γ).
 2. simplex_fval.txt stores sorted RMSDs.
