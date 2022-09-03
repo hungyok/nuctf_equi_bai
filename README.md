@@ -84,63 +84,50 @@ To evaluate individual TF contribution to NDRs, we first optimize (c,γ) for an 
 > simplex_SA_singleTF(tfx,path1,path2,path3);
 ```
 #### Input parameters:
-	1. The “tfx” is the interest of TF index listed in “lisbai_all.txt”. It is any number from 1 to 104.  
-	2. The path1 loads nucleosome energy “E_Em.mat” located in the folder “nuc_energy”.
-	3. The path2 loads TF energy files Etf_chr1.mat to Etf_chr16.mat, and Emtfall.mat located in the folder “Etf_allmat_chr”. It also loads listbai_all.txt, a list of 104 TF names and motif sizes, located in the folder “tf_energy_all”. 
-	4. The path3 loads yy3A_lee.mat and rand_genome.mat, where the former is the reference nucleosome occupancy data, and the latter consists of two elements. The first element is the number of chromosomes that accounts for 70% of the genome (we tune the parameters on 70% of the genome and use the rest 30% as an independent test). The second element is a random 1D array of the 16 chromosomes. Both yy3A_lee.mat and rand_genome.mat are in the folder “simplexM_tf1/input”. The path3 also loads tf_xhIIa.mat (“simplexM_tf1/input/initialp”), an initial guessed values of (c<sub>N</sub>;γ<sub>N</sub>;c<sub>t</sub>;γ<sub>t</sub>)(four numbers). 
+1. The “tfx” is the interest of TF index listed in “lisbai_all.txt”. It is any number from 1 to 104.  
+2. The path1 loads nucleosome energy “E_Em.mat” located in the folder “nuc_energy”.
+3. The path2 loads TF energy files Etf_chr1.mat to Etf_chr16.mat, and Emtfall.mat located in the folder “Etf_allmat_chr”. It also loads listbai_all.txt, a list of 104 TF names and motif sizes, located in the folder “tf_energy_all”. 
+4. The path3 loads yy3A_lee.mat and rand_genome.mat, where the former is the reference nucleosome occupancy data, and the latter consists of two elements. The first element is the number of chromosomes that accounts for 70% of the genome (we tune the parameters on 70% of the genome and use the rest 30% as an independent test). The second element is a random 1D array of the 16 chromosomes. Both yy3A_lee.mat and rand_genome.mat are in the folder “simplexM_tf1/input”. The path3 also loads tf_xhIIa.mat (“simplexM_tf1/input/initialp”), an initial guessed values of (c<sub>N</sub>;γ<sub>N</sub>;c<sub>t</sub>;γ<sub>t</sub>)(four numbers). 
 #### Output files:
-	1. simplex_xval.txt stores sorted (c,γ).
-	2. simplex_fval.txt stores sorted RMSDs.
-	3. simplex_tval.txt stores latest values of difference between the best and worst RMSDs, temperature, and RMSD.
-	4. simplex_Temp.txt reports the content of “simplex_tval.txt” per simplex step.
+1. simplex_xval.txt stores sorted (c,γ).
+2. simplex_fval.txt stores sorted RMSDs.
+3. simplex_tval.txt stores latest values of difference between the best and worst RMSDs, temperature, and RMSD.
+4. simplex_Temp.txt reports the content of “simplex_tval.txt” per simplex step.
 	
-The file simplex_xval.txt is a 4x5 matrix of c and γ. The four rows of the matrix are c<sub>N</sub>, γ<sub>N</sub>, c<sub>t</sub>, and γ<sub>t</sub>), respectively. The first column of the matrix is our optimized parameters. These files are saved in the folder “output”.
+The file simplex_xval.txt is a 4x5 matrix of c and γ. The four rows of the matrix are c<sub>N</sub>, γ<sub>N</sub>, c<sub>t</sub>, and γ<sub>t</sub>, respectively. The first column of the matrix is our optimized parameters. These files are saved in the folder “output”.
 
 After carrying out the above one-TF optimization for all the TFs, we rank the 104 TFs based their contribution to the NDR probability (P<sub>NDR</sub>) by running the “occupx.m” and store the ranking in another file called “[tfindx.txt](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all)”. Below, we describe a model where we incorporated the top 30 TFs. Accordingly, we have in total of 62 unknown parameters (31 pairs of (c,γ)'s), of which 60 is for TFs and two for nucleosome.
 
-#### Open the folder “[simplexM_tf30](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/simplexM_tf30)” to find:
-	1. Input and output parameters that are saved in folder “input” and “output” respectively.
-	2. The folder “output2” which has an example of previously optimized parameters.
-	3. A log file “log.txt” to record the optimization process.
-	4. simplex_SA.m, the simplex engine with Simulated Annealing.
-	5. optimbfunc_ver3a.m, a sub-function that computes nucleosome occupancy and RMSD.
-	6. sortf.m, a sub-function that sorts RMSDs.
-#### Edit directory paths in simplex_SA.m and optimbfunc_ver3a.m:
-Open simplex_SA.m and change the default path or directory
+#### Open the folder “[simplexM_top30](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/simplexM_tf30)” to find:
+1. Input and output parameters that are saved in folder “input” and “output” respectively. The folder “output” contains similar files as in simplexM_tf1. We also put some optimized parameters into “output2” for comparison purpose (see section “Final occupancy profile calculation” below). (“output” is the running folder meaning every output is dumped here. The output for any real or trial run, abrupt kill or mistakes by users are dumped here. 
+2. A log file “log.txt” to record the optimization process.
+3. simplex_SA_multiTF.m, the main simplex engine that executes the parameter optimization.
+4. occupxfunc.m, a sub-function that computes nucleosome occupancy and RMSD.
+5. sortf.m, a sub-function that sorts RMSDs.
+
+#### Edit directory paths:
 ```
-path1='/nuctf_equi_bai/NucTF/'; 
-path2 = '/nuctf_equi_bai/tf_energy_all/Etf_allmat_chr/'; 
-….
-load /nuctf_equi_bai/nuc_energy/E_Em.mat;  
-load /nuctf_equi_bai/tf_energy_all/tfindx.txt;
-```
-to
-```
-path1='yourpath/NucTF/';
-path2= 'yourpath/tf_energy_all/Etf_allmat_chr/';  
-….
-load yourpath/nuc_energy/E_Em.mat;  
-load yourpath/tf_energy_all/tfindx.txt;
+> path1 ='yourpath/nuc_energy/'; 
+> path2 = 'yourpath/tf_energy_all/';    
+> path3 ='yourpath/NucTF/simplexM_top30/'; 
 ```
 #### Run the optimization code:
 ```
-> simplex_SA.m ;
+> simplex_SA_multiTF(tfx,path1,path2,path3) ;
 ```
-#### Input files:
-	1. top30_xhIIa.mat, initial parameters located in a subfolder “initialp” in folder “input”.
-	2. yy3A_lee.mat, the reference nucleosome occupancy data.
-	3. rand_genomeB.mat, a list of chromosome indices that accounts for 70% of the genome.
-	4. listbai_all.txt, a list of 104 TF names and motif sizes.
-	5. tfindx.txt, a sorted TF indices according to P_NDR  score of individual TF.
-	6. E_Em.mat, nucleosome energy located in a subfolder “nuc_energy” in folder “input”.
-	7. Etf_chr1.mat to Etf_chr16.mat, and Emtfall.mat are the TF energy files located in the folder “tf_energy_all”.
+#### Input parameters:
+Here we have four input parameters: tfx, path1, path2, and path3. The functions of these inputs are the same as described in the previous section, except that tfx here is a 1D array of TF indices. For example, to consider top 30 TFs that contribute to NDRs, the tfx should be the first 30 numbers listed in the “tfindx.txt” file. (Is this correct?(yes correct)) Path3 loads “top30_xhIIa.mat” which is a 1D array containing the initial guessed values of (c,γ)s of nucleosome and the 30 TFs. Here, the first 62 elements are the (c,γ)s and the second 62 are the small displacements needed to build simplex vertices. This file can be found in the folder “initialp” (…/NucTF/simplexM_top30/input/initialp). 
 #### Output files: 
-	1. simplex_xval.txt stores sorted (c,γ).
-	2. simplex_fval.txt stores sorted RMSDs.
-	3. simplex_tval.txt stores latest values of difference between the best and worst RMSDs, temperature, and RMSD.
-	4. simplex_Temp.txt reports the content of “simplex_tval.txt” per simplex step.
+1. simplex_xval.txt stores sorted (c,γ).
+2. simplex_fval.txt stores sorted RMSDs.
+3. simplex_tval.txt stores latest values of difference between the best and worst RMSDs, temperature, and RMSD.
+4. simplex_Temp.txt reports the content of “simplex_tval.txt” per simplex step.
 
-The file simplex_xval.txt is a 62x63 matrix of c and γ. The first and second rows of the matrix are c<sub>N</sub> and γ<sub>N</sub> respectively. The rows 3–32 are c<sub>t</sub>'s and rows 33–62 are γ<sub>N</sub>'s. If the simplex vertices (simplex_fval.txt) have not all converged to a prescribed threshold value, you can rerun step 3 with the last output as the new input. To save computation time for 30 TFs simulation, for five decreasing temperature intervals (simplex_SA.m), we set iteration cycle M=100, 83, 67 ,50, and 33, instead keeping M constant at M=100. The first column of simplex_xval.txt is our optimized set of (c,γ) and is used in determining the genome-wide occupancy profiles. Open the folder [occup_profile](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/occup_profile) and run the code to compute the occupancy profiles:
+Similar file description as in “simplexM_tf1” except that the file simplex_xval.txt is a 62x63 matrix of c and γ with the first and second rows of the matrix are c_N and γ_N respectively, and the rows 3–32 are c_t’s and rows 33–62 are γ_t’s. The first column of the matrix is our optimized parameters and will be used to determine the final genome-wide occupancy profile (see below). 
+
+Number of search steps at a given temperature “M” in simplex_SA.m can be changed to adjust the optimization quality/time. Currently, at each of the five “temperature” (which controls the parameter search range), we gradually decrease the number of steps to be M=100, 83, 67 ,50, and 33. Larger M may lead to better convergence but cost more computational time. For the current prescribed set of M (=100, 83, 67 ,50, 33), we repeated step 3 nine times and each time starting from the last output (Figure 3). One simplex step takes ~125 seconds. We recommend users to run a cumulative of at least ~3000 simplex steps~4 days of simulations. 
+
+Open the folder [occup_profile](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/occup_profile) and run the code to compute the occupancy profiles:
 ```
 > load yourpath/NucTF/simplexM_tf30/output2/simplex_xval.txt;
 > xfit = simplex_xval (:,1); TF = 1; Eseq = 1;
