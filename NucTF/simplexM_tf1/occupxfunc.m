@@ -1,9 +1,9 @@
  %Occupancy  
- function [sigma]=optimbfunc_ver3a(tfx,xi,E,Em,Etfmul,Emtf,path2,path3)
- foldername1='simplexM_tf1'; foldername3='input';
- fnx1 = fullfile(strcat(path3,foldername1),foldername3,'yy3A_lee.mat');
+ function [sigma]=occupxfunc(xi,tfx,E,Em,Etfmul,Emtf,path2,path3)
+ foldername2='input';
+ fnx1 = fullfile(strcat(path3,foldername2),'yy3A_lee.mat');
  load(fnx1);
- fnx1 = fullfile(strcat(path3,foldername1),foldername3,'rand_genome.mat');
+ fnx1 = fullfile(strcat(path3,foldername2),'rand_genome.mat');
  load(fnx1);
  tfn=1; fnx1 =strcat(path2,'listbai_all.txt');
  TFlist=importdata(fnx1);
