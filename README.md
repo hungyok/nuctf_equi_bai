@@ -129,9 +129,13 @@ Number of search steps at a given temperature “M” in simplex_SA.m can be cha
 
 Open the folder [occup_profile](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/occup_profile) and run the code to compute the occupancy profiles:
 ```
-> load yourpath/NucTF/simplexM_tf30/output2/simplex_xval.txt;
+> path1 ='yourpath/nuc_energy/'; 
+> path2 = 'yourpath/tf_energy_all/';    
+> path3 ='yourpath/ndr_call/';
+> load /NucTF/simplexM_top30/output2/simplex_xval.txt;
 > xfit = simplex_xval (:,1); TF = 1; Eseq = 1;
-> [O] = occupx(TF, Eseq, xfit);
+> [O] = occupx(TF,Eseq,xfit,tfx,path1,path2,path3);
+> save O_good.mat O; % save O_bad.mat O; when loading simplex_xval.txt from folder “output”
 ```
 The logical parameters “TF” and “Eseq” can take on the value of 0 or 1. For example, TF=1 means that TF information is considered in the model otherwise TF=0, and Eseq=1 means that nucleosome sequence-specific energy is considered and otherwise set Eseq=0. The output is an occupancy data, O.mat, comprising of 16x1 cell arrays (one for each chromosome), which includes the occupancies for nucleosome and each TF considered in the model. The code “occupx.m” is preloaded with nucleosome energy, TF energy, and TF index lists (listbai_all.txt and tfindx.txt). The output and figure of two example cases when "TF=0, Eseq=0" and "TF=0, Eseq=1" can be found in the folders “[example1](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/occup_profile/example1)” and “[example2](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/occup_profile/example2)”, respectively. The output of a model example with TF=1 (top 30 TFs) and Eseq=1 can be found in the folder “[example3](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/occup_profile/example3)”.
 
