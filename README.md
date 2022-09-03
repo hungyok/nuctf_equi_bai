@@ -152,7 +152,9 @@ This version of the model considers both the effect from TF binding and nucleoso
 > save pos_octf.mat pos_octf;
 ```
 The format of pos_octf.mat is a 16x3 cell matrix. Each row in the cell represents a different chromosome (first row is chr1, 2nd row is chr2, and so on). First column represents TF binding position, while the 2nd and 3rd column represents the occupancy and identity of the TF. This file is used by “occupR.m” (see below). 
+
 2. Two output folders for fitting parameters: “output” and “output2”. Parameters generated during the fitting process will be stored in “output”. While “output2” contains some precomputed best fitting parameters. 
+
 3. An output log file “log.txt” that records the optimization process.
 4. simplex_SA_remod.m, the simplex engine with Simulated Annealing.
 5. occupRfunc.m, a sub-function that calls tf_cluster.m and occup_nucs.m to construct remodeling deformation energy, calculate nucleosome occupancy, and compute RMSD. This step is repeated nx = 10 times to allow combinatorial binding of multiple TFs (see step below). The final nucleosome occupancy represents an average between these configurations. Larger nx can be used to achieve better averaging. 
