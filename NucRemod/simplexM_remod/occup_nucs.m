@@ -1,21 +1,19 @@
 % occupancy
-function [occupx]=occup_nucs(xfit,E1,Em,chr1,path2) 
+function [ON]=occup_nucs(xfit,tfx,E1,Em,chr1,path2) 
 foldername2='Etf_allmat_chr';
 fnx1 = fullfile(strcat(path2,foldername2),'Emtfall.mat');
 load(fnx1); % mean TF energy
 fnx1 =strcat(path2,'listbai_all.txt');
 TFlist=importdata(fnx1); % list of TF name and size 
 TF_list1=TFlist.data; clear TFlist;
-fpath= strcat(path2,'tfindx.txt');
-load(fpath); % ranked listbai_all.txt indices: 1st or top (high NDR predictor) to 104th or bottom (low NDR predictor) TF
 l=147; dLb=2000; L=5*dLb;    
-tfn=floor(length(xfit)/2)-1; E=E1;
+tfn=length(tfx); E=E1;
 fname = sprintf('Etf_chr%d.mat',chr1);
 fpath=fullfile(strcat(path2,foldername2),fname);
 load(fpath);
-Etfmul=Etf(:,tfindx(1:tfn));                   
-TF_list=TF_list1(tfindx(1:tfn),1);
-a=Emtf(tfindx(1:tfn),1)';
+Etfmul=Etf(:,tfx);                   
+TF_list=TF_list1(tfx,1);
+a=Emtf(tfx,1)';
 E2=a;
 for i=1:(dLb-1)
     E2=cat(1,E2,a);
@@ -121,6 +119,5 @@ for i=1:Lgnome %ks=l nucleosome
        O(i)=sum(Png((i-ks+1):i));
     end
 end
-ON=nor*O;  
-occupx=ON; %fprintf('chr1...%d\n',chr1);
+ON=nor*O; %fprintf('chr1...%d\n',chr1);
 end

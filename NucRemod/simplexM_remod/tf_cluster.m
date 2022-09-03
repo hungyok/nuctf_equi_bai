@@ -1,10 +1,8 @@
-function [xptfa]=tf_cluster(tfn,pos_octf,path2)
+function [xptfa]=tf_cluster(tfx,pos_octf,path2)
 fnx1 =strcat(path2,'listbai_all.txt');
 TFlist=importdata(fnx1); % list of TF name and size 
 TF_list1=TFlist.data; clear TFlist;
-fpath= strcat(path2,'tfindx.txt');
-load(fpath); % ranked listbai_all.txt indices
-TF_list=TF_list1(tfindx(1:tfn),1);
+TF_list=TF_list1(tfx,1);
 CL1=cell(1,1); flgnn=0; rng('shuffle');
 for i=1:length(pos_octf{1,1})
     cls=i; j=i+1; flg=1; 

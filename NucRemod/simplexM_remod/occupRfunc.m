@@ -1,15 +1,15 @@
 % Remodeling and rmsd
-function [sigma]=occupR(xi,path1,path2,path3,path4)
-foldername1='simplexM_top30'; foldername3='input'; foldername4='output2'; foldername5='simplexM_remod'; foldername6='pos_octf'; 
-fnx1 = fullfile(strcat(path3,foldername1),foldername3,'yy3A_lee.mat');
+function [sigma]=occupRfunc(xi,tfx,path1,path2,path3,path4)
+foldername1='input'; foldername2='output2';  
+fnx1 = fullfile(strcat(path3,foldername1),'yy3A_lee.mat');
 load(fnx1);
-fnx1 = fullfile(strcat(path3,foldername1),foldername3,'rand_genome.mat');
+fnx1 = fullfile(strcat(path3,foldername1),'rand_genome.mat');
 load(fnx1);
 fpath= strcat(path1,'E_Em.mat');
 load(fpath);
-fnx1 = fullfile(strcat(path3,foldername1),foldername4,'simplex_xval.txt');
+fnx1 = fullfile(strcat(path3,foldername2),'simplex_xval.txt');
 load(fnx1);
-xfit=simplex_xval(:,1); tfnx=floor(length(xfit)/2)-1;
+xfit=simplex_xval(:,1); tfn=length(tfx);
 xfit(1,1)=xi(1,1); xfit(2,1)=xi(2,1);
 invld=0;
 if xi(1,1)>100 || xi(1,1)<0
@@ -30,10 +30,8 @@ else
    fnx1 =strcat(path2,'listbai_all.txt');
    TFlist=importdata(fnx1); % list of TF name and size 
    TF_list1=TFlist.data; clear TFlist;
-   fpath= strcat(path2,'tfindx.txt');
-   load(fpath); % ranked listbai_all.txt indices
-   TF_list=TF_list1(tfindx(1:tfnx),1);
-   fnx1 = fullfile(strcat(path4,foldername5),foldername3,foldername6,'pos_octf.mat');
+   TF_list=TF_list1(tfx,1);
+   fnx1 = fullfile(strcat(path4,foldername1),'pos_octf.mat');
    load(fnx1);
    pos_octf1=pos_octf;
    pos_octf=cell(1,3); %idx=1;
@@ -51,7 +49,7 @@ else
            pos_octf{1,1}=pos_octf1{chr1,1};
            pos_octf{1,2}=pos_octf1{chr1,2};
            pos_octf{1,3}=pos_octf1{chr1,3};
-           [xptfa]=tf_cluster(tfnx,pos_octf,path2); xptf=xptfa;
+           [xptfa]=tf_cluster(tfx,pos_octf,path2); xptf=xptfa;
            lx=length(E{chr1}); xx=1:lx; x=xx';
            Esum=zeros(lx,1);
            for jx=1:length(xptf(:,1))
@@ -75,7 +73,7 @@ else
                Esum=Esum+y;
            end
            E1=E1-Esum;
-           occup_nuc{chr,1}=occup_nucs(xfit,E1,Em,chr1,path2);
+           occup_nuc{chr,1}=occup_nucs(xfit,tfx,E1,Em,chr1,path2);
        end
        if ix<2
           occup_nuc0=occup_nuc;  
@@ -85,7 +83,7 @@ else
           end
        end
    end
-   fprintf('function occupR toptf...%d...nx...%d\n',tfnx,nx); toc;
+   fprintf('function occupR toptf...%d...nx...%d\n',tfn,nx); toc;
    for chr=1:chrindx
        chr1=chrlist(chr);
        occup_nuc{chr,1}=occup_nuc0{chr,1}*(1/nx);
