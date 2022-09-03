@@ -68,11 +68,11 @@ The SEM partition function is full of this type of term: p<sub>i</sub>=c<sub>t/N
 To evaluate individual TF contribution to NDRs, we first optimize (c,γ) for an individual TF when only the concerned TF is present in the model. We use a modified Nelder-Mead simplex algorithm with Simulated Annealing to optimize these parameters.
 
 #### Open the folder “[simplexM_tf1](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/simplexM_tf1)” to find:
-        1. Input and output files that are saved in folder “input” and “output” respectively.
-        2. A log file “log.txt” to record the optimization process.
-        3. simplex_SA_singleTF.m, the main simplex engine that executes the parameter optimization.
-        4. occupxfunc.m, a sub-function that computes nucleosome occupancy and RMSD.
-        5. sortf.m, a sub-function that sorts RMSDs
+1. Input and output files that are saved in folder “input” and “output” respectively.
+2. A log file “log.txt” to record the optimization process.
+3. simplex_SA_singleTF.m, the main simplex engine that executes the parameter optimization.
+4. occupxfunc.m, a sub-function that computes nucleosome occupancy and RMSD.
+5. sortf.m, a sub-function that sorts RMSDs
 #### Edit directory paths:
 ```
 > path1 ='yourpath/nuc_energy/'; 
