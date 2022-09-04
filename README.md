@@ -98,7 +98,7 @@ The file simplex_xval.txt is a 4x5 matrix of c and γ. The four rows of the matr
 
 After carrying out the above one-TF optimization for all the TFs, we rank the 104 TFs based their contribution to the NDR probability (P<sub>NDR</sub>) by running the "[occupx.m](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/occup_profile)" and store the ranking in another file called "[tfindx.txt](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all)". Below, we describe a model where we incorporated the top 30 TFs. Accordingly, we have in total of 62 unknown parameters (31 pairs of (c,γ)'s), of which 60 is for TFs and two for nucleosome.
 
-#### Open the folder “[simplexM_top30](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/simplexM_tf30)” to find:
+#### Open the folder “[simplexM_top30](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/simplexM_top30)” to find:
 1. Input and output parameters that are saved in folder “input” and “output” respectively. The folder “output” contains similar files as in simplexM_tf1. We also put some optimized parameters into “output2” for comparison purpose (see section “Final occupancy profile calculation” below). (“output” is the running folder meaning every output is dumped here. The output for any real or trial run, abrupt kill or mistakes by users are dumped here. 
 2. A log file “log.txt” to record the optimization process.
 3. simplex_SA_multiTF.m, the main simplex engine that executes the parameter optimization.
