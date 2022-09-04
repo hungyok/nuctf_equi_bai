@@ -123,7 +123,7 @@ Here we have four input parameters: tfx, path1, path2, and path3. The functions 
 3. simplex_tval.txt stores latest values of difference between the best and worst RMSDs, temperature, and RMSD.
 4. simplex_Temp.txt reports the content of “simplex_tval.txt” per simplex step.
 
-Similar file description as in “simplexM_tf1” except that the file simplex_xval.txt is a 62x63 matrix of c and γ with the first and second rows of the matrix are c_N and γ_N respectively, and the rows 3–32 are c_t’s and rows 33–62 are γ_t’s. The first column of the matrix is our optimized parameters and will be used to determine the final genome-wide occupancy profile (see below). 
+Similar file description as in “simplexM_tf1” except that the file simplex_xval.txt is a 62x63 matrix of c and γ with the first and second rows of the matrix are c<sub>N</sub> and γ<sub>N</sub> respectively, and the rows 3–32 are c<sub>t</sub>’s and rows 33–62 are γ<sub>t</sub>’s. The first column of the matrix is our optimized parameters and will be used to determine the final genome-wide occupancy profile (see below). 
 
 Number of search steps at a given temperature “M” in simplex_SA.m can be changed to adjust the optimization quality/time. Currently, at each of the five “temperature” (which controls the parameter search range), we gradually decrease the number of steps to be M=100, 83, 67 ,50, and 33. Larger M may lead to better convergence but cost more computational time. For the current prescribed set of M (=100, 83, 67 ,50, 33), we repeated step 3 nine times and each time starting from the last output (Figure 3). One simplex step takes &sim; 125 seconds. We recommend users to run a cumulative of at least &sim; 3000 simplex steps &sim; 4 days of simulations. 
 
@@ -169,17 +169,19 @@ The format of pos_octf.mat is a 16x3 cell matrix. Each row in the cell represent
 ```
 #### Run the optimization code:
 ```
-> simplex_SA.m ;
+> simplex_SA_remod(tfx,path1,path2,path3,path4);
 ```
-The input and output files are same as in NucTF, except here the file simplex_xval.txt is a 4x5 matrix. The first column of the matrix (c<sub>N</sub>, γ<sub>N</sub>, h, and w) is our optimized parameters and the TF parameters (c<sub>t</sub>, γ<sub>t</sub>) obtained in NucTF are used to calculate the occupancy profiles. The occupancy calculation is not as straight forward as in NucTF, but it depends on “nx” to account for the TF-dependent remodeling. Here we set nx=100.
-
-Open the folder [occup_profile](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucRemod/occup_profile) and run the code to compute the occupancy profiles:
+Note that tfx is the same index array as in “simplexM_top30” in Model 1. The prescribed set of M used here is M=12,12,10,10,6. We repeated step 3 four times and each time starting from the last output. One simplex step takes &sim; 1 hour. We recommend users to run a cumulative of at least &sim; 200 simplex steps &sim; 8 days of simulations. The input and output files are same as in NucTF, except here the file simplex_xval.txt is a 4x5 matrix. The first column of the matrix (c<sub>N</sub>, γ<sub>N</sub>, h, and w) is our optimized parameters and the TF parameters (c<sub>t</sub>, γ<sub>t</sub>) obtained in NucTF are used to calculate the occupancy profiles. The occupancy calculation is not as straight forward as in NucTF, but it depends on “nx” to account for the TF-dependent remodeling. Here we set nx=100. Open the folder [occup_profile](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucRemod/occup_profile) and run the code to compute the occupancy profiles:
 ```
-> load yourpath/NucRemod/simplexM_remod/output2/simplex_xval.txt;
-> remod = simplex_xval(:,1); 
-> load yourpath/NucTF/simplexM_tf30/output2/simplex_xval.txt;
-> xfit = simplex_xval(:,1); 
-> [O] = occupR(remod,xfit);
+> path1 ='yourpath\nuc_energy\'; 
+> path2 = 'yourpath\tf_energy_all\';    
+> path3 ='yourpath\NucRemod\simplexM_remod\';
+> path4 ='yourpath\ndr_call\';
+> load /NucRemod/simplexM_remod/output2/simplex_xval.txt;
+> remod = simplex_xval(:,1); % load the best-fit remodeling parameters
+> load /NucTF/simplexM_top30/output2/simplex_xval.txt;
+> xfit = simplex_xval(:,1); % load the best-fit TF parameters
+> [O] = occupR(remod,xfit,tfx,path1,path2,path3,path4); 
 ```
 The output file “O.mat” is a 16x1 cell. Here we report only nucleosome occupancy per cell and can be found in the folder “[occup_profile](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucRemod/occup_profile)”. The folder also contains a figure showing comparison between a model with TF only and a model with TF+remodeling, and a plotting script. All the codes and input/output files and folders can be found in the folder [simplexM_remod](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucRemod/simplexM_remod). A toy example to run simplex_SA.m with a single TF (Rsc3) and for a single chromosome (chr 1) can be found in [toy_example](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucRemod/toy_example). 
 ## Output data
