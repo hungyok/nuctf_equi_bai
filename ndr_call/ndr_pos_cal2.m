@@ -1,22 +1,20 @@
 %clear;  
-function [occup,ndr_chr]=ndr_pos_cal2(fname)
-path1='nuctf_equi_bai/ndr_call/';
-folder=fname;
-fnx = fullfile(strcat(path1,folder),'yy1_lee.mat'); load(fnx);
+function [occup,ndr_chr]=ndr_pos_cal2(path1)
+fnx = strcat(path1,'yy1_lee.mat'); load(fnx);
 %A=1; A1=2; B=3; C=4; D=5; E=6; F=7; G=8;
-fnx = fullfile(strcat(path1,folder),'NDR_1.mat'); load(fnx); NDR_A=NDR_X;
-fnx = fullfile(strcat(path1,folder),'NDR_2.mat'); load(fnx); NDR_A1=NDR_X;
-fnx = fullfile(strcat(path1,folder),'NDR_3.mat'); load(fnx); NDR_B=NDR_X;
-fnx = fullfile(strcat(path1,folder),'NDR_4.mat'); load(fnx); NDR_C=NDR_X;
-fnx = fullfile(strcat(path1,folder),'NDR_5.mat'); load(fnx); NDR_D=NDR_X;
-fnx = fullfile(strcat(path1,folder),'NDR_6.mat'); load(fnx); NDR_E=NDR_X;
-fnx = fullfile(strcat(path1,folder),'NDR_7.mat'); load(fnx); NDR_F=NDR_X;
-fnx = fullfile(strcat(path1,folder),'NDR_8.mat'); load(fnx); NDR_G=NDR_X;
+fnx = strcat(path1,'NDR_1.mat'); load(fnx); NDR_A=NDR_X;
+fnx = strcat(path1,'NDR_2.mat'); load(fnx); NDR_A1=NDR_X;
+fnx = strcat(path1,'NDR_3.mat'); load(fnx); NDR_B=NDR_X;
+fnx = strcat(path1,'NDR_4.mat'); load(fnx); NDR_C=NDR_X;
+fnx = strcat(path1,'NDR_5.mat'); load(fnx); NDR_D=NDR_X;
+fnx = strcat(path1,'NDR_6.mat'); load(fnx); NDR_E=NDR_X;
+fnx = strcat(path1,'NDR_7.mat'); load(fnx); NDR_F=NDR_X;
+fnx = strcat(path1,'NDR_8.mat'); load(fnx); NDR_G=NDR_X;
 
 fa=1; yytr=zeros(1,1); yyblu=zeros(1,1); SD=0.0678; ndrcnt=0; %fa=0.55;
 AA=zeros(9,1); dxA_cf=100; dx_cf=50; dxkiA1_cf=125; dxkiB_cf=3*dxkiA1_cf; dxna_cf=110; ndra=0; ndrb=1025;
 % fa=1 means occupancy at NDR is seto zero.
-% dxA_cf is the slope cutoff which is the distance between cut-points at NDR_80 (NDR_A) and at the lowest occupancy on the same side;
+% dxA_cf is the slope cutoff which is the distance between cut-points at NDR_80 and at the lowest occupancy on the same side;
 % dx_cf is the smallest NDR size cutoff below which is not an NDR; 
 % dxkiA1_cf is the kink size (extreme ends of multiple kinks) at NDR_A1; dxkiB_cf is the kink size (extreme ends of multiple kinks) at NDR_B;
 % dxna_cf is the distance between cut-points at NDR_A1; ndrb is the max NDR size;
@@ -591,6 +589,6 @@ for chr=1:16
     occup{chr,1}=yy1a;
     %yyblu=cat(1,yyblu,yy3);
 end
-%save /nuctf_equi_bai/ndr_call/yy3A.mat occup -v7.3;
-%save /nuctf_equi_bai/ndr_call/ndrpos_chrA.mat ndr_chr -v7.3;
+%save D:\Cell_protocol\ndr_call\yy3A.mat occup -v7.3;
+%save D:\Cell_protocol\ndr_call\ndrpos_chrA.mat ndr_chr -v7.3;
 end
