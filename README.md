@@ -94,7 +94,7 @@ To evaluate individual TF contribution to NDRs, we first optimize (c,γ) for an 
 3. simplex_tval.txt stores latest values of difference between the best and worst RMSDs, temperature, and RMSD.
 4. simplex_Temp.txt reports the content of “simplex_tval.txt” per simplex step.
 	
-The file simplex_xval.txt is a 4x5 matrix of c and γ. The four rows of the matrix are c<sub>N</sub>, γ<sub>N</sub>, c<sub>t</sub>, and γ<sub>t</sub>, respectively. The first column of the matrix is our optimized parameters. These files are saved in the folder “output”.
+The file simplex_xval.txt is a 4x5 matrix of c and γ. The four rows of the matrix are c<sub>N</sub>, γ<sub>N</sub>, c<sub>t</sub>, and γ<sub>t</sub>, respectively. The first column of the matrix is our optimized parameters. These files are dumped in the folder [output](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/simplexM_tf1/output).
 
 After carrying out the above one-TF optimization for all the TFs, we rank the 104 TFs based their contribution to the NDR probability (P<sub>NDR</sub>) by running the “occupx.m” and store the ranking in another file called “[tfindx.txt](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all)”. Below, we describe a model where we incorporated the top 30 TFs. Accordingly, we have in total of 62 unknown parameters (31 pairs of (c,γ)'s), of which 60 is for TFs and two for nucleosome.
 
