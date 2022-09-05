@@ -55,7 +55,7 @@ To call and locate nucleosome-depleted-region (NDR) we require two steps:
 > load yourpath/ndr_call/dataFolder/yy1_lee.mat;
 > NDR_i = ndr_cut(x1_lee, y1_lee, i); % yy1_lee.mat consists of files x1_lee and y1_lee
 ```
-**ndr_pos_cal2.m**: Using “yy1_lee.mat, NDR_1.mat, NDR_2.mat, …, NDR_8.mat” as input (directly loaded into the program), this program generates the final NDR positions (ndrpos_chrA.mat) and the modified nucleosome occupancy map (yy3A.mat). ndrpos_chrA.mat records the start and end index of each NDR on all 16 chromosomes, and yy3A.mat has the same format as yy1_lee.mat.
+**ndr_pos_cal2.m**: This program compares the boundaries in NDR_1.mat, NDR_2.mat, etc., picks the NDRs with steep edges, merges nearby NDRs, and force the nucleosome occupancies in NDRs to be zero. The final output includes the NDR positions (ndrpos_chrA.mat) and the modified nucleosome occupancy map (yy3A.mat). ndrpos_chrA.mat records the start and end index of each NDR on all 16 chromosomes, and yy3A.mat has the same format as yy1_lee.mat. Copy all the NDR_i.mat into the "dataFolder":
 ```
 > path1 ='yourpath/ndr_call/dataFolder/';
 > [yy3A, ndrpos_chrA] = ndr_pos_cal2(path1);
@@ -132,7 +132,7 @@ Open the folder [occup_profile](https://github.com/hungyok/nuctf_equi_bai/tree/m
 > path1 ='yourpath/nuc_energy/'; 
 > path2 = 'yourpath/tf_energy_all/';    
 > path3 ='yourpath/ndr_call/';
-> load /NucTF/simplexM_top30/output2/simplex_xval.txt;
+> load /NucTF/simplexM_top30/output_optimized/simplex_xval.txt;
 > xfit = simplex_xval (:,1); TF = 1; Eseq = 1;
 > [O] = occupx(TF,Eseq,xfit,tfx,path1,path2,path3);
 > save O_good.mat O; % save O_bad.mat O; when loading simplex_xval.txt from folder “output”
@@ -177,9 +177,9 @@ Note that tfx is the same index array as in "simplexM_top30" in model NucTF. The
 > path2 = 'yourpath\tf_energy_all\';    
 > path3 ='yourpath\NucRemod\simplexM_remod\';
 > path4 ='yourpath\ndr_call\';
-> load /NucRemod/simplexM_remod/output2/simplex_xval.txt;
+> load /NucRemod/simplexM_remod/output_optimized/simplex_xval.txt;
 > remod = simplex_xval(:,1); % load the best-fit remodeling parameters
-> load /NucTF/simplexM_top30/output2/simplex_xval.txt;
+> load /NucTF/simplexM_top30/output_optimized/simplex_xval.txt;
 > xfit = simplex_xval(:,1); % load the best-fit TF parameters
 > [O] = occupR(remod,xfit,tfx,path1,path2,path3,path4); 
 ```
