@@ -23,7 +23,7 @@ The sequence-dependent binding energy for nucleosome is obtained using the softw
 
  https://github.com/KaplanLab/NucleosomeModel
  
- The link has all the instructions on how to use the software. Briefly, download the code “NucleosomeModel-master.zip” on Linux 64-bit machine. Enter the following commands to generate energy files: 
+ The link has all the instructions on how to use the software. Briefly, download the code “NucleosomeModel-master.zip” on Linux 64-bit machine. Enter the following commands on the terminal to generate the energy files: 
  ```
 > make install
 > perl nucleosome_prediction.pl -raw_binding -t example -s input.fa -p raw_output -tab
