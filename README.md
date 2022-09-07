@@ -55,7 +55,7 @@ To call and locate nucleosome-depleted-region (NDR) we require two steps:
 > load yourpath/ndr_call/dataFolder/yy1_lee.mat;
 > NDR_i = ndr_cut(x1_lee, y1_lee, i); % yy1_lee.mat consists of files x1_lee and y1_lee
 ```
-**ndr_pos_cal2.m**: This program compares the boundaries in NDR_1.mat, NDR_2.mat, etc., picks the NDRs with steep edges, merges nearby NDRs, and force the nucleosome occupancies in NDRs to be zero. The final output includes the NDR positions (ndrpos_chrA.mat) and the modified nucleosome occupancy map (yy3A.mat). ndrpos_chrA.mat records the start and end index of each NDR on all 16 chromosomes, and yy3A.mat has the same format as yy1_lee.mat. Copy all the NDR_i.mat into the "dataFolder":
+**ndr_pos_cal2.m**: This program compares the boundaries in NDR_1.mat, NDR_2.mat, etc., picks the NDRs with steep edges, merges nearby NDRs, and force the nucleosome occupancies in NDRs to be zero. The final output includes the NDR positions (ndrpos_chrA.mat) and the modified nucleosome occupancy map (yy3A.mat). The file ndrpos_chrA.mat records the start and end index of each NDR on all 16 chromosomes, and yy3A.mat has the same format as yy1_lee.mat. Copy all the NDR_i.mat into the "dataFolder":
 ```
 > path1 ='yourpath/ndr_call/dataFolder/';
 > [yy3A, ndrpos_chrA] = ndr_pos_cal2(path1);
