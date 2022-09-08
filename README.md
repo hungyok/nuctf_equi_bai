@@ -2,7 +2,7 @@
 We present a computational method to compute nucleosome and TF occupancy using statistical equilibrium models (SEMs). For complete details on the use and execution of this method, please refer to [Kharerin & Bai, 2021](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1008560). 
 ## Input data
 ### Genomic sequence
-Download the 16 chromosomes (12071326 bp) of Saccharomyces cerevisiae (S288C, genome version R64-3-1) in fasta format from SGD https://www.yeastgenome.org/.
+Download the 16 chromosomes (12071326 bp) of *Saccharomyces cerevisiae* (S288C, genome version R64-3-1) in fasta format from SGD https://www.yeastgenome.org/.
 ### TF motif database
 Use their recommended cutoff for every TF "[PWM_TF_cutoff.txt](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all)" and download in total 104 budding yeast TF position-weight-matrices (PWMs) from http://stormo.wustl.edu/ScerTF/ (refs. [Spivak & Stormo, 2011](https://doi.org/10.1093/nar/gkr1180)). The list of TFs “listbai_all.txt” has 104 TF names (column1) and their sizes (column2) that are found in the yeast nuclei in normal YPD growth condition ([Yan, Chen & Bai](https://doi.org/10.1016/j.molcel.2018.06.017)). All the 104 PWMs are ordered in tandem (same ordering as in listbai_all.txt), with the four columns ordered as A/C/G/T and saved in a file called “wmsbai_data_all.txt”. The two files listbai_all.txt and wmsbai_data_all.txt can be found in the folder [tf_energy_all](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all).
 ### Nucleosome Mnase-seq data
@@ -55,7 +55,7 @@ To call and locate nucleosome-depleted-region (NDR) we require two steps:
 > load yourpath/ndr_call/dataFolder/yy1_lee.mat;
 > NDR_i = ndr_cut(x1_lee, y1_lee, i); % yy1_lee.mat consists of files x1_lee and y1_lee
 ```
-**ndr_pos_cal2.m**: Using “yy1_lee.mat, NDR_1.mat, NDR_2.mat, …, NDR_8.mat” as input (directly loaded into the program), this program generates the final NDR positions (ndrpos_chrA.mat) and the modified nucleosome occupancy map (yy3A.mat). ndrpos_chrA.mat records the start and end index of each NDR on all 16 chromosomes, and yy3A.mat has the same format as yy1_lee.mat.
+**ndr_pos_cal2.m**: This program compares the boundaries in NDR_1.mat, NDR_2.mat, etc., picks the NDRs with steep edges, merges nearby NDRs, and force the nucleosome occupancies in NDRs to be zero. The final output includes the NDR positions (ndrpos_chrA.mat) and the modified nucleosome occupancy map (yy3A.mat). The file ndrpos_chrA.mat records the start and end index of each NDR on all 16 chromosomes, and yy3A.mat has the same format as yy1_lee.mat. Copy all the NDR_i.mat into the "dataFolder":
 ```
 > path1 ='yourpath/ndr_call/dataFolder/';
 > [yy3A, ndrpos_chrA] = ndr_pos_cal2(path1);
@@ -99,7 +99,7 @@ The file simplex_xval.txt is a 4x5 matrix of c and γ. The four rows of the matr
 After carrying out the above one-TF optimization for all the TFs, we rank the 104 TFs based their contribution to the NDR probability (P<sub>NDR</sub>) by running the "[occupx.m](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/occup_profile)" and store the ranking in another file called "[tfindx.txt](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all)". Below, we describe a model where we incorporated the top 30 TFs. Accordingly, we have in total of 62 unknown parameters (31 pairs of (c,γ)'s), of which 60 is for TFs and two for nucleosome.
 
 #### Open the folder “[simplexM_top30](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/simplexM_top30)” to find:
-1. Input and output parameters that are saved in folder "input" and "output" respectively. The folder "output" contains similar files as in simplexM_tf1. We also put some optimized parameters into "output2" for comparison purpose. The "output" is the running folder where every output is dumped here. The output for real or trial run, abrupt kill, or mistakes by users are dumped here. 
+1. Input and output parameters that are saved in folder "input" and "output" respectively. The folder "output" contains similar files as in simplexM_tf1. We also put some optimized parameters into "output_optimized" for comparison purpose. The "output" is the running folder where every output is dumped here. The output for real or trial run, abrupt kill, or mistakes by users are dumped here. 
 2. A log file “log.txt” to record the optimization process.
 3. simplex_SA_multiTF.m, the main simplex engine that executes the parameter optimization.
 4. occupxfunc.m, a sub-function that computes nucleosome occupancy and RMSD.
@@ -132,7 +132,7 @@ Open the folder [occup_profile](https://github.com/hungyok/nuctf_equi_bai/tree/m
 > path1 ='yourpath/nuc_energy/'; 
 > path2 = 'yourpath/tf_energy_all/';    
 > path3 ='yourpath/ndr_call/';
-> load /NucTF/simplexM_top30/output2/simplex_xval.txt;
+> load /NucTF/simplexM_top30/output_optimized/simplex_xval.txt;
 > xfit = simplex_xval (:,1); TF = 1; Eseq = 1;
 > [O] = occupx(TF,Eseq,xfit,tfx,path1,path2,path3);
 > save O_good.mat O; % save O_bad.mat O; when loading simplex_xval.txt from folder “output”
@@ -153,7 +153,7 @@ This version of the model considers both the effect from TF binding and nucleoso
 ```
 The format of pos_octf.mat is a 16x3 cell matrix. Each row in the cell represents a different chromosome (first row is chr1, 2nd row is chr2, and so on). First column represents TF binding position, while the 2nd and 3rd column represents the occupancy and identity of the TF. This file is used by occupR.m, occupRfunc.m, and tf_cluster.m. 
 
-2. Two output folders for fitting parameters: "output" and "output2". Parameters generated during the fitting process will be stored in "output". While "output2" contains some precomputed best fitting parameters. 
+2. Two output folders for fitting parameters: "output" and "output_optimized". Parameters generated during the fitting process will be stored in "output". While "output_optimized" contains some precomputed best fitting parameters. 
 3. An output log file “log.txt” that records the optimization process.
 4. simplex_SA_remod.m, the simplex engine with Simulated Annealing.
 5. occupRfunc.m, a sub-function that calls tf_cluster.m and occup_nucs.m to construct remodeling deformation energy, calculate nucleosome occupancy, and compute RMSD. This step is repeated nx = 10 times to allow combinatorial binding of multiple TFs (see step below). The final nucleosome occupancy represents an average between these configurations. Larger nx can be used to achieve better averaging. 
@@ -177,9 +177,9 @@ Note that tfx is the same index array as in "simplexM_top30" in model NucTF. The
 > path2 = 'yourpath\tf_energy_all\';    
 > path3 ='yourpath\NucRemod\simplexM_remod\';
 > path4 ='yourpath\ndr_call\';
-> load /NucRemod/simplexM_remod/output2/simplex_xval.txt;
+> load /NucRemod/simplexM_remod/output_optimized/simplex_xval.txt;
 > remod = simplex_xval(:,1); % load the best-fit remodeling parameters
-> load /NucTF/simplexM_top30/output2/simplex_xval.txt;
+> load /NucTF/simplexM_top30/output_optimized/simplex_xval.txt;
 > xfit = simplex_xval(:,1); % load the best-fit TF parameters
 > [O] = occupR(remod,xfit,tfx,path1,path2,path3,path4); 
 ```
