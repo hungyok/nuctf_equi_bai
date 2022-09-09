@@ -1,6 +1,5 @@
 %clear;
 function [NDR_X]=ndr_cut(x1_lee,y1_lee,i)
-    %load /nuctf_equi_bai/ndr_call/yy1_lee.mat;
     %A=1; A1=2; B=3; C=4; D=5; E=6; F=7; G=8;
     NDR_X=cell(16,1); 
     SD=0.0678; NDRcut=0.8-(i-1)*SD;   
