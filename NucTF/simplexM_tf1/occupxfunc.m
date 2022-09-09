@@ -1,4 +1,4 @@
- %Occupancy  
+ %Occupancy of nucleosome
  function [sigma]=occupxfunc(xi,tfx,E,Em,Etfmul,Emtf,path2,path3)
  foldername2='input';
  fnx1 = fullfile(strcat(path3,foldername2),'yy3A_lee.mat');
