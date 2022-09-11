@@ -14,7 +14,7 @@ y1=y1s;
 y2=zeros(length(y1),1);
 
  c=0.82;
- while c<0.859
+ while c<0.852
        g=0.11;
        while g<0.18
              cnt=0; i=1;
