@@ -23,7 +23,7 @@ The code takes the raw data (raw_lee_chr1_16.txt) as an input and finds the best
 > [x1_lee,y1_lee] = linear_occup(expY,c,γ,d_lee,d_indx);
 > save yy1_lee.mat x1_lee y1_lee;
 ```
-The resultant occupancy is saved as “yy1_lee.mat” and can be found in the folder [ndr_call](https://github.com/hungyok/nuctf_equi_bai/tree/main/ndr_call). 
+Where the skimpped_data.txt is the genome coordinates (16 contiguous chromosomes) after removing the outliers (see above) and skimpped_data_index.txt is the list of 16 chromosome indices where each element is the last coordinate of the chromosome. The resultant occupancy is saved as “yy1_lee.mat” and can be found in the folder [ndr_call](https://github.com/hungyok/nuctf_equi_bai/tree/main/ndr_call). 
 
 ## Processing binding energy and NDR 
 ### Nucleosome energy
