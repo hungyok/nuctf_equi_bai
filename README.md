@@ -190,10 +190,12 @@ Note that tfx is the same index array as in "simplexM_top30" in model NucTF. The
 > path2 = 'yourpath\tf_energy_all\';    
 > path3 ='yourpath\NucRemod\simplexM_remod\';
 > path4 ='yourpath\ndr_call\';
-> load /NucRemod/simplexM_remod/output_optimized/simplex_xval.txt;
+> load yourpath/NucRemod/simplexM_remod/output_optimized/simplex_xval.txt;
 > remod = simplex_xval(:,1); % load the best-fit remodeling parameters
-> load /NucTF/simplexM_top30/output_optimized/simplex_xval.txt;
+> load yourpath/NucTF/simplexM_top30/output_optimized/simplex_xval.txt;
 > xfit = simplex_xval(:,1); % load the best-fit TF parameters
+> load yourpath/NucTF/tf_energy_all/tfindx.txt;
+> tfx = tfindx(1:30);
 > [O] = occupR(remod,xfit,tfx,path1,path2,path3,path4); 
 ```
 The output file “O.mat” is a 16x1 cell. Here we report only nucleosome occupancy per cell and can be found in the folder “[occup_profile](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucRemod/occup_profile)”. The folder also contains a figure showing comparison between a model with TF only and a model with TF+remodeling, and a plotting script. All the codes and input/output files and folders can be found in the folder [simplexM_remod](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucRemod/simplexM_remod). 
