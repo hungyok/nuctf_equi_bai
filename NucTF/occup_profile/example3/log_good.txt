@@ -1,0 +1,129 @@
+>> test_run
+chr 1 
+chr 2 
+chr 3 
+chr 4 
+chr 5 
+chr 6 
+chr 7 
+chr 8 
+chr 9 
+chr 10 
+chr 11 
+chr 12 
+chr 13 
+chr 14 
+chr 15 
+chr 16 
+Elapsed time is 858.891310 seconds.
+NDR chr 1 
+NDR chr 2 
+NDR chr 3 
+NDR chr 4 
+NDR chr 5 
+NDR chr 6 
+NDR chr 7 
+NDR chr 8 
+NDR chr 9 
+NDR chr 10 
+NDR chr 11 
+NDR chr 12 
+NDR chr 13 
+NDR chr 14 
+NDR chr 15 
+NDR chr 16 
+cut....1 
+cut....2 
+cut....3 
+cut....4 
+cut....5 
+cut....6 
+cut....7 
+cut....8 
+cut....9 
+cut....10 
+cut....11 
+cut....12 
+cut....13 
+cut....14 
+cut....15 
+cut....16 
+cut....17 
+cut....18 
+cut....19 
+cut....20 
+cut....21 
+cut....22 
+cut....23 
+cut....24 
+cut....25 
+cut....26 
+cut....27 
+cut....28 
+cut....29 
+cut....30 
+cut....31 
+cut....32 
+cut....33 
+cut....34 
+cut....35 
+cut....36 
+cut....37 
+cut....38 
+cut....39 
+cut....40 
+cut....41 
+cut....42 
+cut....43 
+cut....44 
+cut....45 
+cut....46 
+cut....47 
+cut....48 
+cut....49 
+cut....50 
+cut....51 
+cut....52 
+cut....53 
+cut....54 
+cut....55 
+cut....56 
+cut....57 
+cut....58 
+cut....59 
+cut....60 
+cut....61 
+cut....62 
+cut....63 
+cut....64 
+cut....65 
+cut....66 
+cut....67 
+cut....68 
+cut....69 
+cut....70 
+cut....71 
+cut....72 
+cut....73 
+cut....74 
+cut....75 
+cut....76 
+cut....77 
+cut....78 
+cut....79 
+cut....80 
+cut....81 
+cut....82 
+cut....83 
+cut....84 
+cut....85 
+cut....86 
+cut....87 
+cut....88 
+cut....89 
+cut....90 
+cut....91 
+cut....92 
+cut....93 
+ndrcnt...2618...sumNDRx...4713...avg_occ...0.785772...sigma...0.196290...Pndr...0.555485...Auc...0.762030 
+>> 
