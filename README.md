@@ -12,10 +12,18 @@ All data points >1.26 are considered outliers which is only 0.0011% of the total
 
 The MATLAB code transf_yy_data.m can execute the above step and can be found in the folder [transf_yy_data](https://github.com/hungyok/nuctf_equi_bai/tree/main/transf_yy_data). 
 ```
-> S2 = importdata('raw_lee_chr1_16.txt');
-> [c,γ] = transf_yy_data(S2);
+> expY = importdata('yourpath/transf_yy_data/raw_lee_chr1_16.txt');
+> [c,γ] = transf_yy_data(expY);
  ```
-The code takes the raw data (raw_lee_chr1_16.txt) as an input and finds the best (c, γ) that satisfy the above conditions. In this example c = 0.8244 and γ= 0.1581 and using these parameters the new converted occupancy is saved as “yy1_lee.mat” which can be found in the folder [ndr_call](https://github.com/hungyok/nuctf_equi_bai/tree/main/ndr_call). 
+The code takes the raw data (raw_lee_chr1_16.txt) as an input and finds the best (c, γ) that satisfy the above conditions. In this example c = 0.8244 and γ= 0.1581 and using these parameters with chromosome index information, the new converted occupancy can be obtained by running the code: 
+```
+> expY = importdata('yourpath/transf_yy_data/raw_lee_chr1_16.txt');
+> d_lee=importdata('yourpath/transf_yy_data/skimpped_data.txt');
+> d_indx=importdata('yourpath/transf_yy_data/skimpped_data_index.txt');
+> [x1_lee,y1_lee] = linear_occup(expY,c,γ,d_lee,d_indx);
+> save yy1_lee.mat x1_lee y1_lee;
+```
+The resultant occupancy is saved as “yy1_lee.mat” and can be found in the folder [ndr_call](https://github.com/hungyok/nuctf_equi_bai/tree/main/ndr_call). 
 
 ## Processing binding energy and NDR 
 ### Nucleosome energy
