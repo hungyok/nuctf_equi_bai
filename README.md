@@ -140,8 +140,10 @@ Open the folder [occup_profile](https://github.com/hungyok/nuctf_equi_bai/tree/m
 > path1 ='yourpath/nuc_energy/'; 
 > path2 = 'yourpath/tf_energy_all/';    
 > path3 ='yourpath/ndr_call/';
-> load /NucTF/simplexM_top30/output_optimized/simplex_xval.txt;
+> load yourpath/NucTF/simplexM_top30/output_optimized/simplex_xval.txt;
 > xfit = simplex_xval (:,1); TF = 1; Eseq = 1;
+> load yourpath/NucTF/tf_energy_all/tfindx.txt;
+> tfx = tfindx(1:30);
 > [O] = occupx(TF,Eseq,xfit,tfx,path1,path2,path3);
 > save O_good.mat O; % save O_bad.mat O; when loading simplex_xval.txt from folder “output”
 ```
@@ -155,7 +157,10 @@ This version of the model considers both the effect from TF binding and nucleoso
 > path1 ='yourpath\nuc_energy\'; 
 > path2 = 'yourpath\tf_energy_all\';   
 > tfcutx = 0.0022;
+> load yourpath/NucRemod/simplexM_remod/input/avgxval_top30.txt; 
 > xfit=avgxval_top30.txt; 
+> load yourpath/NucTF/tf_energy_all/tfindx.txt;
+> tfx = tfindx(1:30);
 > [pos_octf] = occup_tfs(xfit,tfx,tfcutx,path1,path2);
 > save pos_octf.mat pos_octf;
 ```
