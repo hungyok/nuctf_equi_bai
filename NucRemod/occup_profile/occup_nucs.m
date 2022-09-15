@@ -1,4 +1,4 @@
-% occupancy
+% occupancy of nucleosome
 function [ON]=occup_nucs(xfit,tfx,E1,Em,chr,path2)
 foldername2='Etf_allmat_chr';
 fnx1 = fullfile(strcat(path2,foldername2),'Emtfall.mat');
