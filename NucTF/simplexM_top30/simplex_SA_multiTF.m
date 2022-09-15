@@ -1,4 +1,4 @@
-% Optimization
+% Simplex_SA Optimization
 function simplex_SA_multiTF(tfx,path1,path2,path3)
 foldername1='Etf_allmat_chr'; foldername2='input'; foldername3='output'; foldername4='initialp';
 fnx = fullfile(strcat(path3,foldername3),'simplex_xval.txt');
