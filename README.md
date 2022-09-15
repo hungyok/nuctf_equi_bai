@@ -53,7 +53,7 @@ To call and locate nucleosome-depleted-regions (NDRs) from the genome-wide nucle
 > path1 ='yourpath/ndr_call/dataFolder/';
 > [yy3A, ndrpos_chrA] = ndr_pos_cal2(path1);
 ```
-The final output includes the NDR positions ([ndrpos_chrA.mat](https://github.com/hungyok/nuctf_equi_bai/tree/main/ndr_call)) and the modified nucleosome occupancy ([yy3A.mat](https://github.com/hungyok/nuctf_equi_bai/tree/main/ndr_call)). Use this modified occupancy for future model optimization. These codes and the input/output data can be found in the folder [ndr_call](https://github.com/hungyok/nuctf_equi_bai/tree/main/ndr_call).
+The final output includes the NDR positions ([ndrpos_chrA.mat](https://github.com/hungyok/nuctf_equi_bai/tree/main/ndr_call)) and the modified nucleosome occupancy ([yy3A.mat](https://github.com/hungyok/nuctf_equi_bai/tree/main/ndr_call)). The occupancy, yy3A.mat, is renormalized to 80% and is recorded as [yy3A_lee.mat](https://github.com/hungyok/nuctf_equi_bai/tree/main/ndr_call). Use this modified occupancy for future model optimization. These codes and the input/output data can be found in the folder [ndr_call](https://github.com/hungyok/nuctf_equi_bai/tree/main/ndr_call).
 ## SEM and optimization
 The SEM partition function is full of this type of term: p<sub>i</sub>=c<sub>t/N</sub>e<sup>-γ<sub>t/N</sub>E<sup>i</sup><sub>t/N</sub></sup> where p<sub>i</sub> is an individual particle (nucleosome, N, or TF, t) Boltzmann weight. We use a modified Nelder-Mead simplex algorithm with Simulated Annealing to optimize the scaling factors c<sub>t/N</sub> and γ<sub>t/N</sub> by calculating the the root-square-mean deviation (RMSD) of nucleosome occupancy between the expiremental data (yy3A_lee.mat) and our model.
 
