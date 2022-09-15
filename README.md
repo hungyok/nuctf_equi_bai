@@ -38,15 +38,7 @@ The code “[tf_binding_pot.m](https://github.com/hungyok/nuctf_equi_bai/tree/ma
 > path2 = 'yourpath/tf_energy_all/Etf_allmat_chr/'; % enter full path
 > [Emtf,k] = tf_binding_pot(path1,path2);
 ```
-The genomic sequence (e.g., sgd_chr1.fa for chromosome 1 and so on) from the folder “sgd_genome” is fed using the input parameter “path1”. The code then spews out TF energy profiles for all the chromosomes (Etf_chr1.mat to Etf_chr16.mat) and the average TF energies (Emtfall.mat), which are stored in the folder “Etf_allmat_chr” indicated by “path2”. Note that we have reported here only three energy files, Etf_chr1.mat to Etf_chr3.mat, due to large memory files! Each energy file (e.g., Etf_chr1.mat for chromosome 1) is a matrix file where it contains the binding energy for each TF at different chromosomal locations (see the sample data below for four TFs on a few locations on chr I).  The code, the subfolders, and the input/output files can be found in the folder [tf_energy_all](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all). 
-```
-(Genomic             (TF)
-index)	       Abf1	 Cbf1	  Mcm1	  Rap1
-100000       -14.95	-24.07	-22.59	-17.99
-100001	      -22.04	-13.19	-21.58	-17.71
-100002       -21.29	-13.93	-22.54	-22.67
-100003	      -15.56	-23.67	-19.63	-19.17
-```
+The genomic sequence (e.g., sgd_chr1.fa for chromosome 1 and so on) from the folder “sgd_genome” is fed using the input parameter “path1”. The code then spews out TF energy profiles for all the chromosomes (Etf_chr1.mat to Etf_chr16.mat) and the average TF energies (Emtfall.mat), which are stored in the folder “Etf_allmat_chr” indicated by “path2”. Note that we have reported here only three energy files, Etf_chr1.mat to Etf_chr3.mat, due to large file sizes! Each energy file (e.g., Etf_chr1.mat for chromosome 1) is a matrix file where it contains the binding energy for each TF at different chromosomal locations. The code, the subfolders, and the input/output files can be found in the folder [tf_energy_all](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all). 
 ### NDR annotation
 To call and locate nucleosome-depleted-region (NDR) we require two steps:
 
