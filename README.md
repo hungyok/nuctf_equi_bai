@@ -4,26 +4,19 @@ We present a computational method to compute nucleosome and transcription factor
 ### Genomic sequence
 Download the 16 chromosomes (12071326 bp) of *Saccharomyces cerevisiae* (S288C, genome version R64-3-1) in fasta format from SGD https://www.yeastgenome.org/. The downloaded genomic sequence can be found [here](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all/sgd_genome).
 ### TF motif database
-File "[listbai_all.txt](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all/listbai_all.txt)" contains the name and motif size of 104 TFs that are found in the budding yeast nuclei in normal YPD growth condition ([Yan, Chen & Bai](https://doi.org/10.1016/j.molcel.2018.06.017)). "[wmsbai_data_all.txt](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all/wmsbai_data_all.txt)" shows the combined PWMs of these 104 TFs in tandem (same ordering as in listbai_all.txt), with the four columns representing the propensity of finding A/C/G/T at each motif position. The recommended score cutoff is shown in "[PWM_TF_cutoff.txt](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all)". These files can be found in the folder [tf_energy_all](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all).
+File "[listbai_all.txt](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all/listbai_all.txt)" contains the name and motif size of 104 TFs that are found in the budding yeast nuclei in normal YPD growth condition ([Yan, Chen & Bai](https://doi.org/10.1016/j.molcel.2018.06.017)). File "[wmsbai_data_all.txt](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all/wmsbai_data_all.txt)" shows the combined PWMs of these 104 TFs in tandem (same ordering as in listbai_all.txt), with the four columns representing the propensity of finding A/C/G/T at each motif position. The recommended score cutoff is shown in "[PWM_TF_cutoff.txt](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all)". These files can be found in the folder [tf_energy_all](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all).
 ### Nucleosome occupancy data
-The original nucleosome occupancy data “[analyzed_data_complete_bw20.txt](https://github.com/hungyok/nuctf_equi_bai/tree/main/transf_yy_data/analyzed_data_complete_bw20.txt)” was provided in Lee et al.’s supplementary data ([Lee, et al., 2007](https://www.nature.com/articles/ng2117)). The first four sequences are non-genomic DNA and excluded them from the dataset. We rename the new file as "[raw_lee_chr1_16.txt](https://github.com/hungyok/nuctf_equi_bai/tree/main/transf_yy_data)" which has chr1 to chr16.
-
-All data points >1.26 are considered outliers which is only 0.0011% of the total data (3017253) and are discarded. Then, the raw nucleosome occupancy data above (S) in log-scale is converted to linear-scale occupancy (Y) using the formula: Y=ce<sup>γS</sup>. We varied c and γ values to satisfy the following conditions: 1) the value of Y at each genomic index should range from 0 to 1, 2) the average 〈Y〉 is 80% (experimental data show that yeast genome is &sim; 80% occupied by nucleosomes in yeast), and 3) γ is maximized to enhance the contrast between high and low nucleosome occupancy. 
-
-The MATLAB code transf_yy_data.m can execute the above step and can be found in the folder [transf_yy_data](https://github.com/hungyok/nuctf_equi_bai/tree/main/transf_yy_data). 
+The original nucleosome occupancy data “[analyzed_data_complete_bw20.txt](https://github.com/hungyok/nuctf_equi_bai/tree/main/transf_yy_data)” was provided in Lee et al.’s supplementary data ([Lee, et al., 2007](https://www.nature.com/articles/ng2117)). The first four sequences are non-genomic DNA and excluded them from the dataset. We rename the new file as "[raw_lee_chr1_16.txt](https://github.com/hungyok/nuctf_equi_bai/tree/main/transf_yy_data)" which has chr1 to chr16. This data, which are in log scale, were further normalized, linearized, and saved as “yy1_lee.mat”. 
+The normalization and linearization can be conducted with the following code:
 ```
 > expY = importdata('yourpath/transf_yy_data/raw_lee_chr1_16.txt');
 > [c,γ] = transf_yy_data(expY);
- ```
-The code takes the raw data (raw_lee_chr1_16.txt) as an input and finds the best (c, γ) that satisfy the above conditions. In this example c = 0.8244 and γ= 0.1581 and using these parameters with chromosome index information, the new converted occupancy can be obtained by running the code: 
-```
-> expY = importdata('yourpath/transf_yy_data/raw_lee_chr1_16.txt');
 > d_lee=importdata('yourpath/transf_yy_data/skimpped_data.txt');
 > d_indx=importdata('yourpath/transf_yy_data/skimpped_data_index.txt');
 > [x1_lee,y1_lee] = linear_occup(expY,c,γ,d_lee,d_indx);
 > save yy1_lee.mat x1_lee y1_lee;
 ```
-Where the skimpped_data.txt is the genome coordinates (16 contiguous chromosomes) after removing the outliers (see above) and skimpped_data_index.txt is the list of 16 chromosome indices where each element is the last coordinate of the chromosome. The resultant occupancy is saved as “yy1_lee.mat” and can be found in the folder [ndr_call](https://github.com/hungyok/nuctf_equi_bai/tree/main/ndr_call). 
+The MATLAB code transf_yy_data.m and linear_occup.m can be found in the folder transf_yy_data. The final occupancy “yy1_lee.mat” can be found in the folder ndr_call.
 
 ## Processing binding energy and NDR 
 ### Nucleosome energy
