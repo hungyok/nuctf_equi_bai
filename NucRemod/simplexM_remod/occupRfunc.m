@@ -1,4 +1,4 @@
-% Remodeling and rmsd
+% Remodeling and RMSD calculation
 function [sigma]=occupRfunc(xi,tfx,path1,path2,path3,path4)
 foldername1='input'; foldername2='output2';  
 fnx1 = fullfile(strcat(path3,foldername1),'yy3A_lee.mat');

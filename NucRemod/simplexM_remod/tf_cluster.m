@@ -1,3 +1,4 @@
+% Computes TF clusters
 function [xptfa]=tf_cluster(tfx,pos_octf,path2)
 fnx1 =strcat(path2,'listbai_all.txt');
 TFlist=importdata(fnx1); % list of TF name and size 
