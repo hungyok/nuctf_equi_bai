@@ -40,7 +40,7 @@ The code “[tf_binding_pot.m](https://github.com/hungyok/nuctf_equi_bai/tree/ma
 ```
 The genomic sequence (e.g., sgd_chr1.fa for chromosome 1 and so on) from the folder “sgd_genome” is fed using the input parameter “path1”. The code then spews out TF energy profiles for all the chromosomes (Etf_chr1.mat to Etf_chr16.mat) and the average TF energies (Emtfall.mat), which are stored in the folder “Etf_allmat_chr” indicated by “path2”. Note that we have reported here only three energy files, Etf_chr1.mat to Etf_chr3.mat, due to large file sizes! Each energy file (e.g., Etf_chr1.mat for chromosome 1) is a matrix file where it contains the binding energy for each TF at different chromosomal locations. The code, the subfolders, and the input/output files can be found in the folder [tf_energy_all](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all). 
 ### NDR annotation
-To call and locate nucleosome-depleted-region (NDR) we require two steps:
+To call and locate nucleosome-depleted-regions (NDRs) from the genome-wide nucleosome occupancy data, we carry out the following two steps:
 
 **ndr_cut.m**: Using “yy1_lee.mat” as input data, this program identifies regions below certain occupancy threshold. In our current approach, we used eight different thresholds: threshold(i)=0.8-i×SD where i=1,2,…,8, and SD is the standard-deviation calculated from genome-wide nucleosome occupancy (yy1_lee.mat), which yield eight output files: NDR_1.mat, NDR_2.mat, …, NDR_8.mat. Set SD=0.0678 (default) and run the following code with input i=1,2,…,8.
 ```
