@@ -2,7 +2,7 @@
 We present a computational method to compute nucleosome and transcription factor (TF) occupancies using statistical equilibrium models (SEMs). For complete details on the use and execution of this method, please refer to [Kharerin & Bai, 2021](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1008560). 
 ## Input data
 ### Genomic sequence
-Download the 16 chromosomes (12071326 bp) of *Saccharomyces cerevisiae* (S288C, genome version R64-3-1) in fasta format from SGD https://www.yeastgenome.org/.
+Download the 16 chromosomes (12071326 bp) of *Saccharomyces cerevisiae* (S288C, genome version R64-3-1) in fasta format from SGD https://www.yeastgenome.org/. The downloaded genomic sequence can be found [here](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all/sgd_genome).
 ### TF motif database
 Use their recommended cutoff for every TF "[PWM_TF_cutoff.txt](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all)" and download in total 104 budding yeast TF position-weight-matrices (PWMs) from http://stormo.wustl.edu/ScerTF/ (refs. [Spivak & Stormo, 2011](https://doi.org/10.1093/nar/gkr1180)). The list of TFs “listbai_all.txt” has 104 TF names (column1) and their sizes (column2) that are found in the yeast nuclei in normal YPD growth condition ([Yan, Chen & Bai](https://doi.org/10.1016/j.molcel.2018.06.017)). All the 104 PWMs are ordered in tandem (same ordering as in listbai_all.txt), with the four columns ordered as A/C/G/T and saved in a file called “wmsbai_data_all.txt”. The two files listbai_all.txt and wmsbai_data_all.txt can be found in the folder [tf_energy_all](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all).
 ### Nucleosome Mnase-seq data
