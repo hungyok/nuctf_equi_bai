@@ -6,7 +6,7 @@ Download the 16 chromosomes (12071326 bp) of *Saccharomyces cerevisiae* (S288C, 
 ### TF motif database
 File "[listbai_all.txt](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all/listbai_all.txt)" contains the name and motif size of 104 TFs that are found in the budding yeast nuclei in normal YPD growth condition ([Yan, Chen & Bai](https://doi.org/10.1016/j.molcel.2018.06.017)). File "[wmsbai_data_all.txt](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all/wmsbai_data_all.txt)" shows the combined PWMs of these 104 TFs in tandem (same ordering as in listbai_all.txt), with the four columns representing the propensity of finding A/C/G/T at each motif position. The recommended score cutoff is shown in "[PWM_TF_cutoff.txt](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all)". These files can be found in the folder [tf_energy_all](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all).
 ### Nucleosome occupancy data
-The original nucleosome occupancy data “[analyzed_data_complete_bw20.txt](https://github.com/hungyok/nuctf_equi_bai/tree/main/transf_yy_data)” was provided in Lee et al.’s supplementary data ([Lee, et al., 2007](https://www.nature.com/articles/ng2117)). The first four sequences are non-genomic DNA and excluded them from the dataset. We rename the new file as "[raw_lee_chr1_16.txt](https://github.com/hungyok/nuctf_equi_bai/tree/main/transf_yy_data)" which has chr1 to chr16. This data, which are in log scale, were further normalized, linearized, and saved as "[yy1_lee.mat](https://github.com/hungyok/nuctf_equi_bai/tree/main/ndr_call/yy1_lee.mat)". The normalization and linearization can be conducted with the following code:
+The original nucleosome occupancy data “[analyzed_data_complete_bw20.txt](https://github.com/hungyok/nuctf_equi_bai/tree/main/transf_yy_data)” was provided in Lee et al.’s supplementary data ([Lee, et al., 2007](https://www.nature.com/articles/ng2117)). The first four sequences are non-genomic DNA and excluded them from the dataset. We rename the new file as "[raw_lee_chr1_16.txt](https://github.com/hungyok/nuctf_equi_bai/tree/main/transf_yy_data)" which has chr1 to chr16. This data, which are in log scale, were further normalized, linearized, and saved as "[yy1_lee.mat](https://github.com/hungyok/nuctf_equi_bai/tree/main/ndr_call/dataFolder/yy1_lee.mat)". The normalization and linearization can be conducted with the following code:
 ```
 > expY = importdata('yourpath/transf_yy_data/raw_lee_chr1_16.txt');
 > [c,γ] = transf_yy_data(expY);
@@ -15,7 +15,7 @@ The original nucleosome occupancy data “[analyzed_data_complete_bw20.txt](http
 > [x1_lee,y1_lee] = linear_occup(expY,c,γ,d_lee,d_indx);
 > save yy1_lee.mat x1_lee y1_lee;
 ```
-The MATLAB code transf_yy_data.m and linear_occup.m can be found in the folder [transf_yy_data](https://github.com/hungyok/nuctf_equi_bai/tree/main/transf_yy_data). The final occupancy "yy1_lee.mat" can be found in the folder [ndr_call](https://github.com/hungyok/nuctf_equi_bai/tree/main/ndr_call).
+The MATLAB code transf_yy_data.m and linear_occup.m can be found in the folder [transf_yy_data](https://github.com/hungyok/nuctf_equi_bai/tree/main/transf_yy_data). The final occupancy "yy1_lee.mat" can be found in the folder [dataFolder](https://github.com/hungyok/nuctf_equi_bai/tree/main/ndr_call/dataFolder).
 
 ## Processing binding energy and NDR 
 ### Nucleosome energy
