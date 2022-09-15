@@ -8,3 +8,4 @@ remod = simplex_xval(:,1); % load the best-fit remodeling parameters
 load /NucTF/simplexM_top30/output2/simplex_xval.txt;
 xfit = simplex_xval(:,1); % load the best-fit TF parameters
 [O] = occupR(remod,xfit,tfx,path1,path2,path3,path4); 
+% save O.mat O;
