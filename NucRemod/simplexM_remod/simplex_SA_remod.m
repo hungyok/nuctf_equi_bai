@@ -1,4 +1,4 @@
-%Optimization
+% Simplex_SA Optimization
 function simplex_SA_remod(tfx,path1,path2,path3,path4)
 foldername1='output'; foldername2='output2';
 fnx = fullfile(strcat(path4,foldername1),'simplex_xval.txt');
