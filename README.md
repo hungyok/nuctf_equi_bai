@@ -1,5 +1,5 @@
 # Nucleosome & TF occupancy using SEMs
-We present a computational method to compute nucleosome and TF occupancy using statistical equilibrium models (SEMs). For complete details on the use and execution of this method, please refer to [Kharerin & Bai, 2021](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1008560). 
+We present a computational method to compute nucleosome and transcription factor (TF) occupancies using statistical equilibrium models (SEMs). For complete details on the use and execution of this method, please refer to [Kharerin & Bai, 2021](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1008560). 
 ## Input data
 ### Genomic sequence
 Download the 16 chromosomes (12071326 bp) of *Saccharomyces cerevisiae* (S288C, genome version R64-3-1) in fasta format from SGD https://www.yeastgenome.org/.
