@@ -55,10 +55,10 @@ To call and locate nucleosome-depleted-regions (NDRs) from the genome-wide nucle
 ```
 The final output includes the NDR positions ([ndrpos_chrA.mat](https://github.com/hungyok/nuctf_equi_bai/tree/main/ndr_call)) and the modified nucleosome occupancy ([yy3A.mat](https://github.com/hungyok/nuctf_equi_bai/tree/main/ndr_call)). The occupancy, yy3A.mat, is renormalized to 80% and is recorded as [yy3A_lee.mat](https://github.com/hungyok/nuctf_equi_bai/tree/main/ndr_call). Use this final occupancy for future model optimization. These codes and the input/output data can be found in the folder [ndr_call](https://github.com/hungyok/nuctf_equi_bai/tree/main/ndr_call).
 ## SEM and optimization
-The SEM partition function is a summation of Boltzmann weight: c<sub>t/N</sub>e<sup>-γ<sub>t/N</sub>E<sub>t/N</sub></sup> where E<sub>t/N</sub></sup> stands for the binding energy of nucleosome (N) or TF (t) at a given genomic loaction. The scaling factors c<sub>t/N</sub> and γ<sub>t/N</sub> are the free parameters of the model. We use a modified Nelder-Mead simplex algorithm with Simulated Annealing to optimize c and γ by minimizing the root-square-mean deviation (RMSD) of nucleosome occupancy between the modified expiremental data (yy3A_lee.mat) and our model.
+The SEM partition function is a summation of Boltzmann weight: c<sub>t/N</sub>e<sup>-γ<sub>t/N</sub>E<sub>t/N</sub></sup> where E<sub>t/N</sub></sup> stands for the binding energy of nucleosome (N) or TF (t) at a given genomic location. The scaling factors c<sub>t/N</sub> and γ<sub>t/N</sub> are the free parameters of the model. We use a modified Nelder-Mead simplex algorithm with Simulated Annealing to optimize c and γ by minimizing the root-square-mean deviation (RMSD) of nucleosome occupancy between the modified expiremental data (yy3A_lee.mat) and our model.
 
-### NucTF
-To evaluate individual TF contribution to NDRs, we first optimize (c,γ) for an individual TF when only the concerned TF is present in the model. We use a modified Nelder-Mead simplex algorithm with Simulated Annealing to optimize these parameters.
+### NucTF (nucleosome model considering TFs) 
+To evaluate individual TF contribution to NDRs, we first optimize (c,γ) for an individual TF when only the concerned TF is present in the model. 
 
 #### Open the folder “[simplexM_tf1](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/simplexM_tf1)” to find:
 1. Input and output files that are saved in folder “input” and “output” respectively.
@@ -77,10 +77,10 @@ To evaluate individual TF contribution to NDRs, we first optimize (c,γ) for an 
 > simplex_SA_singleTF(tfx,path1,path2,path3);
 ```
 #### Input parameters:
-1. The "tfx" is the interest of TF index listed in "lisbai_all.txt". It is any number from 1 to 104.  
+1. The "tfx" is the index of the TF of interest listed in "lisbai_all.txt". It is an integer from 1 to 104.  
 2. The "path1" loads nucleosome energy “E_Em.mat” located in the folder [nuc_energy](https://github.com/hungyok/nuctf_equi_bai/tree/main/nuc_energy).
 3. The "path2" loads TF energy files Etf_chr1.mat to Etf_chr16.mat, and Emtfall.mat located in the folder [Etf_allmat_chr](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all/Etf_allmat_chr). It also loads listbai_all.txt, a list of 104 TF names and motif sizes, located in the folder [tf_energy_all](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all). 
-4. The "path3" loads yy3A_lee.mat and rand_genome.mat, where the former is the reference nucleosome occupancy data, and the latter consists of two elements. The first element is the number of chromosomes that accounts for 70% of the genome (we tune the parameters on 70% of the genome and use the rest 30% as an independent test). The second element is a random 1D array of the 16 chromosomes. Both yy3A_lee.mat and rand_genome.mat are in the folder simplexM_tf1/[input](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/simplexM_tf1/input). The path3 also loads tf_xhIIa.mat (simplexM_tf1/input/[initialp](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/simplexM_tf1/input/initialp)), a vector of eight numbers: an initial guessed values of (c<sub>N</sub>;γ<sub>N</sub>;c<sub>t</sub>;γ<sub>t</sub>) (the first four numbers) and corresponding small deviations about the latter values (the last four numbers). 
+4. The "path3" loads yy3A_lee.mat and rand_genome.mat, where the former is the reference nucleosome occupancy data, and the latter includes a subset of chromosomes that accounts for 70% of the genome (we tune the parameters on 70% of the genome and use the rest 30% as an independent test). Both yy3A_lee.mat and rand_genome.mat are in the folder simplexM_tf1/[input](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/simplexM_tf1/input). The path3 also loads tf_xhIIa.mat (simplexM_tf1/input/[initialp](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/simplexM_tf1/input/initialp)), a vector of eight numbers: an initial guessed values of (c<sub>N</sub>;γ<sub>N</sub>;c<sub>t</sub>;γ<sub>t</sub>) (the first four numbers) and corresponding small deviations about the latter values (the last four numbers). 
 #### Output files:
 1. simplex_xval.txt stores sorted (c,γ).
 2. simplex_fval.txt stores sorted RMSDs.
