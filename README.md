@@ -45,14 +45,15 @@ To call and locate nucleosome-depleted-regions (NDRs) from the genome-wide nucle
 **ndr_cut.m**: Using “yy1_lee.mat” as input data, this program identifies regions below certain occupancy threshold. In our current approach, we used eight different thresholds: threshold(i)=0.8-i×SD where i=1,2,…,8, and SD is the standard-deviation calculated from genome-wide nucleosome occupancy (yy1_lee.mat), which yield eight output files: NDR_1.mat, NDR_2.mat, …, NDR_8.mat. Set SD=0.0678 (default) and run the following code with input i=1,2,…,8.
 ```
 > load yourpath/ndr_call/dataFolder/yy1_lee.mat;
-> NDR_i = ndr_cut(x1_lee, y1_lee, i); % yy1_lee.mat consists of files x1_lee and y1_lee
+> % step above generates two variables, x1_lee and y1_lee
+> NDR_i = ndr_cut(x1_lee, y1_lee, i); 
 ```
-**ndr_pos_cal2.m**: This program compares the boundaries in NDR_1.mat, NDR_2.mat, etc., picks the NDRs with steep edges, merges nearby NDRs, and force the nucleosome occupancies in NDRs to be zero. The final output includes the NDR positions (ndrpos_chrA.mat) and the modified nucleosome occupancy map (yy3A.mat). The file ndrpos_chrA.mat records the start and end index of each NDR on all 16 chromosomes, and yy3A.mat has the same format as yy1_lee.mat. Copy all the NDR_i.mat into the "dataFolder":
+**ndr_pos_cal2.m**: This program compares the boundaries in NDR_1.mat, NDR_2.mat, etc., picks the NDRs with steep edges, merges nearby NDRs, and force the nucleosome occupancies in NDRs to be zero. Copy all the NDR_i.mat into the "dataFolder":
 ```
 > path1 ='yourpath/ndr_call/dataFolder/';
 > [yy3A, ndrpos_chrA] = ndr_pos_cal2(path1);
 ```
-These codes and the input/output data can be found in the folder [ndr_call](https://github.com/hungyok/nuctf_equi_bai/tree/main/ndr_call).
+The final output includes the NDR positions ([ndrpos_chrA.mat](https://github.com/hungyok/nuctf_equi_bai/tree/main/ndr_call)) and the modified nucleosome occupancy ([yy3A.mat](https://github.com/hungyok/nuctf_equi_bai/tree/main/ndr_call)). Use this modified occupancy for future model optimization. These codes and the input/output data can be found in the folder [ndr_call](https://github.com/hungyok/nuctf_equi_bai/tree/main/ndr_call).
 ## SEM and optimization
 The SEM partition function is full of this type of term: p<sub>i</sub>=c<sub>t/N</sub>e<sup>-γ<sub>t/N</sub>E<sup>i</sup><sub>t/N</sub></sup> where p<sub>i</sub> is an individual particle (nucleosome, N, or TF, t) Boltzmann weight. We use a modified Nelder-Mead simplex algorithm with Simulated Annealing to optimize the scaling factors c<sub>t/N</sub> and γ<sub>t/N</sub> by calculating the the root-square-mean deviation (RMSD) of nucleosome occupancy between the expiremental data (yy3A_lee.mat) and our model.
 
