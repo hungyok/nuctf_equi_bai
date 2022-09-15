@@ -1,4 +1,4 @@
-%clear;  
+% occupancy, avg_density, RMSD, Pndr, Auc
 function [Y]=occupx(TF,Eseq,xfit,tfx,path1,path2,path3)
 foldername1='Etf_allmat_chr';
 fpath= strcat(path1,'E_Em.mat');
