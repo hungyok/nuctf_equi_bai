@@ -1,3 +1,4 @@
+% sorting
 function [Fi,Fsig]=sortf(Fsig,n)
 Fi=1:n+1; Fi=Fi'; 
 i=1; 
