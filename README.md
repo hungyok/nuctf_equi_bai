@@ -195,7 +195,7 @@ The output file “O.mat” is a 16x1 cell. Here we report only nucleosome occup
 The main output files from this model include:
 1. A list of annotated NDRs "[ndrpos_chrA.mat](https://github.com/hungyok/nuctf_equi_bai/tree/main/ndr_call)". 
 2. The ranking list of TFs based on their contribution to NDRs "[tfindx.txt](https://github.com/hungyok/nuctf_equi_bai/tree/main/tf_energy_all/tfindx.txt)". 
-3. Best fitting parameters for nucleosome and TF binding energy "[simplex_xval.txt](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/simplexM_top30/output2/simplex_xval.txt)".
+3. Best fitting parameters for nucleosome and TF binding energy "[simplex_xval.txt](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/simplexM_top30/output_optimized/simplex_xval.txt)".
 4. The output files "O.mat" without remodeling effect (NucTF) can be found in the folders [example1](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/occup_profile/example1), [example2](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/occup_profile/example2), and [example3](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucTF/occup_profile/example3). The output file "O.mat" with remodeling effect (NucRemod) can be found in [occup_profile](https://github.com/hungyok/nuctf_equi_bai/tree/main/NucRemod/occup_profile).
 
  
